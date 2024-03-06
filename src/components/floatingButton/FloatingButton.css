@@ -1,0 +1,28 @@
+body {
+  --primary: #9D174D;
+}
+.floating-container {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  width: fit-content;
+  height: fit-content;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+.floating-button {
+  background-color: white;
+  border-radius: 50%;
+  border: 2px solid var(--primary);
+  padding: 10px;
+  width: 70px;
+  height: 70px;
+  cursor: pointer;
+  margin-left: auto;
+}
+
+.floating-button:hover {
+  background-color: lightgrey;
+}
