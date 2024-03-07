@@ -551,12 +551,8 @@ video {
   height: 2.5rem;
 }
 
-.h-full {
-  height: 100%;
-}
-
-.max-h-96 {
-  max-height: 24rem;
+.h-auto {
+  height: auto;
 }
 
 .w-10 {

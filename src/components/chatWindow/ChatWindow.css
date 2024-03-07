@@ -1,3 +1,7 @@
 body {
   --primary: #9D174D;
 }
+
+.max-h-1-2 {
+  max-height: 50vh;
+}

@@ -1,4 +1,6 @@
+import { SettingsProps } from "../floatingContainer";
+
 export interface FloatingButtonProps {
-  testIdPrefix: string;
-  theme: any
+  setToggled: React.Dispatch<React.SetStateAction<boolean>>;
+  settings: SettingsProps;
 }

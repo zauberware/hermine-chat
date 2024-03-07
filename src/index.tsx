@@ -1,9 +1,22 @@
 export * from "./components";
 
 import { createRoot } from "react-dom/client";
-import FloatingButton from "./components/floatingButton";
+import FloatingContainer, {
+  SettingsProps,
+} from "./components/floatingContainer";
 import "./output.css";
 
-// Render your React component instead
-const root = createRoot(document.getElementById("app") as HTMLElement);
-root.render(<FloatingButton testIdPrefix="chat" theme="primary" />);
+const Settings = (settings: SettingsProps) => {
+  console.log("settings", settings);
+  const defaultSettings = {
+    location: "bottom",
+  };
+  const mergedSettings = {
+    ...defaultSettings,
+    ...settings,
+  } as SettingsProps;
+  const root = createRoot(document.getElementById("app") as HTMLElement);
+  root.render(<FloatingContainer settings={mergedSettings} />);
+};
+
+export default Settings;

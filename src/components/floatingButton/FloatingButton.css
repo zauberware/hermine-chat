@@ -1,16 +1,6 @@
 body {
   --primary: #9D174D;
 }
-.floating-container {
-  position: fixed;
-  right: 0;
-  bottom: 0;
-  width: fit-content;
-  height: fit-content;
-  padding: 10px;
-  display: flex;
-  flex-direction: column;
-}
 
 .floating-button {
   background-color: white;
@@ -20,7 +10,23 @@ body {
   width: 70px;
   height: 70px;
   cursor: pointer;
-  margin-left: auto;
+  margin-left: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.floating-button-top {
+  margin-bottom: 20px;
+  align-self: end;
+}
+.floating-button-center {
+  align-self: center;
+}
+.floating-button-bottom {
+  margin-top: 20px;
+  align-self: end;
 }
 
 .floating-button:hover {

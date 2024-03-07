@@ -1,5 +1,8 @@
 {
   "compilerOptions": {
+    "declaration": true,
+    "declarationDir": "dist/dts",
+    "emitDeclarationOnly": true,
     "target": "es5",
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,

@@ -1,0 +1,29 @@
+body {
+  --primary: #9D174D;
+}
+.floating-container {
+  position: fixed;
+  width: fit-content;
+  height: fit-content;
+  max-height: calc(100vw - 20px);
+  padding: 10px;
+  display: flex;
+  right: 0;
+}
+
+.floating-container-top {
+  flex-direction: column-reverse;
+  top: 0;
+}
+
+.floating-container-center {
+  flex-direction: row;
+  top: 50%;
+  transform: translateY(-50%);
+  align-items: center;
+}
+
+.floating-container-bottom {
+  bottom: 0;
+  flex-direction: column;
+}

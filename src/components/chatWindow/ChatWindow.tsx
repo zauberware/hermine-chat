@@ -4,8 +4,8 @@ import { ChatWindowProps } from "./ChatWindow.types";
 
 const ChatWindow: React.FC<ChatWindowProps> = (_) => {
   return (
-    <div className="flex flex-col flex-grow h-full w-full max-w-xl bg-white shadow-xl rounded-lg overflow-hidden">
-      <div className="flex flex-col flex-grow max-h-96 p-4 overflow-auto">
+    <div className="flex flex-col flex-grow h-auto w-full max-w-xl bg-white shadow-xl rounded-lg overflow-hidden max-h-1-2">
+      <div className="flex flex-col flex-grow p-4 overflow-auto">
         <div className="flex w-full mt-2 space-x-3 max-w-xs">
           <div className="flex-shrink-0 h-10 w-10 rounded-full bg-gray-300"></div>
           <div>
