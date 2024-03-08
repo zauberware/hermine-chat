@@ -31,7 +31,7 @@ const FloatingContainer: React.FC<FloatingContainerProps> = () => {
         "hermine_conversation_ids",
       );
       if (localConversationsIds) {
-        return localConversationsIds[0];
+        return JSON.parse(localConversationsIds)[0];
       }
       const response = await createConversation(
         settings.accountId,

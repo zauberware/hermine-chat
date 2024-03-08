@@ -24,6 +24,11 @@ export const createConversation = async (
       "hermine_conversation_ids",
       JSON.stringify(newLocalConversationIds),
     );
+  } else {
+    localStorage.setItem(
+      "hermine_conversation_ids",
+      JSON.stringify([jsonText.conversation_id]),
+    );
   }
   return jsonText.conversation_id;
 };
