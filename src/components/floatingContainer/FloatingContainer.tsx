@@ -5,14 +5,15 @@ import ChatWindow from "../chatWindow";
 import { createFetchConfig, getTheme } from "../../utils";
 import FloatingButton from "../floatingButton/FloatingButton";
 import { subscribeChannel } from "../../utils/channels/conversation_channel";
-import { useSettings } from "../../context";
-import { createConversation } from "../../api";
+import { IConversation, useSettings } from "../../context";
+import { createConversation, getConversation } from "../../api";
 
 const FloatingContainer: React.FC<FloatingContainerProps> = () => {
   const [toggled, setToggled] = useState<boolean>(false);
   const [theme, setTheme] = useState<any>();
 
-  const { settings, setConversationId } = useSettings();
+  const { settings, conversationId, setConversationId, setConversation } =
+    useSettings();
 
   console.log("toggled", toggled);
   useEffect(() => {
@@ -53,6 +54,21 @@ const FloatingContainer: React.FC<FloatingContainerProps> = () => {
       getSubscription();
     }
   }, [toggled]);
+
+  useEffect(() => {
+    const fetchConversation = async (id: string) => {
+      const conversation = await getConversation(
+        id,
+        createFetchConfig(settings.agentSlug, settings.accountId),
+      );
+      setConversation(conversation as IConversation);
+      console.log("conversation", conversation);
+    };
+    console.log("conversationId", conversationId);
+    if (conversationId) {
+      fetchConversation(conversationId);
+    }
+  }, [conversationId]);
 
   return (
     <div

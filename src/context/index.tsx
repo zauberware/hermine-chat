@@ -6,7 +6,23 @@ export interface ISettings {
   location?: "center" | "bottom" | "top";
 }
 
+export interface IMessage {
+  id: string;
+  result: string;
+  updated_at: string;
+  message_type: "ai" | "user";
+}
+
+export interface IConversation {
+  id?: string;
+  messages: IMessage[];
+}
+
 export interface SettingsProps {
+  conversation?: IConversation;
+  setConversation: React.Dispatch<
+    React.SetStateAction<IConversation | undefined>
+  >;
   settings: ISettings;
   setSettings: React.Dispatch<React.SetStateAction<ISettings>>;
   conversationId?: string;
@@ -31,9 +47,13 @@ export const defaultSettings: SettingsProps = {
     accountId: "",
     location: "bottom",
   },
+  conversation: {
+    messages: [],
+  },
   conversationId: getConversationId(),
   setSettings: () => undefined,
   setConversationId: () => undefined,
+  setConversation: () => undefined,
 };
 
 export const SettingsContext = createContext(defaultSettings);
@@ -50,8 +70,11 @@ const SettingsContextProvider = ({
   children,
   settings,
 }: SettingsContextProviderProps) => {
+  const [conversation, setConversation] = useState<IConversation | undefined>(
+    defaultSettings.conversation,
+  );
   const [conversationId, setConversationId] = useState<string | undefined>(
-    defaultSettings.conversationId,
+    getConversationId(),
   );
   const [stateSettings, setSettings] = useState<ISettings>(settings);
 
@@ -62,6 +85,8 @@ const SettingsContextProvider = ({
         setSettings,
         conversationId,
         setConversationId,
+        conversation,
+        setConversation,
       }}
     >
       {children}

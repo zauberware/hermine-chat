@@ -49,3 +49,14 @@ export const sendMessage = async (
   });
   return response.text;
 };
+
+export const getConversation = async (
+  conversationId: string,
+  fetchConfig: RequestInit,
+) => {
+  const url = `${BASE_URL}/conversations/${conversationId}`;
+  const response = await fetch(url, fetchConfig);
+  console.log("response", response);
+  console.log("response.text", response.text);
+  return await response.json();
+};
