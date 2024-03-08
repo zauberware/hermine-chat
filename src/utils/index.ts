@@ -1,5 +1,3 @@
-type Position = "right" | "bottom-right";
-
 export interface Theme {
   backgroundColor: string;
   primary_900: string;
@@ -15,10 +13,15 @@ export interface Theme {
   name: string;
 }
 
-const createFetchConfig = (agentId: string): RequestInit => {
+export const createFetchConfig = (
+  agentSlug: string,
+  accountId: string,
+): RequestInit => {
   const headers = new Headers();
-  headers.append("X-API-Key", agentId);
+  headers.append("X-Agent-Slug", agentSlug);
+  headers.append("X-Account-Id", accountId);
   headers.append("Accept", "application/json");
+  headers.append("Content-Type", "application/json");
 
   return {
     method: "GET",
@@ -26,10 +29,13 @@ const createFetchConfig = (agentId: string): RequestInit => {
   };
 };
 
-export const getTheme = async (agentId: string): Promise<string> => {
-  const fetchConfig = createFetchConfig(agentId);
+export const getTheme = async (
+  agentSlug: string,
+  accountId: string,
+): Promise<string> => {
+  const fetchConfig = createFetchConfig(agentSlug, accountId);
   console.log("fetchConfig", fetchConfig);
-  console.log("getHost()", getHost());
+  // TODO: change route
   const response = await fetch(
     "http://localhost:3000/api/v1/account_theme",
     fetchConfig,
@@ -37,8 +43,4 @@ export const getTheme = async (agentId: string): Promise<string> => {
   const json = await response.json();
   console.log("response", json);
   return json || "";
-};
-
-const getHost = () => {
-  return process.env.REACT_APP_ENV;
 };

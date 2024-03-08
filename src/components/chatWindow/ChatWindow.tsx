@@ -1,8 +1,24 @@
 import React from "react";
+import { sendMessage } from "../../api";
+import { useSettings } from "../../context";
+import { createFetchConfig } from "../../utils";
 import "./ChatWindow.css";
 import { ChatWindowProps } from "./ChatWindow.types";
 
-const ChatWindow: React.FC<ChatWindowProps> = (_) => {
+const ChatWindow: React.FC<ChatWindowProps> = () => {
+  const { settings, conversationId } = useSettings();
+  const fetchConfig = createFetchConfig(settings.agentSlug, settings.accountId);
+  const onSubmit = async (e: any) => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    const { message } = Object.fromEntries(formData);
+    const response = await sendMessage(message, conversationId as string, {
+      ...fetchConfig,
+      method: "POST",
+    });
+    e.target.reset();
+    console.log("response", response);
+  };
   return (
     <div className="flex flex-col flex-grow h-auto w-full max-w-xl bg-white shadow-xl rounded-lg overflow-hidden max-h-1-2">
       <div className="flex flex-col flex-grow p-4 overflow-auto">
@@ -124,13 +140,16 @@ const ChatWindow: React.FC<ChatWindowProps> = (_) => {
         </div>
       </div>
 
-      <div className="bg-gray-300 p-4">
-        <input
-          className="flex items-center h-10 w-full rounded px-3 text-sm"
-          type="text"
-          placeholder="Type your message…"
-        />
-      </div>
+      <form onSubmit={onSubmit}>
+        <div className="bg-gray-300 p-4">
+          <input
+            className="flex items-center h-10 w-full rounded px-3 text-sm"
+            name="message"
+            type="text"
+            placeholder="Type your message…"
+          />
+        </div>
+      </form>
     </div>
   );
 };
