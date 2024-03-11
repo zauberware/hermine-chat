@@ -39,9 +39,7 @@ const ChatWindow: React.FC<ChatWindowProps> = () => {
   return (
     <div className="flex flex-col flex-grow h-auto w-full max-w-xl bg-white shadow-xl rounded-lg overflow-hidden max-h-1-2">
       <div className="bg-gray-200 text-center p-4">{settings.chatTitle}</div>
-      <div
-        className="flex flex-col flex-grow p-4 overflow-auto"
-      >
+      <div className="flex flex-col flex-grow p-4 overflow-auto">
         {conversation?.messages.map((message: IMessage, index: number) => (
           <ChatMessage
             key={`${message.id}-${message.result}`}

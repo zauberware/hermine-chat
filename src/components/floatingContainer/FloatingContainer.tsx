@@ -29,9 +29,9 @@ const FloatingContainer: React.FC<FloatingContainerProps> = () => {
     fetchTheme();
   }, []);
 
-  const onNewMessage = (data: any) => {
+  const onNewMessage = async (data: any) => {
     console.log("new message received: ", data);
-    fetchConversation();
+    setTimeout(() => fetchConversation(), 500);
   };
 
   useEffect(() => {
@@ -53,7 +53,7 @@ const FloatingContainer: React.FC<FloatingContainerProps> = () => {
     const getSubscription = async () => {
       const newConversationId = await getConversationId();
       setConversationId(newConversationId);
-      const channel = subscribeChannel(newConversationId, onNewMessage);
+      subscribeChannel(newConversationId, onNewMessage);
     };
     if (toggled) {
       getSubscription();
