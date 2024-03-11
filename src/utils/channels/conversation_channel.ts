@@ -1,14 +1,18 @@
 import consumer from "../consumer";
 
-export const subscribeChannel = (conversationId: string) => {
+export const subscribeChannel = (
+  conversationId: string,
+  receiced: (data: any) => void,
+) => {
   return consumer.subscriptions.create(
     {
-      channel: "ConversationChannel",
+      channel: "ChatbotChannel",
       conversation_id: conversationId,
     },
     {
       received: (data: any) => {
-        console.log('[+]data: ', data);
+        console.debug(`[+] data received: , ${JSON.stringify(data)}`);
+        receiced(data);
       },
     },
   );

@@ -5,25 +5,25 @@ import { getLogoUrl } from "../../utils";
 import "./ChatMessage.css";
 import { ChatMessageProps } from "./ChatMessage.types";
 
-moment.updateLocale('de', {
-    relativeTime : {
-        future: "in %s",
-        past:   "vor %s",
-        s  : 'vor einem Augenblick',
-        ss : '%d Sekunden',
-        m:  "einer Minute",
-        mm: "%d Minuten",
-        h:  "einer Stunde",
-        hh: "%d Stunden",
-        d:  "einem Tag",
-        dd: "%d Tagen",
-        w:  "einer Woche",
-        ww: "%d Wochen",
-        M:  "einem Monat",
-        MM: "%d Monaten",
-        y:  "einem Jahr",
-        yy: "%d Jahren"
-    }
+moment.updateLocale("de", {
+  relativeTime: {
+    future: "in %s",
+    past: "vor %s",
+    s: "einem Augenblick",
+    ss: "%d Sekunden",
+    m: "einer Minute",
+    mm: "%d Minuten",
+    h: "einer Stunde",
+    hh: "%d Stunden",
+    d: "einem Tag",
+    dd: "%d Tagen",
+    w: "einer Woche",
+    ww: "%d Wochen",
+    M: "einem Monat",
+    MM: "%d Monaten",
+    y: "einem Jahr",
+    yy: "%d Jahren",
+  },
 });
 
 const ChatMessage: React.FC<ChatMessageProps> = ({ message, lastMessage }) => {
@@ -36,11 +36,15 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ message, lastMessage }) => {
     >
       <div
         style={{ backgroundImage: `url(${getLogoUrl(theme?.ai_icon)})` }}
-        className="flex-shrink-0 h-10 w-10 rounded-ful border-gray-300 border bg-contain rounded-full"
+        className="flex-shrink-0 h-10 w-10 rounded-full bg-contain"
       ></div>
       <div>
         <div className="bg-gray-300 p-3 rounded-r-lg rounded-bl-lg">
-          <p className="text-sm">{message.result}</p>
+          {message.result === "..." ? (
+            <p className="text-sm animate-pulse">{message.result}</p>
+          ) : (
+            <p className="text-sm">{message.result}</p>
+          )}
         </div>
         <div className="text-xs text-gray-500 leading-none pt-1 pb-2">
           {moment(message.updated_at).fromNow()}

@@ -20,7 +20,6 @@ const FloatingContainer: React.FC<FloatingContainerProps> = () => {
     fetchConversation,
   } = useSettings();
 
-  console.log("toggled", toggled);
   useEffect(() => {
     const fetchTheme = async () => {
       const newTheme = await getTheme(settings.agentSlug, settings.accountId);
@@ -30,9 +29,13 @@ const FloatingContainer: React.FC<FloatingContainerProps> = () => {
     fetchTheme();
   }, []);
 
+  const onNewMessage = (data: any) => {
+    console.log("new message received: ", data);
+    fetchConversation();
+  };
+
   useEffect(() => {
     const getConversationId = async () => {
-      console.log("getting converstaion id...");
       const localConversationsIds = localStorage.getItem(
         "hermine_conversation_ids",
       );
@@ -49,19 +52,15 @@ const FloatingContainer: React.FC<FloatingContainerProps> = () => {
 
     const getSubscription = async () => {
       const newConversationId = await getConversationId();
-      console.log("newConversationId", newConversationId);
       setConversationId(newConversationId);
-      const channel = subscribeChannel(newConversationId);
-      console.log("channel", channel);
+      const channel = subscribeChannel(newConversationId, onNewMessage);
     };
     if (toggled) {
-      console.log("toggled", toggled);
       getSubscription();
     }
   }, [toggled]);
 
   useEffect(() => {
-    console.log("conversationId", conversationId);
     if (conversationId) {
       fetchConversation();
     }

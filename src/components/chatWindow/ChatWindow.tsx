@@ -10,8 +10,8 @@ const ChatWindow: React.FC<ChatWindowProps> = () => {
   const { settings, conversationId, conversation, fetchConversation } =
     useSettings();
   const lastMessage = useRef<HTMLDivElement>(null);
-  console.log("conversation", conversation);
   const fetchConfig = createFetchConfig(settings.agentSlug, settings.accountId);
+
   const onSubmit = async (e: any) => {
     e.preventDefault();
     const formData = new FormData(e.target);
@@ -21,13 +21,14 @@ const ChatWindow: React.FC<ChatWindowProps> = () => {
       method: "POST",
     });
     e.target.reset();
-    console.log("response", response);
+    console.debug("response of message create: ", response);
     fetchConversation();
     lastMessage?.current?.scrollIntoView({
       behavior: "smooth",
       block: "end",
     });
   };
+
   useEffect(() => {
     lastMessage.current?.scrollIntoView({
       behavior: "smooth",
@@ -39,12 +40,11 @@ const ChatWindow: React.FC<ChatWindowProps> = () => {
     <div className="flex flex-col flex-grow h-auto w-full max-w-xl bg-white shadow-xl rounded-lg overflow-hidden max-h-1-2">
       <div className="bg-gray-200 text-center p-4">{settings.chatTitle}</div>
       <div
-        id="hermineMessagesContainer"
         className="flex flex-col flex-grow p-4 overflow-auto"
       >
         {conversation?.messages.map((message: IMessage, index: number) => (
           <ChatMessage
-            key={message.id}
+            key={`${message.id}-${message.result}`}
             message={message}
             {...(index === conversation.messages.length - 1
               ? { lastMessage }
