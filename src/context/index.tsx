@@ -1,4 +1,6 @@
 import React, { createContext, useContext, useState } from "react";
+import { getConversation } from "../api";
+import { createFetchConfig, ITheme } from "../utils";
 
 export interface ISettings {
   agentSlug: string;
@@ -7,10 +9,11 @@ export interface ISettings {
 }
 
 export interface IMessage {
-  id: string;
   result: string;
+  message_type: "user" | "ai";
+  conversation_id: string;
+  id: string;
   updated_at: string;
-  message_type: "ai" | "user";
 }
 
 export interface IConversation {
@@ -23,10 +26,13 @@ export interface SettingsProps {
   setConversation: React.Dispatch<
     React.SetStateAction<IConversation | undefined>
   >;
+  theme: ITheme;
+  setTheme: React.Dispatch<React.SetStateAction<ITheme>>;
   settings: ISettings;
   setSettings: React.Dispatch<React.SetStateAction<ISettings>>;
   conversationId?: string;
   setConversationId: React.Dispatch<React.SetStateAction<string | undefined>>;
+  fetchConversation: () => void;
 }
 
 const getConversationId = () => {
@@ -50,10 +56,13 @@ export const defaultSettings: SettingsProps = {
   conversation: {
     messages: [],
   },
+  theme: {},
+  setTheme: () => undefined,
   conversationId: getConversationId(),
   setSettings: () => undefined,
   setConversationId: () => undefined,
   setConversation: () => undefined,
+  fetchConversation: () => undefined,
 };
 
 export const SettingsContext = createContext(defaultSettings);
@@ -77,16 +86,31 @@ const SettingsContextProvider = ({
     getConversationId(),
   );
   const [stateSettings, setSettings] = useState<ISettings>(settings);
+  const [theme, setTheme] = useState<ITheme>(defaultSettings.theme);
+
+  const fetchConversation = async () => {
+    if (conversationId) {
+      const conversation = await getConversation(
+        conversationId,
+        createFetchConfig(settings.agentSlug, settings.accountId),
+      );
+      setConversation(conversation as IConversation);
+      console.log("conversation", conversation);
+    }
+  };
 
   return (
     <SettingsContext.Provider
       value={{
+        theme,
+        setTheme,
         settings: stateSettings,
         setSettings,
         conversationId,
         setConversationId,
         conversation,
         setConversation,
+        fetchConversation,
       }}
     >
       {children}

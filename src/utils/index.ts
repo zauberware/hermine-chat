@@ -1,17 +1,23 @@
-export interface Theme {
-  backgroundColor: string;
-  primary_900: string;
-  primary_800: string;
-  primary_700: string;
-  primary_600: string;
-  primary_500: string;
-  primary_400: string;
-  primary_300: string;
-  primary_200: string;
-  primary_100: string;
-  primary_50: string;
-  name: string;
+export interface ITheme {
+  ai_icon?: string;
+  logo?: string;
+  logo_small?: string;
+  backgroundColor?: string;
+  primary_900?: string;
+  primary_800?: string;
+  primary_700?: string;
+  primary_600?: string;
+  primary_500?: string;
+  primary_400?: string;
+  primary_300?: string;
+  primary_200?: string;
+  primary_100?: string;
+  primary_50?: string;
+  name?: string;
 }
+
+export const getLogoUrl = (relativePath?: string) =>
+  `http://localhost:3000${relativePath}`;
 
 export const createFetchConfig = (
   agentSlug: string,
@@ -32,7 +38,7 @@ export const createFetchConfig = (
 export const getTheme = async (
   agentSlug: string,
   accountId: string,
-): Promise<string> => {
+): Promise<ITheme> => {
   const fetchConfig = createFetchConfig(agentSlug, accountId);
   console.log("fetchConfig", fetchConfig);
   // TODO: change route
@@ -41,6 +47,6 @@ export const getTheme = async (
     fetchConfig,
   );
   const json = await response.json();
-  console.log("response", json);
-  return json || "";
+  console.log("response json: ", json);
+  return json || {};
 };

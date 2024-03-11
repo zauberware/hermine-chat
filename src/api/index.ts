@@ -56,7 +56,5 @@ export const getConversation = async (
 ) => {
   const url = `${BASE_URL}/conversations/${conversationId}`;
   const response = await fetch(url, fetchConfig);
-  console.log("response", response);
-  console.log("response.text", response.text);
   return await response.json();
 };
