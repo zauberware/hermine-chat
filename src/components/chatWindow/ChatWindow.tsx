@@ -37,6 +37,7 @@ const ChatWindow: React.FC<ChatWindowProps> = () => {
 
   return (
     <div className="flex flex-col flex-grow h-auto w-full max-w-xl bg-white shadow-xl rounded-lg overflow-hidden max-h-1-2">
+      <div className="bg-gray-200 text-center p-4">{settings.chatTitle}</div>
       <div
         id="hermineMessagesContainer"
         className="flex flex-col flex-grow p-4 overflow-auto"

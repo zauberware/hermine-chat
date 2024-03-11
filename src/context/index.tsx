@@ -5,6 +5,7 @@ import { createFetchConfig, ITheme } from "../utils";
 export interface ISettings {
   agentSlug: string;
   accountId: string;
+  chatTitle?: string;
   location?: "center" | "bottom" | "top";
 }
 

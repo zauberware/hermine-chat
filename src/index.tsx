@@ -9,6 +9,7 @@ const Settings = (settings: ISettings) => {
   console.log("settings", settings);
   const defaultSettings = {
     location: "bottom",
+    chatTitle: 'KI-Chat'
   };
   const mergedSettings = {
     ...defaultSettings,
