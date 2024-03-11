@@ -65,9 +65,15 @@ const FloatingContainer: React.FC<FloatingContainerProps> = () => {
       fetchConversation();
     }
   }, [conversationId]);
+  const style = {
+    ...(settings.spacingTop ? { marginTop: settings.spacingTop } : {}),
+    ...(settings.spacingBottom ? { marginBottom: settings.spacingBottom } : {}),
+    ...(settings.spacingRight ? { marginRight: settings.spacingRight } : {}),
+  };
 
   return (
     <div
+      style={style}
       className={`floating-container floating-container-${settings.location}`}
     >
       {toggled && <ChatWindow theme={theme} />}

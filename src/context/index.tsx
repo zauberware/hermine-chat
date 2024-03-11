@@ -6,6 +6,9 @@ export interface ISettings {
   agentSlug: string;
   accountId: string;
   chatTitle?: string;
+  spacingBottom?: string;
+  spacingTop?: string;
+  spacingRight?: string;
   location?: "center" | "bottom" | "top";
 }
 

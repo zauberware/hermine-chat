@@ -1,5 +1,6 @@
 import moment from "moment";
 import React from "react";
+import Icon from "../../assets/images/logo.svg";
 import { useSettings } from "../../context";
 import { getLogoUrl } from "../../utils";
 import "./ChatMessage.css";
@@ -35,7 +36,11 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ message, lastMessage }) => {
       className="flex w-full mt-2 space-x-3 max-w-xs"
     >
       <div
-        style={{ backgroundImage: `url(${getLogoUrl(theme?.ai_icon)})` }}
+        style={{
+          backgroundImage: theme.ai_icon
+            ? `url(${getLogoUrl(theme?.ai_icon)})`
+            : Icon,
+        }}
         className="flex-shrink-0 h-10 w-10 rounded-full bg-contain"
       ></div>
       <div>

@@ -16,8 +16,13 @@ export interface ITheme {
   name?: string;
 }
 
-export const getLogoUrl = (relativePath?: string) =>
-  `http://localhost:3000${relativePath}`;
+export const getLogoUrl = (relativePath?: string) => {
+  if (relativePath) {
+    if (relativePath.startsWith('http')) return relativePath
+    return `http://localhost:3000/${relativePath}` 
+  }
+  return ''
+}
 
 export const createFetchConfig = (
   agentSlug: string,
