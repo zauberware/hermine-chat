@@ -3,10 +3,11 @@ import { sendMessage } from "../../api";
 import { IMessage, useSettings } from "../../context";
 import { createFetchConfig } from "../../utils";
 import ChatMessage from "../chatMessage";
+import Close from "../../assets/images/close.svg";
 import "./ChatWindow.css";
 import { ChatWindowProps } from "./ChatWindow.types";
 
-const ChatWindow: React.FC<ChatWindowProps> = () => {
+const ChatWindow: React.FC<ChatWindowProps> = ({ close }) => {
   const { settings, conversationId, conversation, fetchConversation } =
     useSettings();
   const lastMessage = useRef<HTMLDivElement>(null);
@@ -37,8 +38,16 @@ const ChatWindow: React.FC<ChatWindowProps> = () => {
   }, [lastMessage, conversation?.messages]);
 
   return (
-    <div className="flex flex-col flex-grow h-auto w-full max-w-xl bg-white shadow-xl rounded-lg overflow-hidden max-h-1-2">
-      <div className="bg-gray-200 text-center p-4">{settings.chatTitle}</div>
+    <div className="flex flex-col flex-grow h-auto w-full max-w-xl bg-white shadow-2xl rounded-lg overflow-hidden max-h-1-2">
+      <div className="row bg-gray-200 text-center p-4 flex">
+        <div className="col-auto text-center">{settings.chatTitle}</div>
+        <div
+          className="col-auto text-center justify-self-end ml-auto cursor-pointer"
+          onClick={close}
+        >
+          <Close width="24" height="24" />
+        </div>
+      </div>
       <div className="flex flex-col flex-grow p-4 overflow-auto">
         {conversation?.messages.map((message: IMessage, index: number) => (
           <ChatMessage

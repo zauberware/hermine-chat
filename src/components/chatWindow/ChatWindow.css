@@ -3,5 +3,8 @@ body {
 }
 
 .max-h-1-2 {
-  max-height: 50vh;
+  max-height: 90vh;
+  @media screen and (min-width: 480px) {
+    max-height: 50vh;
+  }
 }

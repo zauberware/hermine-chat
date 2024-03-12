@@ -2,13 +2,17 @@ body {
   --primary: #9D174D;
 }
 .floating-container {
+  z-index: 9999;
   position: fixed;
-  width: fit-content;
   height: fit-content;
-  max-height: calc(100vw - 20px);
+  width: 100vw;
+  max-height: calc(100vh - 20px);
   padding: 10px;
   display: flex;
   right: 0;
+  @media screen and (min-width: 480px) {
+    width: fit-content;
+  }
 }
 
 .floating-container-top {
@@ -17,11 +21,16 @@ body {
 }
 
 .floating-container-center {
-  flex-direction: row;
-  top: 50%;
-  transform: translateY(-50%);
-  align-items: center;
+  flex-direction: column;
+  bottom: 0;
+  @media screen and (min-width: 480px) {
+    flex-direction: row;
+    top: 50%;
+    transform: translateY(-50%);
+    align-items: center;
+  }
 }
+
 
 .floating-container-bottom {
   bottom: 0;

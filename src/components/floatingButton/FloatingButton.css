@@ -22,7 +22,12 @@ body {
   align-self: end;
 }
 .floating-button-center {
-  align-self: center;
+  align-self: end;
+  margin-top: 20px;
+  @media screen and (min-width: 480px) {
+    align-self: center;
+    margin-top: 0;
+  }
 }
 .floating-button-bottom {
   margin-top: 20px;
