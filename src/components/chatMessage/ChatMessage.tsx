@@ -33,7 +33,7 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ message, lastMessage }) => {
     <div
       ref={lastMessage}
       id={message.id}
-      className="flex w-full mt-2 space-x-3 max-w-xs"
+      className="flex w-full mt-2 space-x-3"
     >
       <div
         style={{
@@ -62,7 +62,7 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ message, lastMessage }) => {
     <div
       ref={lastMessage}
       id={message.id}
-      className="flex w-full mt-2 space-x-3 max-w-xs ml-auto justify-end"
+      className="flex w-full mt-2 space-x-3 ml-auto justify-end"
     >
       <div>
         <div className="bg-blue-600 text-white p-3 rounded-l-lg rounded-br-lg">

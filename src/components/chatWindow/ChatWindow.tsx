@@ -38,7 +38,7 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ close }) => {
   }, [lastMessage, conversation?.messages]);
 
   return (
-    <div className="flex flex-col flex-grow h-auto w-full max-w-xl bg-white shadow-2xl rounded-lg overflow-hidden max-h-1-2">
+    <div className="flex flex-col flex-grow h-auto bg-white shadow-2xl rounded-lg overflow-hidden max-h-1-2 chat-window">
       <div className="row bg-gray-200 text-center p-4 flex">
         <div className="col-auto text-center">{settings.chatTitle}</div>
         <div

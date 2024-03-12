@@ -42,7 +42,7 @@ export default [
     //   "react/jsx-runtime":
     //     "https://unpkg.com/browse/react@18.2.0/cjs/react-jsx-runtime.production.min.js",
     // },
-    external: ["react", "react-dom"],
+    // external: ["react", "react-dom"],
     // external: [Object.keys(packageJson.peerDependencies)],
     // external: [/node_modules/],
   },
