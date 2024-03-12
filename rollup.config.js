@@ -15,7 +15,7 @@ export default [
     input: "src/index.tsx",
     output: [
       {
-        file: packageJson.main,
+        file: packageJson.cjs,
         format: "cjs",
         sourcemap: true,
       },
@@ -35,7 +35,16 @@ export default [
       postcss(),
       svgr(),
     ],
+    // external: {
+    //   react: "https://unpkg.com/react@18/umd/react.production.min.js",
+    //   "react-dom":
+    //     "https://unpkg.com/react-dom@18/umd/react-dom.production.min.js",
+    //   "react/jsx-runtime":
+    //     "https://unpkg.com/browse/react@18.2.0/cjs/react-jsx-runtime.production.min.js",
+    // },
     external: ["react", "react-dom"],
+    // external: [Object.keys(packageJson.peerDependencies)],
+    // external: [/node_modules/],
   },
   {
     input: "src/index.tsx",
