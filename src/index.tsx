@@ -13,7 +13,7 @@ const HermineChat = (settings: ISettings) => {
     ...defaultSettings,
     ...settings,
   } as ISettings;
-  // try {
+  try {
     const root = createRoot(
       document.getElementById("hermine-chat-container") as HTMLElement,
     );
@@ -22,9 +22,11 @@ const HermineChat = (settings: ISettings) => {
         <FloatingContainer />
       </SettingsContextProvider>,
     );
-  // } catch {
-  //   console.error("Could not mount react component.");
-  // }
+  } catch {
+    console.error(
+      "Could not mount react component. Add an element with id 'hermine-chat-container'.",
+    );
+  }
 };
 
 declare const window: any;
