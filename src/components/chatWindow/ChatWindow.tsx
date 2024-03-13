@@ -4,6 +4,7 @@ import { IMessage, useSettings } from "../../context";
 import { createFetchConfig } from "../../utils";
 import ChatMessage from "../chatMessage";
 import Close from "../../assets/images/close.svg";
+import Send from "../../assets/images/send.svg";
 import "./ChatWindow.css";
 import { ChatWindowProps } from "./ChatWindow.types";
 
@@ -42,7 +43,7 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ close }) => {
       <div className="row bg-gray-200 text-center p-4 flex">
         <div className="col-auto text-center">{settings.chatTitle}</div>
         <div
-          className="col-auto text-center justify-self-end ml-auto cursor-pointer"
+          className="col-auto text-center justify-self-end ml-auto cursor-pointer text-black hover:text-gray-400"
           onClick={close}
         >
           <Close width="24" height="24" />
@@ -61,13 +62,23 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ close }) => {
       </div>
 
       <form onSubmit={onSubmit}>
-        <div className="bg-gray-300 p-4">
+        <div className="bg-gray-300 p-4 flex">
           <input
-            className="flex items-center h-10 w-full rounded px-3 text-sm"
+            className="flex items-center h-10 w-full rounded-l px-3 text-sm outline-0"
             name="message"
             type="text"
             placeholder="Type your message…"
           />
+          <button
+            style={{
+              background: settings.buttonBackgroundColor,
+              color: settings.buttonColor,
+            }}
+            className="w-auto text-center px-3 rounded-r hover:opacity-90"
+            type="submit"
+          >
+            <Send width={24} height={24} />
+          </button>
         </div>
       </form>
     </div>

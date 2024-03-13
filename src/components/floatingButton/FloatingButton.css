@@ -1,5 +1,6 @@
 body {
   --primary: #9D174D;
+  --primary_hover: #4d7a9a;
 }
 
 .floating-button {
@@ -36,4 +37,5 @@ body {
 
 .floating-button:hover {
   background-color: lightgrey;
+  border: 2px solid var(--primary_hover);
 }

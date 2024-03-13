@@ -8,15 +8,20 @@ const HermineChat = (settings: ISettings) => {
   const defaultSettings = {
     location: "bottom",
     chatTitle: "KI-Chat",
+    buttonColor: "white",
+    buttonBackgroundColor: "#A01F53",
+    userMessageColor: "white",
+    userMessageBackgroundColor: "#A01F53",
   };
   const mergedSettings = {
     ...defaultSettings,
     ...settings,
   } as ISettings;
   try {
-    const root = createRoot(
-      document.getElementById("hermine-chat-container") as HTMLElement,
-    );
+    const div = document.createElement("div");
+    div.id = "hermine-chat-container";
+    document.body.appendChild(div);
+    const root = createRoot(div);
     root.render(
       <SettingsContextProvider settings={mergedSettings}>
         <FloatingContainer />

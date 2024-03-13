@@ -9,6 +9,11 @@ export interface ISettings {
   spacingBottom?: string;
   spacingTop?: string;
   spacingRight?: string;
+  buttonColor?: string;
+  floatingButtonBorderColor?: string;
+  buttonBackgroundColor?: string;
+  userMessageColor?: string;
+  userMessageBackgroundColor?: string;
   location?: "center" | "bottom" | "top";
 }
 

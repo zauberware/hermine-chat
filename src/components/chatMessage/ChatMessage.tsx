@@ -28,7 +28,7 @@ moment.updateLocale("de", {
 });
 
 const ChatMessage: React.FC<ChatMessageProps> = ({ message, lastMessage }) => {
-  const { theme } = useSettings();
+  const { theme, settings } = useSettings();
   const renderAiMessage = () => (
     <div
       ref={lastMessage}
@@ -41,14 +41,14 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ message, lastMessage }) => {
             ? `url(${getLogoUrl(theme?.ai_icon)})`
             : Icon,
         }}
-        className="flex-shrink-0 h-10 w-10 rounded-full bg-contain"
+        className="flex-shrink-0 h-10 w-10 rounded-full bg-contain bg-center bg-no-repeat"
       ></div>
       <div>
         <div className="bg-gray-300 p-3 rounded-r-lg rounded-bl-lg">
           {message.result === "..." ? (
-            <p className="text-sm animate-pulse">{message.result}</p>
+            <div class="w-10 h-10 rounded-full animate-spin border-4 border-dashed border-black border-t-transparent m-4"></div>
           ) : (
-            <p className="text-sm">{message.result}</p>
+            <p className="text-sm mb-0">{message.result}</p>
           )}
         </div>
         <div className="text-xs text-gray-500 leading-none pt-1 pb-2">
@@ -58,6 +58,11 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ message, lastMessage }) => {
     </div>
   );
 
+  const messageStyle = {
+    color: settings.userMessageColor,
+    backgroundColor: settings.userMessageBackgroundColor,
+  };
+
   const renderHumanMessage = () => (
     <div
       ref={lastMessage}
@@ -65,14 +70,13 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ message, lastMessage }) => {
       className="flex w-full mt-2 space-x-3 ml-auto justify-end"
     >
       <div>
-        <div className="bg-blue-600 text-white p-3 rounded-l-lg rounded-br-lg">
-          <p className="text-sm">{message.result}</p>
+        <div style={messageStyle} className="p-3 rounded-l-lg rounded-br-lg">
+          <p className="text-sm mb-0">{message.result}</p>
         </div>
         <div className="text-xs text-gray-500 leading-none text-end pt-1 pb-2">
           {moment(message.updated_at).fromNow()}
         </div>
       </div>
-      <div className="flex-shrink-0 h-10 w-10 rounded-full bg-gray-300"></div>
     </div>
   );
 
