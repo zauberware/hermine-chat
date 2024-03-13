@@ -43,7 +43,7 @@ window.HermineChat({
 })
 ```
 
-If you put this in your html template file, do not forget to put it inside `<script>`-tags.
+If you put this in your html template file, do not forget to put it inside `<script type="module">`-tags.
 
 
 ## Configuration Options
