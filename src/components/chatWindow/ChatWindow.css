@@ -9,6 +9,7 @@ body {
   }
 }
 .chat-window {
+  transition: ease-in-out 1s;
   width: 100%;
   @media screen and (min-width: 480px) {
     width: 500px;

@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from "react";
+import { animated, useSpring } from "@react-spring/web";
 import { sendMessage } from "../../api";
 import { IMessage, useSettings } from "../../context";
 import { createFetchConfig } from "../../utils";
@@ -7,8 +8,21 @@ import Close from "../../assets/images/close.svg";
 import Send from "../../assets/images/send.svg";
 import "./ChatWindow.css";
 import { ChatWindowProps } from "./ChatWindow.types";
+import { warn } from "console";
 
 const ChatWindow: React.FC<ChatWindowProps> = ({ close }) => {
+  const styles = useSpring({
+    from: {
+      opacity: 0,
+    },
+    to: {
+      opacity: 1,
+    },
+    delay: 0,
+    config: {
+      duration: 0.2,
+    },
+  });
   const { settings, conversationId, conversation, fetchConversation } =
     useSettings();
   const lastMessage = useRef<HTMLDivElement>(null);
@@ -39,7 +53,10 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ close }) => {
   }, [lastMessage, conversation?.messages]);
 
   return (
-    <div className="flex flex-col flex-grow h-auto bg-white shadow-2xl rounded-lg overflow-hidden max-h-1-2 chat-window">
+    <animated.div
+      style={styles}
+      className="flex flex-col flex-grow h-auto bg-white shadow-2xl rounded-lg overflow-hidden max-h-1-2 chat-window"
+    >
       <div className="row bg-gray-200 text-center p-4 flex">
         <div className="col-auto text-center">{settings.chatTitle}</div>
         <div
@@ -81,7 +98,7 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ close }) => {
           </button>
         </div>
       </form>
-    </div>
+    </animated.div>
   );
 };
 
