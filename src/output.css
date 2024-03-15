@@ -535,59 +535,59 @@ video {
   --tw-backdrop-sepia:  ;
 }
 
-.col-auto {
+#hermine-chat-container :is(.col-auto) {
   grid-column: auto;
 }
 
-.m-4 {
+#hermine-chat-container :is(.m-4) {
   margin: 1rem;
 }
 
-.mb-0 {
+#hermine-chat-container :is(.mb-0) {
   margin-bottom: 0px;
 }
 
-.ml-auto {
+#hermine-chat-container :is(.ml-auto) {
   margin-left: auto;
 }
 
-.mt-2 {
+#hermine-chat-container :is(.mt-2) {
   margin-top: 0.5rem;
 }
 
-.block {
+#hermine-chat-container :is(.block) {
   display: block;
 }
 
-.flex {
+#hermine-chat-container :is(.flex) {
   display: flex;
 }
 
-.h-10 {
+#hermine-chat-container :is(.h-10) {
   height: 2.5rem;
 }
 
-.h-auto {
+#hermine-chat-container :is(.h-auto) {
   height: auto;
 }
 
-.w-10 {
+#hermine-chat-container :is(.w-10) {
   width: 2.5rem;
 }
 
-.w-auto {
+#hermine-chat-container :is(.w-auto) {
   width: auto;
 }
 
-.w-full {
+#hermine-chat-container :is(.w-full) {
   width: 100%;
 }
 
-.flex-shrink-0 {
+#hermine-chat-container :is(.flex-shrink-0) {
   flex-shrink: 0;
 }
 
-.flex-grow {
+#hermine-chat-container :is(.flex-grow) {
   flex-grow: 1;
 }
 
@@ -597,196 +597,196 @@ video {
   }
 }
 
-.animate-spin {
+#hermine-chat-container :is(.animate-spin) {
   animation: spin 1s linear infinite;
 }
 
-.cursor-pointer {
+#hermine-chat-container :is(.cursor-pointer) {
   cursor: pointer;
 }
 
-.flex-col {
+#hermine-chat-container :is(.flex-col) {
   flex-direction: column;
 }
 
-.items-center {
+#hermine-chat-container :is(.items-center) {
   align-items: center;
 }
 
-.justify-end {
+#hermine-chat-container :is(.justify-end) {
   justify-content: flex-end;
 }
 
-.space-x-3 > :not([hidden]) ~ :not([hidden]) {
+#hermine-chat-container :is(.space-x-3 > :not([hidden]) ~ :not([hidden])) {
   --tw-space-x-reverse: 0;
   margin-right: calc(0.75rem * var(--tw-space-x-reverse));
   margin-left: calc(0.75rem * calc(1 - var(--tw-space-x-reverse)));
 }
 
-.justify-self-end {
+#hermine-chat-container :is(.justify-self-end) {
   justify-self: end;
 }
 
-.overflow-auto {
+#hermine-chat-container :is(.overflow-auto) {
   overflow: auto;
 }
 
-.overflow-hidden {
+#hermine-chat-container :is(.overflow-hidden) {
   overflow: hidden;
 }
 
-.rounded-full {
+#hermine-chat-container :is(.rounded-full) {
   border-radius: 9999px;
 }
 
-.rounded-lg {
+#hermine-chat-container :is(.rounded-lg) {
   border-radius: 0.5rem;
 }
 
-.rounded-l {
+#hermine-chat-container :is(.rounded-l) {
   border-top-left-radius: 0.25rem;
   border-bottom-left-radius: 0.25rem;
 }
 
-.rounded-l-lg {
+#hermine-chat-container :is(.rounded-l-lg) {
   border-top-left-radius: 0.5rem;
   border-bottom-left-radius: 0.5rem;
 }
 
-.rounded-r {
+#hermine-chat-container :is(.rounded-r) {
   border-top-right-radius: 0.25rem;
   border-bottom-right-radius: 0.25rem;
 }
 
-.rounded-r-lg {
+#hermine-chat-container :is(.rounded-r-lg) {
   border-top-right-radius: 0.5rem;
   border-bottom-right-radius: 0.5rem;
 }
 
-.rounded-bl-lg {
+#hermine-chat-container :is(.rounded-bl-lg) {
   border-bottom-left-radius: 0.5rem;
 }
 
-.rounded-br-lg {
+#hermine-chat-container :is(.rounded-br-lg) {
   border-bottom-right-radius: 0.5rem;
 }
 
-.border {
+#hermine-chat-container :is(.border) {
   border-width: 1px;
 }
 
-.border-4 {
+#hermine-chat-container :is(.border-4) {
   border-width: 4px;
 }
 
-.border-dashed {
+#hermine-chat-container :is(.border-dashed) {
   border-style: dashed;
 }
 
-.border-black {
+#hermine-chat-container :is(.border-black) {
   --tw-border-opacity: 1;
   border-color: rgb(0 0 0 / var(--tw-border-opacity));
 }
 
-.border-t-transparent {
+#hermine-chat-container :is(.border-t-transparent) {
   border-top-color: transparent;
 }
 
-.bg-gray-200 {
+#hermine-chat-container :is(.bg-gray-200) {
   --tw-bg-opacity: 1;
   background-color: rgb(229 231 235 / var(--tw-bg-opacity));
 }
 
-.bg-gray-300 {
+#hermine-chat-container :is(.bg-gray-300) {
   --tw-bg-opacity: 1;
   background-color: rgb(209 213 219 / var(--tw-bg-opacity));
 }
 
-.bg-white {
+#hermine-chat-container :is(.bg-white) {
   --tw-bg-opacity: 1;
   background-color: rgb(255 255 255 / var(--tw-bg-opacity));
 }
 
-.bg-contain {
+#hermine-chat-container :is(.bg-contain) {
   background-size: contain;
 }
 
-.bg-center {
+#hermine-chat-container :is(.bg-center) {
   background-position: center;
 }
 
-.bg-no-repeat {
+#hermine-chat-container :is(.bg-no-repeat) {
   background-repeat: no-repeat;
 }
 
-.p-3 {
+#hermine-chat-container :is(.p-3) {
   padding: 0.75rem;
 }
 
-.p-4 {
+#hermine-chat-container :is(.p-4) {
   padding: 1rem;
 }
 
-.px-3 {
+#hermine-chat-container :is(.px-3) {
   padding-left: 0.75rem;
   padding-right: 0.75rem;
 }
 
-.pb-2 {
+#hermine-chat-container :is(.pb-2) {
   padding-bottom: 0.5rem;
 }
 
-.pt-1 {
+#hermine-chat-container :is(.pt-1) {
   padding-top: 0.25rem;
 }
 
-.text-center {
+#hermine-chat-container :is(.text-center) {
   text-align: center;
 }
 
-.text-end {
+#hermine-chat-container :is(.text-end) {
   text-align: end;
 }
 
-.text-sm {
+#hermine-chat-container :is(.text-sm) {
   font-size: 0.875rem;
   line-height: 1.25rem;
 }
 
-.text-xs {
+#hermine-chat-container :is(.text-xs) {
   font-size: 0.75rem;
   line-height: 1rem;
 }
 
-.leading-none {
+#hermine-chat-container :is(.leading-none) {
   line-height: 1;
 }
 
-.text-black {
+#hermine-chat-container :is(.text-black) {
   --tw-text-opacity: 1;
   color: rgb(0 0 0 / var(--tw-text-opacity));
 }
 
-.text-gray-500 {
+#hermine-chat-container :is(.text-gray-500) {
   --tw-text-opacity: 1;
   color: rgb(107 114 128 / var(--tw-text-opacity));
 }
 
-.shadow-2xl {
+#hermine-chat-container :is(.shadow-2xl) {
   --tw-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);
   --tw-shadow-colored: 0 25px 50px -12px var(--tw-shadow-color);
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
 }
 
-.outline-0 {
+#hermine-chat-container :is(.outline-0) {
   outline-width: 0px;
 }
 
-.hover\:text-gray-400:hover {
+#hermine-chat-container :is(.hover\:text-gray-400:hover) {
   --tw-text-opacity: 1;
   color: rgb(156 163 175 / var(--tw-text-opacity));
 }
 
-.hover\:opacity-90:hover {
+#hermine-chat-container :is(.hover\:opacity-90:hover) {
   opacity: 0.9;
 }
