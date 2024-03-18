@@ -2,6 +2,7 @@ import { createRoot } from "react-dom/client";
 import FloatingContainer from "./components/floatingContainer";
 import SettingsContextProvider, { ISettings } from "./context";
 import "./output.css";
+import './utils/i18n'
 
 const HermineChat = (settings: ISettings) => {
   const defaultSettings = {
@@ -16,6 +17,7 @@ const HermineChat = (settings: ISettings) => {
     ...defaultSettings,
     ...settings,
   } as ISettings;
+
   try {
     const div = document.createElement("div");
     div.id = "hermine-chat-container";

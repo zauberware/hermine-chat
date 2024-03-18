@@ -9,6 +9,7 @@ import Send from "../../assets/images/send.svg";
 import "./ChatWindow.css";
 import { ChatWindowProps } from "./ChatWindow.types";
 import { warn } from "console";
+import { useTranslation } from "react-i18next";
 
 const ChatWindow: React.FC<ChatWindowProps> = ({ close }) => {
   const styles = useSpring({
@@ -32,6 +33,7 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ close }) => {
   } = useSettings();
   const lastMessage = useRef<HTMLDivElement>(null);
   const fetchConfig = createFetchConfig(settings.agentSlug, settings.accountId);
+  const { t } = useTranslation("translation");
 
   const onSubmit = async (e: any) => {
     e.preventDefault();
@@ -53,7 +55,7 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ close }) => {
   const onResetChat = async (e: any) => {
     e.preventDefault();
     resetConversation();
-    close()
+    close();
   };
 
   useEffect(() => {
@@ -95,7 +97,7 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ close }) => {
             className="flex items-center h-10 w-full rounded-l px-3 text-sm outline-0"
             name="message"
             type="text"
-            placeholder="Type your message…"
+            placeholder={t("input.placeholder")}
           />
           <button
             style={{
@@ -114,7 +116,7 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ close }) => {
             type="button"
             onClick={onResetChat}
           >
-            Reset
+            {t("reset")}
           </button>
         </div>
       </div>
