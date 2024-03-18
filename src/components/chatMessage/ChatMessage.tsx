@@ -1,5 +1,6 @@
 import moment from "moment";
 import React from "react";
+import Markdown from "react-markdown";
 import Icon from "../../assets/images/logo.svg";
 import { useSettings } from "../../context";
 import { getLogoUrl } from "../../utils";
@@ -46,9 +47,11 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ message, lastMessage }) => {
       <div>
         <div className="bg-gray-300 p-3 rounded-r-lg rounded-bl-lg">
           {message.result === "..." ? (
-            <div class="w-10 h-10 rounded-full animate-spin border-4 border-dashed border-black border-t-transparent m-4"></div>
+            <div className="w-10 h-10 rounded-full animate-spin border-4 border-dashed border-black border-t-transparent m-4"></div>
           ) : (
-            <p className="text-sm mb-0">{message.result}</p>
+            <p className="text-sm mb-0">
+              <Markdown>{message.result}</Markdown>
+            </p>
           )}
         </div>
         <div className="text-xs text-gray-500 leading-none pt-1 pb-2">
