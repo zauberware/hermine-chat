@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState } from "react";
-import { getConversation } from "../api";
+import { getConversation, resetLocalConversation } from "../api";
 import { createFetchConfig, ITheme } from "../utils";
 
 export interface ISettings {
@@ -42,6 +42,7 @@ export interface SettingsProps {
   conversationId?: string;
   setConversationId: React.Dispatch<React.SetStateAction<string | undefined>>;
   fetchConversation: () => void;
+  resetConversation: () => void;
 }
 
 const getConversationId = () => {
@@ -72,6 +73,7 @@ export const defaultSettings: SettingsProps = {
   setConversationId: () => undefined,
   setConversation: () => undefined,
   fetchConversation: () => undefined,
+  resetConversation: () => undefined,
 };
 
 export const SettingsContext = createContext(defaultSettings);
@@ -97,6 +99,12 @@ const SettingsContextProvider = ({
   const [stateSettings, setSettings] = useState<ISettings>(settings);
   const [theme, setTheme] = useState<ITheme>(defaultSettings.theme);
 
+  const resetConversation = () => {
+    resetLocalConversation();
+    setConversationId(undefined);
+    setTimeout(() => getConversationId(), 1000);
+  };
+
   const fetchConversation = async () => {
     if (conversationId) {
       const conversation = await getConversation(
@@ -104,7 +112,6 @@ const SettingsContextProvider = ({
         createFetchConfig(settings.agentSlug, settings.accountId),
       );
       setConversation(conversation as IConversation);
-      console.log("conversation", conversation);
     }
   };
 
@@ -120,6 +127,7 @@ const SettingsContextProvider = ({
         conversation,
         setConversation,
         fetchConversation,
+        resetConversation,
       }}
     >
       {children}

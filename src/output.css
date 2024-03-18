@@ -563,6 +563,11 @@ video {
   display: flex;
 }
 
+#hermine-chat-container :is(.size-0) {
+  width: 0px;
+  height: 0px;
+}
+
 #hermine-chat-container :is(.h-10) {
   height: 2.5rem;
 }
@@ -707,6 +712,10 @@ video {
   background-color: rgb(255 255 255 / var(--tw-bg-opacity));
 }
 
+#hermine-chat-container :is(.to-gray-500) {
+  --tw-gradient-to: #6b7280 var(--tw-gradient-to-position);
+}
+
 #hermine-chat-container :is(.bg-contain) {
   background-size: contain;
 }
@@ -772,6 +781,25 @@ video {
   color: rgb(107 114 128 / var(--tw-text-opacity));
 }
 
+#hermine-chat-container :is(.text-gray-900) {
+  --tw-text-opacity: 1;
+  color: rgb(17 24 39 / var(--tw-text-opacity));
+}
+
+#hermine-chat-container :is(.text-gray-800) {
+  --tw-text-opacity: 1;
+  color: rgb(31 41 55 / var(--tw-text-opacity));
+}
+
+#hermine-chat-container :is(.text-gray-700) {
+  --tw-text-opacity: 1;
+  color: rgb(55 65 81 / var(--tw-text-opacity));
+}
+
+#hermine-chat-container :is(.underline) {
+  text-decoration-line: underline;
+}
+
 #hermine-chat-container :is(.shadow-2xl) {
   --tw-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);
   --tw-shadow-colored: 0 25px 50px -12px var(--tw-shadow-color);
@@ -785,6 +813,10 @@ video {
 #hermine-chat-container :is(.hover\:text-gray-400:hover) {
   --tw-text-opacity: 1;
   color: rgb(156 163 175 / var(--tw-text-opacity));
+}
+
+#hermine-chat-container :is(.hover\:underline:hover) {
+  text-decoration-line: underline;
 }
 
 #hermine-chat-container :is(.hover\:opacity-90:hover) {

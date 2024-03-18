@@ -4,7 +4,6 @@ import SettingsContextProvider, { ISettings } from "./context";
 import "./output.css";
 
 const HermineChat = (settings: ISettings) => {
-  console.log("settings", settings);
   const defaultSettings = {
     location: "bottom",
     chatTitle: "KI-Chat",

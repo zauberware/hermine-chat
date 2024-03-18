@@ -23,8 +23,13 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ close }) => {
       duration: 0.2,
     },
   });
-  const { settings, conversationId, conversation, fetchConversation } =
-    useSettings();
+  const {
+    settings,
+    resetConversation,
+    conversationId,
+    conversation,
+    fetchConversation,
+  } = useSettings();
   const lastMessage = useRef<HTMLDivElement>(null);
   const fetchConfig = createFetchConfig(settings.agentSlug, settings.accountId);
 
@@ -43,6 +48,12 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ close }) => {
       behavior: "smooth",
       block: "end",
     });
+  };
+
+  const onResetChat = async (e: any) => {
+    e.preventDefault();
+    resetConversation();
+    close()
   };
 
   useEffect(() => {
@@ -78,8 +89,8 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ close }) => {
         ))}
       </div>
 
-      <form onSubmit={onSubmit}>
-        <div className="bg-gray-300 p-4 flex">
+      <div className="bg-gray-300 p-4 pb-2 w-full flex-col">
+        <form onSubmit={onSubmit} className="flex w-full">
           <input
             className="flex items-center h-10 w-full rounded-l px-3 text-sm outline-0"
             name="message"
@@ -96,8 +107,17 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ close }) => {
           >
             <Send width={24} height={24} />
           </button>
+        </form>
+        <div className="flex justify-end">
+          <button
+            className="w-auto text-xs pt-1 text-end text-gray-700 hover:underline hover:opacity-90"
+            type="button"
+            onClick={onResetChat}
+          >
+            Reset
+          </button>
         </div>
-      </form>
+      </div>
     </animated.div>
   );
 };

@@ -30,8 +30,8 @@ const FloatingContainer: React.FC<FloatingContainerProps> = () => {
   }, []);
 
   const onNewMessage = async (data: any) => {
-    console.log("new message received: ", data);
-    setTimeout(() => fetchConversation(), 500);
+    console.debug("new message received: ", data);
+    fetchConversation()
   };
 
   useEffect(() => {
@@ -71,7 +71,7 @@ const FloatingContainer: React.FC<FloatingContainerProps> = () => {
     ...(settings.spacingRight ? { marginRight: settings.spacingRight } : {}),
   };
 
-  const close = () => setToggled(false)
+  const close = () => setToggled(false);
 
   return (
     <div

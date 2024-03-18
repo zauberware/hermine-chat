@@ -45,13 +45,13 @@ export const getTheme = async (
   accountId: string,
 ): Promise<ITheme> => {
   const fetchConfig = createFetchConfig(agentSlug, accountId);
-  console.log("fetchConfig", fetchConfig);
+  console.debug("fetchConfig", fetchConfig);
   // TODO: change route
   const response = await fetch(
     "http://localhost:3000/api/v1/account_theme",
     fetchConfig,
   );
   const json = await response.json();
-  console.log("response json: ", json);
+  console.debug("response json: ", json);
   return json || {};
 };

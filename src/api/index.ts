@@ -1,5 +1,10 @@
 const BASE_URL = "http://localhost:3000";
 
+const CONVERSATION_KEY = "hermine_conversation_ids";
+
+export const resetLocalConversation = () =>
+  localStorage.removeItem(CONVERSATION_KEY);
+
 export const createConversation = async (
   accountId: string,
   agentSlug: string,
@@ -11,9 +16,7 @@ export const createConversation = async (
   });
 
   const jsonText = await response.json();
-  const localConversationIdsString = localStorage.getItem(
-    "hermine_conversation_ids",
-  );
+  const localConversationIdsString = localStorage.getItem(CONVERSATION_KEY);
   if (localConversationIdsString) {
     const localConversationIds = JSON.parse(localConversationIdsString);
     const newLocalConversationIds = [
@@ -21,12 +24,12 @@ export const createConversation = async (
       ...localConversationIds,
     ];
     localStorage.setItem(
-      "hermine_conversation_ids",
+      CONVERSATION_KEY,
       JSON.stringify(newLocalConversationIds),
     );
   } else {
     localStorage.setItem(
-      "hermine_conversation_ids",
+      CONVERSATION_KEY,
       JSON.stringify([jsonText.conversation_id]),
     );
   }
@@ -55,6 +58,6 @@ export const getConversation = async (
   fetchConfig: RequestInit,
 ) => {
   const url = `${BASE_URL}/conversations/${conversationId}`;
-  const response = await fetch(url, { ...fetchConfig, cache: 'no-cache'});
+  const response = await fetch(url, { ...fetchConfig, cache: "no-cache" });
   return await response.json();
 };
