@@ -22,7 +22,12 @@ const FloatingContainer: React.FC<FloatingContainerProps> = () => {
 
   useEffect(() => {
     const fetchTheme = async () => {
-      const newTheme = await getTheme(settings.agentSlug, settings.accountId);
+      const newTheme = await getTheme(
+        settings.agentSlug,
+        settings.accountId,
+        settings.target,
+      );
+
       setTheme(newTheme);
     };
 
@@ -54,7 +59,7 @@ const FloatingContainer: React.FC<FloatingContainerProps> = () => {
     const getSubscription = async () => {
       const newConversationId = await getConversationId();
       setConversationId(newConversationId);
-      subscribeChannel(newConversationId, onNewMessage);
+      subscribeChannel(newConversationId, settings.target, onNewMessage);
     };
     if (toggled) {
       getSubscription();

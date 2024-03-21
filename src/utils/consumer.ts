@@ -1,4 +1,6 @@
 import { createConsumer } from "@rails/actioncable";
 
-// TODO: change route
-export default createConsumer("ws://localhost:3000/cable");
+const DEFAULT_BASE_URL = "https://hermine.ai";
+
+export default (baseUrl: string = DEFAULT_BASE_URL) =>
+  createConsumer(`${baseUrl.replace('http', 'ws')}/cable`);

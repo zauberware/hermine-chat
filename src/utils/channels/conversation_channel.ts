@@ -1,10 +1,13 @@
 import consumer from "../consumer";
 
+const DEFAULT_BASE_URL = "https://hermine.ai";
+
 export const subscribeChannel = (
   conversationId: string,
+  baseUrl: string = DEFAULT_BASE_URL,
   receiced: (data: any) => void,
 ) => {
-  return consumer.subscriptions.create(
+  return consumer(baseUrl).subscriptions.create(
     {
       channel: "ChatbotChannel",
       conversation_id: conversationId,

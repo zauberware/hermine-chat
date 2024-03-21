@@ -88,12 +88,13 @@ export const getConversation = async (
 export const getTheme = async (
   agentSlug: string,
   accountId: string,
+  baseUrl: string = DEFAULT_BASE_URL,
 ): Promise<ITheme> => {
   const fetchConfig = createFetchConfig(agentSlug, accountId);
   console.debug("fetchConfig", fetchConfig);
   // TODO: change route
   const response = await fetch(
-    "http://localhost:3000/api/v1/account_theme",
+    `http://${baseUrl}/api/v1/account_theme`,
     fetchConfig,
   );
   const json = await response.json();
