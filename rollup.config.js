@@ -14,11 +14,11 @@ export default [
   {
     input: "src/index.tsx",
     output: [
-      {
-        file: packageJson.cjs,
-        format: "cjs",
-        sourcemap: true,
-      },
+      // {
+      //   file: packageJson.cjs,
+      //   format: "cjs",
+      //   sourcemap: true,
+      // },
       {
         file: packageJson.module,
         format: "esm",
@@ -34,7 +34,7 @@ export default [
       terser(),
       postcss(),
       svgr(),
-    ],
+    ]
     // external: {
     //   react: "https://unpkg.com/react@18/umd/react.production.min.js",
     //   "react-dom":

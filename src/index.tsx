@@ -8,6 +8,7 @@ const HermineChat = (settings: ISettings) => {
   const defaultSettings = {
     location: "bottom",
     chatTitle: "KI-Chat",
+    target: 'https://hermine.ai',
     buttonColor: "white",
     buttonBackgroundColor: "#A01F53",
     userMessageColor: "white",

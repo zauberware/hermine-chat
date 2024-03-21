@@ -2,11 +2,11 @@ import React, { useEffect, useState } from "react";
 import "./FloatingContainer.css";
 import { FloatingContainerProps } from "./FloatingContainer.types";
 import ChatWindow from "../chatWindow";
-import { createFetchConfig, getTheme } from "../../utils";
+import { createFetchConfig } from "../../utils";
 import FloatingButton from "../floatingButton/FloatingButton";
 import { subscribeChannel } from "../../utils/channels/conversation_channel";
 import { useSettings } from "../../context";
-import { createConversation } from "../../api";
+import { createConversation, getTheme } from "../../api";
 
 const FloatingContainer: React.FC<FloatingContainerProps> = () => {
   const [toggled, setToggled] = useState<boolean>(false);
@@ -31,7 +31,7 @@ const FloatingContainer: React.FC<FloatingContainerProps> = () => {
 
   const onNewMessage = async (data: any) => {
     console.debug("new message received: ", data);
-    fetchConversation()
+    fetchConversation();
   };
 
   useEffect(() => {
@@ -45,6 +45,7 @@ const FloatingContainer: React.FC<FloatingContainerProps> = () => {
       const response = await createConversation(
         settings.accountId,
         settings.agentSlug,
+        settings.target,
         createFetchConfig(settings.agentSlug, settings.accountId),
       );
       return response;

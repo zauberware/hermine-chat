@@ -8,7 +8,6 @@ import Close from "../../assets/images/close.svg";
 import Send from "../../assets/images/send.svg";
 import "./ChatWindow.css";
 import { ChatWindowProps } from "./ChatWindow.types";
-import { warn } from "console";
 import { useTranslation } from "react-i18next";
 
 const ChatWindow: React.FC<ChatWindowProps> = ({ close }) => {
@@ -39,10 +38,15 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ close }) => {
     e.preventDefault();
     const formData = new FormData(e.target);
     const { message } = Object.fromEntries(formData);
-    const response = await sendMessage(message, conversationId as string, {
-      ...fetchConfig,
-      method: "POST",
-    });
+    const response = await sendMessage(
+      message,
+      conversationId as string,
+      settings.target,
+      {
+        ...fetchConfig,
+        method: "POST",
+      },
+    );
     e.target.reset();
     console.debug("response of message create: ", response);
     fetchConversation();

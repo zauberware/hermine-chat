@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState } from "react";
-import { getConversation, resetLocalConversation } from "../api";
-import { createFetchConfig, ITheme } from "../utils";
+import { getConversation, resetLocalConversation, ITheme } from "../api";
+import { createFetchConfig } from "../utils";
 
 export interface ISettings {
   agentSlug: string;
@@ -10,6 +10,7 @@ export interface ISettings {
   spacingTop?: string;
   spacingRight?: string;
   buttonColor?: string;
+  target?: string;
   floatingButtonBorderColor?: string;
   buttonBackgroundColor?: string;
   userMessageColor?: string;
@@ -109,6 +110,7 @@ const SettingsContextProvider = ({
     if (conversationId) {
       const conversation = await getConversation(
         conversationId,
+        settings?.target,
         createFetchConfig(settings.agentSlug, settings.accountId),
       );
       setConversation(conversation as IConversation);
