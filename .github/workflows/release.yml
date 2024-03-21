@@ -2,8 +2,9 @@ name: Publish Package to npmjs
 # change branch name to re-enable pipeline
 
 on:
-  release:
-    types: [published]
+  push:
+    tags:
+      - '*'
 
 jobs:
   build:
@@ -20,19 +21,35 @@ jobs:
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-node-
+
       - name: npm ci
         run: |
           npm ci
+
       - name: Build esm package
         run: |
           npm run rollup
+
+      - name: version
+        run: echo "::set-output name=version::$(./bin/azblogfilter --version)"
+        id: version
+
+      - name: release
+        uses: actions/create-release@v1
+        id: create_release
+        artifacts: |
+          dist
+        with:
+          draft: false
+          prerelease: false
+          release_name: ${{ steps.version.outputs.version }}
+          tag_name: ${{ github.ref }}
+          body_path: CHANGELOG.md
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+
       - name: Deploy to npm
         run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-      - name: Archive production artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: dist
-          path: |
-            dist
+
