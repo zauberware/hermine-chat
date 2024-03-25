@@ -82,7 +82,7 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ close }) => {
   return (
     <animated.div
       style={styles}
-      className="flex flex-col flex-grow h-auto bg-white shadow-2xl rounded-lg overflow-hidden max-h-1-2 chat-window relative"
+      className="flex flex-col flex-grow h-auto bg-white shadow-2xl rounded-lg overflow-hidden chat-window relative"
     >
       {privacyAccepted ? null : (
         <div className="absolute w-full h-full bg-gray-100 flex justify-center items-center text-center p-5 flex-col">
@@ -114,7 +114,7 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ close }) => {
         </div>
       </div>
       <div className="flex flex-col flex-grow p-4 overflow-auto">
-        {conversation?.messages.map((message: IMessage, index: number) => (
+        {conversation?.messages?.map((message: IMessage, index: number) => (
           <ChatMessage
             key={`${message.id}-${message.result}`}
             message={message}

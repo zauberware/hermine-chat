@@ -2,13 +2,12 @@ body {
   --primary: #9D174D;
 }
 
-.max-h-1-2 {
+.chat-window {
   max-height: 90vh;
   @media screen and (min-width: 480px) {
-    max-height: 50vh;
+    max-height: 70vh;
   }
-}
-.chat-window {
+  min-height: 50vh;
   transition: ease-in-out 1s;
   width: 100%;
   @media screen and (min-width: 480px) {

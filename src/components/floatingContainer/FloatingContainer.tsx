@@ -32,7 +32,7 @@ const FloatingContainer: React.FC<FloatingContainerProps> = () => {
     };
 
     fetchTheme();
-  }, []);
+  }, [settings?.target]);
 
   const onNewMessage = async (data: any) => {
     console.debug("new message received: ", data);
@@ -64,7 +64,7 @@ const FloatingContainer: React.FC<FloatingContainerProps> = () => {
     if (toggled) {
       getSubscription();
     }
-  }, [toggled]);
+  }, [toggled, settings.target]);
 
   useEffect(() => {
     if (conversationId) {

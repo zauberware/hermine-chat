@@ -1,4 +1,3 @@
-import moment from "moment";
 import React from "react";
 import Markdown from "react-markdown";
 import Icon from "../../assets/images/logo.svg";

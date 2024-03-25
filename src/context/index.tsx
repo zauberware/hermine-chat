@@ -132,8 +132,8 @@ const SettingsContextProvider = ({
     if (conversationId) {
       const conversation = await getConversation(
         conversationId,
-        settings?.target,
-        createFetchConfig(settings.agentSlug, settings.accountId),
+        stateSettings.target,
+        createFetchConfig(stateSettings.agentSlug, stateSettings.accountId),
       );
       setConversation(conversation as IConversation);
       console.debug("message", message);
