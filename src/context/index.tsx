@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
 import { getConversation, resetLocalConversation, ITheme } from "../api";
 import { createFetchConfig } from "../utils";
 
@@ -24,6 +24,7 @@ export interface IMessage {
   conversation_id: string;
   id: string;
   updated_at: string;
+  has_errors: boolean;
 }
 
 export interface IConversation {
@@ -42,7 +43,7 @@ export interface SettingsProps {
   setSettings: React.Dispatch<React.SetStateAction<ISettings>>;
   conversationId?: string;
   setConversationId: React.Dispatch<React.SetStateAction<string | undefined>>;
-  fetchConversation: () => void;
+  fetchConversation: (message?: any) => void;
   resetConversation: () => void;
 }
 
@@ -106,7 +107,26 @@ const SettingsContextProvider = ({
     setTimeout(() => getConversationId(), 1000);
   };
 
-  const fetchConversation = async () => {
+  useEffect(() => {
+    checkAndRefetchConversation();
+  }, [conversation?.messages]);
+
+  const checkAndRefetchConversation = () => {
+    if (conversation?.messages) {
+      const lastAIMessage = conversation.messages
+        .reverse()
+        .find((m) => m.message_type === "ai");
+      console.debug("lastAIMessage", lastAIMessage);
+      if (lastAIMessage?.result === "..." && !lastAIMessage?.has_errors) {
+        setTimeout(() => {
+          console.debug("[*] refetching in 2000ms ...");
+          fetchConversation(lastAIMessage);
+        }, 2000);
+      }
+    }
+  };
+
+  const fetchConversation = async (message?: any) => {
     if (conversationId) {
       const conversation = await getConversation(
         conversationId,
@@ -114,6 +134,10 @@ const SettingsContextProvider = ({
         createFetchConfig(settings.agentSlug, settings.accountId),
       );
       setConversation(conversation as IConversation);
+      console.debug("message", message);
+      if (message?.result === "..." || message?.result === null) {
+        checkAndRefetchConversation();
+      }
     }
   };
 

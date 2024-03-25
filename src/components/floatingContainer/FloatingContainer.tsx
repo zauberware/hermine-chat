@@ -36,7 +36,7 @@ const FloatingContainer: React.FC<FloatingContainerProps> = () => {
 
   const onNewMessage = async (data: any) => {
     console.debug("new message received: ", data);
-    fetchConversation();
+    fetchConversation(data);
   };
 
   useEffect(() => {
