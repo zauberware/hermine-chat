@@ -103,6 +103,7 @@ const SettingsContextProvider = ({
 
   const resetConversation = () => {
     resetLocalConversation();
+    setConversation(undefined);
     setConversationId(undefined);
     setTimeout(() => getConversationId(), 1000);
   };
