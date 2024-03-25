@@ -80,7 +80,7 @@ export const getConversation = async (
   baseUrl: string = DEFAULT_BASE_URL,
   fetchConfig: RequestInit,
 ) => {
-  const url = `${baseUrl}/conversations/${conversationId}`;
+  const url = `${baseUrl}/chat/conversations/${conversationId}`;
   const response = await fetch(url, { ...fetchConfig, cache: "no-cache" });
   return await response.json();
 };
@@ -92,11 +92,7 @@ export const getTheme = async (
 ): Promise<ITheme> => {
   const fetchConfig = createFetchConfig(agentSlug, accountId);
   console.debug("fetchConfig", fetchConfig);
-  // TODO: change route
-  const response = await fetch(
-    `http://${baseUrl}/api/v1/account_theme`,
-    fetchConfig,
-  );
+  const response = await fetch(`${baseUrl}/chat/account_theme`, fetchConfig);
   const json = await response.json();
   console.debug("response json: ", json);
   return json || {};
