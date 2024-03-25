@@ -30,6 +30,7 @@ export interface IMessage {
 export interface IConversation {
   id?: string;
   messages: IMessage[];
+  privacyDisclaimer?: any;
 }
 
 export interface SettingsProps {
@@ -115,8 +116,8 @@ const SettingsContextProvider = ({
   const checkAndRefetchConversation = () => {
     if (conversation?.messages) {
       const lastAIMessage = conversation.messages
-        .reverse()
-        .find((m) => m.message_type === "ai");
+        ?.reverse()
+        ?.find((m) => m.message_type === "ai");
       console.debug("lastAIMessage", lastAIMessage);
       if (lastAIMessage?.result === "..." && !lastAIMessage?.has_errors) {
         setTimeout(() => {

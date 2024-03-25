@@ -535,6 +535,14 @@ video {
   --tw-backdrop-sepia:  ;
 }
 
+#hermine-chat-container :is(.absolute) {
+  position: absolute;
+}
+
+#hermine-chat-container :is(.relative) {
+  position: relative;
+}
+
 #hermine-chat-container :is(.col-auto) {
   grid-column: auto;
 }
@@ -559,6 +567,10 @@ video {
   display: block;
 }
 
+#hermine-chat-container :is(.inline) {
+  display: inline;
+}
+
 #hermine-chat-container :is(.flex) {
   display: flex;
 }
@@ -569,6 +581,10 @@ video {
 
 #hermine-chat-container :is(.h-auto) {
   height: auto;
+}
+
+#hermine-chat-container :is(.h-full) {
+  height: 100%;
 }
 
 #hermine-chat-container :is(.w-10) {
@@ -617,6 +633,10 @@ video {
   justify-content: flex-end;
 }
 
+#hermine-chat-container :is(.justify-center) {
+  justify-content: center;
+}
+
 #hermine-chat-container :is(.space-x-3 > :not([hidden]) ~ :not([hidden])) {
   --tw-space-x-reverse: 0;
   margin-right: calc(0.75rem * var(--tw-space-x-reverse));
@@ -633,6 +653,10 @@ video {
 
 #hermine-chat-container :is(.overflow-hidden) {
   overflow: hidden;
+}
+
+#hermine-chat-container :is(.rounded) {
+  border-radius: 0.25rem;
 }
 
 #hermine-chat-container :is(.rounded-full) {
@@ -692,6 +716,11 @@ video {
   border-top-color: transparent;
 }
 
+#hermine-chat-container :is(.bg-gray-100) {
+  --tw-bg-opacity: 1;
+  background-color: rgb(243 244 246 / var(--tw-bg-opacity));
+}
+
 #hermine-chat-container :is(.bg-gray-200) {
   --tw-bg-opacity: 1;
   background-color: rgb(229 231 235 / var(--tw-bg-opacity));
@@ -719,12 +748,20 @@ video {
   background-repeat: no-repeat;
 }
 
+#hermine-chat-container :is(.p-2) {
+  padding: 0.5rem;
+}
+
 #hermine-chat-container :is(.p-3) {
   padding: 0.75rem;
 }
 
 #hermine-chat-container :is(.p-4) {
   padding: 1rem;
+}
+
+#hermine-chat-container :is(.p-5) {
+  padding: 1.25rem;
 }
 
 #hermine-chat-container :is(.px-3) {

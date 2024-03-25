@@ -1,4 +1,5 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
+import Markdown from "react-markdown";
 import { animated, useSpring } from "@react-spring/web";
 import { sendMessage } from "../../api";
 import { IMessage, useSettings } from "../../context";
@@ -20,7 +21,7 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ close }) => {
     },
     delay: 0,
     config: {
-      duration: 0.2,
+      duration: 0.1,
     },
   });
   const {
@@ -53,6 +54,7 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ close }) => {
     lastMessage?.current?.scrollIntoView({
       behavior: "smooth",
       block: "end",
+      inline: "end",
     });
   };
 
@@ -69,11 +71,39 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ close }) => {
     });
   }, [lastMessage, conversation?.messages]);
 
+  const PRIVACY_KEY = "hermine_chat_privacy_accepted";
+  const [privacyAccepted, setPrivacyAccepted] = useState<boolean>(
+    localStorage.getItem(PRIVACY_KEY) === "true",
+  );
+  const onAgreePrivacy = () => {
+    localStorage.setItem(PRIVACY_KEY, "true");
+    setPrivacyAccepted(true);
+  };
   return (
     <animated.div
       style={styles}
-      className="flex flex-col flex-grow h-auto bg-white shadow-2xl rounded-lg overflow-hidden max-h-1-2 chat-window"
+      className="flex flex-col flex-grow h-auto bg-white shadow-2xl rounded-lg overflow-hidden max-h-1-2 chat-window relative"
     >
+      {privacyAccepted ? null : (
+        <div className="absolute w-full h-full bg-gray-100 flex justify-center items-center text-center p-5 flex-col">
+          <div className="p-5">
+            <Markdown>{conversation?.privacyDisclaimer}</Markdown>
+          </div>
+          <div>
+            <button
+              style={{
+                background: settings.buttonBackgroundColor,
+                color: settings.buttonColor,
+              }}
+              className="w-auto text-center p-2 rounded hover:opacity-90"
+              type="button"
+              onClick={onAgreePrivacy}
+            >
+              {t("acceptPrivacy")}
+            </button>
+          </div>
+        </div>
+      )}
       <div className="row bg-gray-200 text-center p-4 flex">
         <div className="col-auto text-center">{settings.chatTitle}</div>
         <div
