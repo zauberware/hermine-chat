@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
 import Markdown from "react-markdown";
-import { animated, useSpring } from "@react-spring/web";
 import { sendMessage } from "../../api";
 import { IMessage, useSettings } from "../../context";
 import { createFetchConfig } from "../../utils";
@@ -12,18 +11,6 @@ import { ChatWindowProps } from "./ChatWindow.types";
 import { useTranslation } from "react-i18next";
 
 const ChatWindow: React.FC<ChatWindowProps> = ({ close }) => {
-  const styles = useSpring({
-    from: {
-      opacity: 0,
-    },
-    to: {
-      opacity: 1,
-    },
-    delay: 0,
-    config: {
-      duration: 0.1,
-    },
-  });
   const {
     settings,
     resetConversation,
@@ -80,8 +67,7 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ close }) => {
     setPrivacyAccepted(true);
   };
   return (
-    <animated.div
-      style={styles}
+    <div
       className="flex flex-col flex-grow h-auto bg-white shadow-2xl rounded-lg overflow-hidden chat-window relative"
     >
       {privacyAccepted ? null : (
@@ -154,7 +140,7 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ close }) => {
           </button>
         </div>
       </div>
-    </animated.div>
+    </div>
   );
 };
 
