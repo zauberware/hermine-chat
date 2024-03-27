@@ -75,6 +75,7 @@ const FloatingContainer: React.FC<FloatingContainerProps> = () => {
     ...(settings.spacingTop ? { marginTop: settings.spacingTop } : {}),
     ...(settings.spacingBottom ? { marginBottom: settings.spacingBottom } : {}),
     ...(settings.spacingRight ? { marginRight: settings.spacingRight } : {}),
+    ...(settings.fontFamily ? { fontFamily: settings.fontFamily } : {}),
   };
 
   const close = () => setToggled(false);

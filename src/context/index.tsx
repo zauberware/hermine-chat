@@ -11,6 +11,7 @@ export interface ISettings {
   spacingRight?: string;
   buttonColor?: string;
   target?: string;
+  fontFamily?: string;
   floatingButtonBorderColor?: string;
   buttonBackgroundColor?: string;
   userMessageColor?: string;

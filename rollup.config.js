@@ -7,6 +7,9 @@ import peerDepsExternal from "rollup-plugin-peer-deps-external";
 import postcss from "rollup-plugin-postcss";
 import svgr from "@svgr/rollup";
 import json from "@rollup/plugin-json";
+import { babel } from "@rollup/plugin-babel";
+import progress from "rollup-plugin-progress";
+import filesize from "rollup-plugin-filesize";
 
 const packageJson = require("./package.json");
 
@@ -26,15 +29,21 @@ export default [
       },
     ],
     plugins: [
+      progress(),
       peerDepsExternal(),
       resolve(),
-      commonjs(),
-      typescript({ tsconfig: "./tsconfig.json" }),
       json(),
+      filesize(),
       terser(),
       postcss(),
       svgr(),
-    ]
+      typescript({ tsconfig: "./tsconfig.json" }),
+      // babel({
+      //   babelHelpers: "bundled",
+      //   presets: ["@babel/preset-react"],
+      // }),
+      commonjs(),
+    ],
     // external: {
     //   react: "https://unpkg.com/react@18/umd/react.production.min.js",
     //   "react-dom":
