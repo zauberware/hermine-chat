@@ -7,6 +7,7 @@ import FloatingButton from "../floatingButton/FloatingButton";
 import { subscribeChannel } from "../../utils/channels/conversation_channel";
 import { useSettings } from "../../context";
 import { createConversation, getTheme } from "../../api";
+import { useResponsive } from "../../utils/hooks";
 
 const FloatingContainer: React.FC<FloatingContainerProps> = () => {
   const [toggled, setToggled] = useState<boolean>(false);
@@ -71,6 +72,12 @@ const FloatingContainer: React.FC<FloatingContainerProps> = () => {
       fetchConversation();
     }
   }, [conversationId]);
+  const { isMobile } = useResponsive();
+
+  const mobileStyle = {
+    ...(settings.fontFamily ? { fontFamily: settings.fontFamily } : {}),
+  }
+
   const style = {
     ...(settings.spacingTop ? { marginTop: settings.spacingTop } : {}),
     ...(settings.spacingBottom ? { marginBottom: settings.spacingBottom } : {}),
@@ -82,7 +89,7 @@ const FloatingContainer: React.FC<FloatingContainerProps> = () => {
 
   return (
     <div
-      style={style}
+      style={isMobile ? mobileStyle : style}
       className={`floating-container floating-container-${settings.location}`}
     >
       {toggled && <ChatWindow close={close} theme={theme} />}

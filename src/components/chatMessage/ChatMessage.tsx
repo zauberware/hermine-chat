@@ -6,11 +6,10 @@ import { getLogoUrl } from "../../utils";
 import "./ChatMessage.css";
 import { ChatMessageProps } from "./ChatMessage.types";
 
-const ChatMessage: React.FC<ChatMessageProps> = ({ message, lastMessage }) => {
+const ChatMessage: React.FC<ChatMessageProps> = ({ message }) => {
   const { theme, settings } = useSettings();
   const renderAiMessage = () => (
     <div
-      ref={lastMessage}
       id={message.id}
       className="flex w-full mt-2 space-x-3"
     >
@@ -46,7 +45,6 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ message, lastMessage }) => {
 
   const renderHumanMessage = () => (
     <div
-      ref={lastMessage}
       id={message.id}
       className="flex w-full mt-2 space-x-3 ml-auto justify-end"
     >

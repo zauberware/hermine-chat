@@ -4,13 +4,11 @@ body {
 
 .chat-window {
   max-height: 90vh;
-  @media screen and (min-width: 480px) {
-    max-height: 70vh;
-  }
   min-height: 50vh;
   transition: ease-in-out 1s;
   width: 100%;
   @media screen and (min-width: 480px) {
+    max-height: 70vh;
     width: 500px;
   }
 }
@@ -22,17 +20,10 @@ body {
 
 @keyframes fadeInFromNone {
     0% {
-        display: none;
-        opacity: 0;
-    }
-
-    1% {
-        display: block;
         opacity: 0;
     }
 
     100% {
-        display: block;
         opacity: 1;
     }
 }

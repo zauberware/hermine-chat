@@ -563,14 +563,6 @@ video {
   margin-top: 0.5rem;
 }
 
-#hermine-chat-container :is(.block) {
-  display: block;
-}
-
-#hermine-chat-container :is(.inline) {
-  display: inline;
-}
-
 #hermine-chat-container :is(.flex) {
   display: flex;
 }
@@ -619,6 +611,10 @@ video {
 
 #hermine-chat-container :is(.cursor-pointer) {
   cursor: pointer;
+}
+
+#hermine-chat-container :is(.resize) {
+  resize: both;
 }
 
 #hermine-chat-container :is(.flex-col) {
@@ -814,9 +810,9 @@ video {
   color: rgb(55 65 81 / var(--tw-text-opacity));
 }
 
-#hermine-chat-container :is(.shadow-2xl) {
-  --tw-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);
-  --tw-shadow-colored: 0 25px 50px -12px var(--tw-shadow-color);
+#hermine-chat-container :is(.shadow-xl) {
+  --tw-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+  --tw-shadow-colored: 0 20px 25px -5px var(--tw-shadow-color), 0 8px 10px -6px var(--tw-shadow-color);
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
 }
 
