@@ -46,10 +46,19 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ github.token }}
 
-      - name: Upload Sentry source maps
-        run: npx @sentry/wizard@latest -i sourcemaps
+      - name: Sentry Release
+        uses: getsentry/action-release@v1.4.1
         env:
           SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+          SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
+          SENTRY_PROJECT: ${{ secrets.SENTRY_PROJECT }}
+          SENTRY_URL: ${{ secrets.SENTRY_URL }}
+        with:
+          environment: production
+          sourcemaps: './dist/esm/'
+          ignore_missing: true
+          ignore_empty: true
+          version: ${{ steps.version.outputs.version }}
 
       - name: Deploy to npm
         run: npm publish
