@@ -114,11 +114,14 @@ const SettingsContextProvider = ({
     checkAndRefetchConversation();
   }, [conversation?.messages]);
 
+  const getLastAiMessage = (arr: any[]) => {
+    const aiMessages = arr?.filter((m) => m.message_type === "ai");
+    return aiMessages[arr.length];
+  };
+
   const checkAndRefetchConversation = () => {
     if (conversation?.messages) {
-      const lastAIMessage = conversation.messages
-        ?.reverse()
-        ?.find((m) => m.message_type === "ai");
+      const lastAIMessage = getLastAiMessage(conversation.messages);
       console.debug("lastAIMessage", lastAIMessage);
       if (lastAIMessage?.result === "..." && !lastAIMessage?.has_errors) {
         setTimeout(() => {
@@ -136,11 +139,22 @@ const SettingsContextProvider = ({
         stateSettings.target,
         createFetchConfig(stateSettings.agentSlug, stateSettings.accountId),
       );
-      setConversation(conversation as IConversation);
-      console.debug("message", message);
-      if (message?.result === "..." || message?.result === null) {
+
+      let messages = conversation.messages;
+      // issue: new message is available in socket but not http-request
+      // if message.result present, but last message not, set it here
+      if (message?.result && message.result !== "...") {
+        const lastAIMessage = getLastAiMessage(messages);
+        if (!lastAIMessage?.result || lastAIMessage?.result === "...") {
+          messages.pop();
+          messages.push({ ...message, message_type: "ai" });
+        }
+      } else {
         checkAndRefetchConversation();
       }
+
+      setConversation({ ...conversation, messages } as IConversation);
+      console.debug("message", message);
     }
   };
 

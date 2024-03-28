@@ -38,7 +38,7 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ close }) => {
     e.target.reset();
     console.debug("response of message create: ", response);
     fetchConversation();
-    scrollToLastMessage();
+    setTimeout(scrollToLastMessage, 200);
   };
 
   const onResetChat = async (e: any) => {
@@ -48,6 +48,7 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ close }) => {
   };
 
   const scrollToLastMessage = () => {
+    console.log("scrolling...");
     chatContainer.current?.scrollTo({ top: 9999, behavior: "smooth" });
   };
 
@@ -63,6 +64,7 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ close }) => {
     localStorage.setItem(PRIVACY_KEY, "true");
     setPrivacyAccepted(true);
   };
+  console.log("conversation.messages", conversation?.messages);
   return (
     <div className="flex flex-col flex-grow h-auto bg-white shadow-xl rounded-lg chat-window relative">
       {privacyAccepted ? (
@@ -80,7 +82,7 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ close }) => {
             ref={chatContainer}
             className="flex flex-col flex-grow p-4 overflow-auto"
           >
-            {conversation?.messages?.map((message: IMessage, index: number) => (
+            {conversation?.messages?.map((message: IMessage) => (
               <ChatMessage
                 key={`${message.id}-${message.result}`}
                 message={message}

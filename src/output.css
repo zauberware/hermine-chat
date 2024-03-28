@@ -820,6 +820,10 @@ video {
   outline-width: 0px;
 }
 
+#hermine-chat-container :is(.filter) {
+  filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
+}
+
 #hermine-chat-container :is(.hover\:text-gray-400:hover) {
   --tw-text-opacity: 1;
   color: rgb(156 163 175 / var(--tw-text-opacity));
