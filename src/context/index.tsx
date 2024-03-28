@@ -133,9 +133,12 @@ const SettingsContextProvider = ({
   };
 
   const fetchConversation = async (message?: any) => {
-    if (conversationId) {
+    console.debug("message in fetchConversation", message);
+    console.debug("conversationId", conversationId);
+    console.debug("message.conversation_id", message?.conversation_id);
+    if (conversationId || message?.conversation_id) {
       const conversation = await getConversation(
-        conversationId,
+        conversationId || message?.conversation_id,
         stateSettings.target,
         createFetchConfig(stateSettings.agentSlug, stateSettings.accountId),
       );
@@ -143,13 +146,16 @@ const SettingsContextProvider = ({
       let messages = conversation.messages;
       // issue: new message is available in socket but not http-request
       // if message.result present, but last message not, set it here
+      console.debug("message?.result", message?.result);
       if (message?.result && message.result !== "...") {
         const lastAIMessage = getLastAiMessage(messages);
+        console.debug("lastAIMessage?.result", lastAIMessage?.result);
         if (!lastAIMessage?.result || lastAIMessage?.result === "...") {
           messages.pop();
           messages.push({ ...message, message_type: "ai" });
         }
       } else {
+        console.debug("init refetch", message);
         checkAndRefetchConversation();
       }
 

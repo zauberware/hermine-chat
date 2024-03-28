@@ -48,7 +48,7 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ close }) => {
   };
 
   const scrollToLastMessage = () => {
-    console.log("scrolling...");
+    console.debug("scrolling...");
     chatContainer.current?.scrollTo({ top: 9999, behavior: "smooth" });
   };
 
@@ -64,7 +64,7 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ close }) => {
     localStorage.setItem(PRIVACY_KEY, "true");
     setPrivacyAccepted(true);
   };
-  console.log("conversation.messages", conversation?.messages);
+  console.debug("conversation.messages", conversation?.messages);
   return (
     <div className="flex flex-col flex-grow h-auto bg-white shadow-xl rounded-lg chat-window relative">
       {privacyAccepted ? (
