@@ -39,3 +39,6 @@ task.json
 
 # Distribution
 /dist
+
+# Sentry Config File
+.env.sentry-build-plugin

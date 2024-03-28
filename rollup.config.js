@@ -7,9 +7,9 @@ import peerDepsExternal from "rollup-plugin-peer-deps-external";
 import postcss from "rollup-plugin-postcss";
 import svgr from "@svgr/rollup";
 import json from "@rollup/plugin-json";
-import { babel } from "@rollup/plugin-babel";
 import progress from "rollup-plugin-progress";
 import filesize from "rollup-plugin-filesize";
+import { sentryRollupPlugin } from "@sentry/rollup-plugin";
 
 const packageJson = require("./package.json");
 
@@ -17,11 +17,6 @@ export default [
   {
     input: "src/index.tsx",
     output: [
-      // {
-      //   file: packageJson.cjs,
-      //   format: "cjs",
-      //   sourcemap: true,
-      // },
       {
         file: packageJson.module,
         format: "esm",
@@ -38,11 +33,13 @@ export default [
       postcss(),
       svgr(),
       typescript({ tsconfig: "./tsconfig.json" }),
-      // babel({
-      //   babelHelpers: "bundled",
-      //   presets: ["@babel/preset-react"],
-      // }),
       commonjs(),
+      sentryRollupPlugin({
+        authToken: process.env.SENTRY_AUTH_TOKEN,
+        org: process.env.SENTRY_ORG,
+        project: process.env.SENTRY_PROJECT,
+        url: process.env.SENTRY_URL,
+      }),
     ],
     // external: {
     //   react: "https://unpkg.com/react@18/umd/react.production.min.js",

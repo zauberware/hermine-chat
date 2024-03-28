@@ -46,6 +46,11 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ github.token }}
 
+      - name: Upload Sentry source maps
+        run: npx @sentry/wizard@latest -i sourcemaps
+        env:
+          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+
       - name: Deploy to npm
         run: npm publish
         env:
