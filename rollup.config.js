@@ -9,6 +9,7 @@ import svgr from "@svgr/rollup";
 import json from "@rollup/plugin-json";
 import progress from "rollup-plugin-progress";
 import filesize from "rollup-plugin-filesize";
+import replace from "rollup-plugin-replace";
 import { sentryRollupPlugin } from "@sentry/rollup-plugin";
 
 const packageJson = require("./package.json");
@@ -39,6 +40,9 @@ export default [
         org: process.env.SENTRY_ORG,
         project: process.env.SENTRY_PROJECT,
         url: process.env.SENTRY_URL,
+      }),
+      replace({
+        "process.env.NODE_ENV": JSON.stringify("production"),
       }),
     ],
     // external: {
