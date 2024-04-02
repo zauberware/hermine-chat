@@ -12,10 +12,29 @@ body {
   height: 70px;
   cursor: pointer;
   margin-left: 20px;
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-shrink: 0;
+}
+.floating-button:before,
+.floating-button:after {
+  content: "";
+  position: absolute;
+  left: 0;
+  border-radius: 50%;
+  background: white;
+  padding: 10px;
+  width: 68px;
+  height: 68px;
+  z-index: -1;
+}
+.floating-button:before {
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.30));
+}
+.floating-button:after {
+  filter: drop-shadow(0px 4px 4px rgba(255, 255, 255, 0.30));
 }
 
 .floating-button-top {
