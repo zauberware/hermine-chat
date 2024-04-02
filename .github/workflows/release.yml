@@ -68,7 +68,7 @@ jobs:
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
           localPath: "dist"
-          remotePath: "cdn/hermine-chat"
+          remotePath: "hermine-chat"
 
       - name: Deploy to npm
         run: npm publish
