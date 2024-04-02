@@ -82,6 +82,7 @@
     "identity-obj-proxy": "^3.0.0",
     "jest": "^27.5.1",
     "jest-environment-jsdom": "^29.7.0",
+    "react-error-overlay": "^6.0.9",
     "rollup": "^4.12.1",
     "rollup-plugin-dts": "^6.1.0",
     "rollup-plugin-node-resolve": "^5.2.0",
