@@ -30,7 +30,7 @@ HermineChat({
 Add import script tag.
 
 ```html
-<script type="module" src="https://hermine.ai/static/dist/esm/index.js" crossorigin="anonymous"></script>
+<script type="module" src="https://cdn.zauberware.com/hermine-chat/esm/index.js" crossorigin="anonymous"></script>
 ```
 
 Setup the Chat component by doing this:
