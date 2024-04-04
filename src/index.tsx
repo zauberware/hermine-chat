@@ -35,8 +35,8 @@ const HermineChat = (settings: ISettings) => {
     target: "https://hermine.ai",
     buttonColor: "white",
     buttonBackgroundColor: "#A01F53",
-    userMessageColor: "white",
-    userMessageBackgroundColor: "#A01F53",
+    messageColor: "white",
+    messageBackgroundColor: "#A01F53",
   };
   const mergedSettings = {
     ...defaultSettings,

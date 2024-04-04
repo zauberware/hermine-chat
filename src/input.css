@@ -1,3 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.reactMarkDown a {
+  text-decoration: underline;
+}

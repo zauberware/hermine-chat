@@ -8,6 +8,11 @@ import { ChatMessageProps } from "./ChatMessage.types";
 
 const ChatMessage: React.FC<ChatMessageProps> = ({ message }) => {
   const { theme, settings } = useSettings();
+
+  const messageStyle = {
+    color: settings.messageColor,
+    backgroundColor: settings.messageBackgroundColor,
+  };
   const renderAiMessage = () => (
     <div
       id={message.id}
@@ -22,12 +27,19 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ message }) => {
         className="flex-shrink-0 h-10 w-10 rounded-full bg-contain bg-center bg-no-repeat"
       ></div>
       <div>
-        <div className="bg-gray-300 p-3 rounded-r-lg rounded-bl-lg">
+        <div style={messageStyle} className="p-3 rounded-r-lg rounded-bl-lg">
           {message.result === "..." ? (
             <div className="w-10 h-10 rounded-full animate-spin border-4 border-dashed border-black border-t-transparent m-4"></div>
           ) : (
             <p className="text-sm mb-0">
-              <Markdown>{message.result}</Markdown>
+            <Markdown
+              components={{
+                a: ({ href, children, ...props }) => <a href={href} target="_blank" rel="noopener noreferrer" {...props}>{children}</a>,
+              }}
+              className="reactMarkDown"
+            >
+              {message.result}
+            </Markdown>
             </p>
           )}
         </div>
@@ -38,18 +50,13 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ message }) => {
     </div>
   );
 
-  const messageStyle = {
-    color: settings.userMessageColor,
-    backgroundColor: settings.userMessageBackgroundColor,
-  };
-
   const renderHumanMessage = () => (
     <div
       id={message.id}
       className="flex w-full mt-2 space-x-3 ml-auto justify-end"
     >
       <div>
-        <div style={messageStyle} className="p-3 rounded-l-lg rounded-br-lg">
+        <div className="bg-gray-300 p-3 rounded-l-lg rounded-br-lg">
           <p className="text-sm mb-0">{message.result}</p>
         </div>
         {/* <div className="text-xs text-gray-500 leading-none text-end pt-1 pb-2"> */}

@@ -27,3 +27,7 @@ body {
         opacity: 1;
     }
 }
+
+.reactMarkDown a {
+  text-decoration: underline;
+}

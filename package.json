@@ -31,7 +31,7 @@
     "tailwind": "tailwindcss -i ./src/input.css -o ./src/output.css",
     "tailwind-watch": "tailwindcss -i ./src/input.css -o ./src/output.css --watch",
     "rollup": "npm run tailwind | rollup -c --bundleConfigAsCjs",
-    "dev": "rollup -c --bundleConfigAsCjs -w",
+    "dev": "rollup -c rollup.dev.config.js --bundleConfigAsCjs",
     "test": "jest"
   },
   "eslintConfig": {

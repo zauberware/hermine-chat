@@ -123,7 +123,14 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ close }) => {
       ) : (
         <div className="absolute w-full h-full bg-gray-100 flex justify-center items-center text-center p-5 flex-col">
           <div className="p-5">
-            <Markdown>{conversation?.privacyDisclaimer}</Markdown>
+            <Markdown
+            components={{
+              a: ({ href, children, ...props }) => <a href={href} target="_blank" rel="noopener noreferrer" {...props}>{children}</a>,
+            }}
+              className="reactMarkDown"
+            >
+              {conversation?.privacyDisclaimer}
+            </Markdown>
           </div>
           <div>
             <button

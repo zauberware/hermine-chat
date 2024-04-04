@@ -60,8 +60,8 @@ If you put this in your html template file, do not forget to put it inside `<scr
 | `floatingButtonBorderColor`  | - | Border color of the floating button. | `css color` | `rgb(15, 15, 15) \| 'red' \| #e20` |
 | `buttonBackgroundColor`  | - | Background color of the send button. | `css color` | `rgb(15, 15, 15) \| 'red' \| #e20` |
 | `buttonColor`  | - | Text color of send button. | `css color` | `rgb(15, 15, 15) \| 'red' \| #e20` |
-| `userMessageColor`  | - | Text color of user message bubbles. | `css color` | `rgb(15, 15, 15) \| 'red' \| #e20` |
-| `userMessageBackgroundColor`  | - | Background color of user message bubbles. | `css color` | `rgb(15, 15, 15) \| 'red' \| #e20` |
+| `messageColor`  | - | Text color of ai message bubbles. | `css color` | `rgb(15, 15, 15) \| 'red' \| #e20` |
+| `messageBackgroundColor`  | - | Background color of ai message bubbles. | `css color` | `rgb(15, 15, 15) \| 'red' \| #e20` |
 
 ## FAQ
 

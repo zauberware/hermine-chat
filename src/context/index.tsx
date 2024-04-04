@@ -14,8 +14,8 @@ export interface ISettings {
   fontFamily?: string;
   floatingButtonBorderColor?: string;
   buttonBackgroundColor?: string;
-  userMessageColor?: string;
-  userMessageBackgroundColor?: string;
+  messageColor?: string;
+  messageBackgroundColor?: string;
   location?: "center" | "bottom" | "top";
 }
 
