@@ -75,6 +75,18 @@ export const sendMessage = async (
   return response.text;
 };
 
+export const retry = async (
+  messageId: any,
+  baseUrl: string = DEFAULT_BASE_URL,
+  fetchConfig: RequestInit,
+) => {
+  const url = `${baseUrl}/chat/conversations/${messageId}/rerun`;
+  const response = await fetch(url, {
+    ...fetchConfig,
+  });
+  return response.text;
+};
+
 export const getConversation = async (
   conversationId: string,
   baseUrl: string = DEFAULT_BASE_URL,

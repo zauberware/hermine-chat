@@ -769,6 +769,10 @@ video {
   padding-bottom: 0.5rem;
 }
 
+#hermine-chat-container :is(.pl-1) {
+  padding-left: 0.25rem;
+}
+
 #hermine-chat-container :is(.pt-1) {
   padding-top: 0.25rem;
 }
@@ -810,6 +814,10 @@ video {
   color: rgb(55 65 81 / var(--tw-text-opacity));
 }
 
+#hermine-chat-container :is(.underline) {
+  text-decoration-line: underline;
+}
+
 #hermine-chat-container :is(.shadow-xl) {
   --tw-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
   --tw-shadow-colored: 0 20px 25px -5px var(--tw-shadow-color), 0 8px 10px -6px var(--tw-shadow-color);
@@ -824,9 +832,18 @@ video {
   filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
 }
 
+.reactMarkDown a {
+  text-decoration: underline;
+}
+
 #hermine-chat-container :is(.hover\:text-gray-400:hover) {
   --tw-text-opacity: 1;
   color: rgb(156 163 175 / var(--tw-text-opacity));
+}
+
+#hermine-chat-container :is(.hover\:text-gray-700:hover) {
+  --tw-text-opacity: 1;
+  color: rgb(55 65 81 / var(--tw-text-opacity));
 }
 
 #hermine-chat-container :is(.hover\:underline:hover) {

@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import Markdown from "react-markdown";
-import { sendMessage } from "../../api";
+import { retry, sendMessage } from "../../api";
 import { IMessage, useSettings } from "../../context";
 import { createFetchConfig } from "../../utils";
 import ChatMessage from "../chatMessage";
@@ -40,6 +40,21 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ close }) => {
     fetchConversation();
     setTimeout(scrollToLastMessage, 200);
   };
+
+  const tryAgain = async (messageId: string) => {
+    console.debug('Initiating a retry of the latest message.')
+    const response = await retry(
+      messageId,
+      settings.target,
+      {
+        ...fetchConfig,
+        method: "POST",
+      },
+    );
+    console.debug("response of rerun api call: ", response);
+    fetchConversation();
+    setTimeout(scrollToLastMessage, 200);
+  }
 
   const onResetChat = async (e: any) => {
     e.preventDefault();
@@ -86,6 +101,7 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ close }) => {
               <ChatMessage
                 key={`${message.id}-${message.result}`}
                 message={message}
+                tryAgain={tryAgain}
               />
             ))}
           </div>
@@ -124,9 +140,9 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ close }) => {
         <div className="absolute w-full h-full bg-gray-100 flex justify-center items-center text-center p-5 flex-col">
           <div className="p-5">
             <Markdown
-            components={{
-              a: ({ href, children, ...props }) => <a href={href} target="_blank" rel="noopener noreferrer" {...props}>{children}</a>,
-            }}
+              components={{
+                a: ({ href, children, ...props }) => <a href={href} target="_blank" rel="noopener noreferrer" {...props}>{children}</a>,
+              }}
               className="reactMarkDown"
             >
               {conversation?.privacyDisclaimer}
