@@ -19,6 +19,7 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ message, tryAgain }) => {
   const messageStyle = {
     color: settings.messageColor,
     backgroundColor: settings.messageBackgroundColor,
+
   };
 
   const renderAiMessage = () => (
@@ -43,7 +44,7 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ message, tryAgain }) => {
           ) : (
             <>
               {message.result === "..." ? (
-                <div className="w-10 h-10 rounded-full animate-spin border-4 border-dashed border-black border-t-transparent m-4"></div>
+                <div style={{ borderColor: settings.messageColor }} className="w-10 h-10 rounded-full animate-spin border-4 border-dashed border-black border-t-transparent m-4"></div>
               ) : (
                 <p className="text-sm mb-0">
                   <Markdown
