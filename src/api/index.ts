@@ -87,14 +87,35 @@ export const retry = async (
   return response.text;
 };
 
+const getHeaders = (headers: any) => {
+  let headerObj: any = {};
+  const keys = headers.keys();
+  let header = keys.next();
+  while (header.value) {
+    headerObj[header.value] = headers.get(header.value);
+    header = keys.next();
+  }
+  return headerObj;
+};
+
 export const getConversation = async (
   conversationId: string,
   baseUrl: string = DEFAULT_BASE_URL,
-  fetchConfig: RequestInit,
+  fetchConfig: any,
 ) => {
   const url = `${baseUrl}/chat/conversations/${conversationId}`;
   const response = await fetch(url, { ...fetchConfig, cache: "no-cache" });
-  return await response.json();
+  const headers = getHeaders(fetchConfig.headers)
+  if (response.status === 200) {
+    return await response.json();
+  } else {
+    createConversation(
+      headers['x-account-id'],
+      headers['x-agent-slug'],
+      baseUrl,
+      fetchConfig
+    )
+  }
 };
 
 export const getTheme = async (
@@ -103,7 +124,6 @@ export const getTheme = async (
   baseUrl: string = DEFAULT_BASE_URL,
 ): Promise<ITheme> => {
   const fetchConfig = createFetchConfig(agentSlug, accountId);
-  console.debug("fetchConfig", fetchConfig);
   const response = await fetch(`${baseUrl}/chat/account_theme`, fetchConfig);
   const json = await response.json();
   console.debug("response json: ", json);
