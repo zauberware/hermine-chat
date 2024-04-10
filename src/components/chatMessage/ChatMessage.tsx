@@ -19,7 +19,6 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ message, tryAgain }) => {
   const messageStyle = {
     color: settings.messageColor,
     backgroundColor: settings.messageBackgroundColor,
-
   };
 
   const renderAiMessage = () => (
@@ -27,14 +26,14 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ message, tryAgain }) => {
       id={message.id}
       className="flex w-full mt-2 space-x-3"
     >
-      <div
-        style={{
-          backgroundImage: theme.ai_icon
-            ? `url(${getLogoUrl(theme?.ai_icon)})`
-            : Icon,
-        }}
-        className="flex-shrink-0 h-10 w-10 rounded-full bg-contain bg-center bg-no-repeat"
-      ></div>
+      {theme.ai_icon ? (
+        <div
+          style={{ backgroundImage: `url(${getLogoUrl(theme.ai_icon)})` }}
+          className="flex-shrink-0 h-10 w-10 rounded-full bg-contain bg-center bg-no-repeat"
+        ></div>
+      ) : (
+        <Icon className="flex-shrink-0 h-10 w-10 rounded-full" />
+      )}
       <div>
         <div style={messageStyle} className="p-3 rounded-r-lg rounded-bl-lg">
           {message.has_errors ? (
