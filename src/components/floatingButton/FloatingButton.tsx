@@ -1,5 +1,4 @@
 import React from "react";
-import cx from 'classnames'
 import styles from "./FloatingButton.module.css";
 import { FloatingButtonProps } from "./FloatingButton.types";
 import Icon from "../../assets/images/logo.svg";
@@ -34,7 +33,8 @@ const FloatingButton: React.FC<FloatingButtonProps> = ({ setToggled }) => {
   return (
     <button
       onClick={() => setToggled((t) => !t)}
-      className={cx(styles.floatingButton, styles[`floatingButton-${location as Location}`])}
+      id={styles.floatingButton}
+      className={styles[`floatingButton-${location as Location}`]}
       style={style}
     >
       {!logoUrl ? <Icon height={50} width={40} /> : null}

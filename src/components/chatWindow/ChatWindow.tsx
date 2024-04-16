@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
 import Markdown from "react-markdown";
-import cx from 'classnames'
 import { retry, sendMessage } from "../../api";
 import { IMessage, useSettings } from "../../context";
 import { createFetchConfig } from "../../utils";
@@ -82,13 +81,13 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ close }) => {
   };
   console.debug("conversation.messages", conversation?.messages);
   return (
-    <div className={styles.chatWindow}>
+    <div id={styles.chatWindow}>
       {privacyAccepted ? (
-        <div className={styles.chatContainer}>
-          <div className={styles.titleContainer}>
-            <div className={styles.title}>{settings.chatTitle}</div>
+        <div id={styles.chatContainer}>
+          <div id={styles.titleContainer}>
+            <div id={styles.title}>{settings.chatTitle}</div>
             <div
-              className={styles.closeIcon}
+              id={styles.closeIcon}
               onClick={close}
             >
               <Close width="24" height="24" />
@@ -97,7 +96,7 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ close }) => {
 
           <div
             ref={chatContainer}
-            className={styles.messagesContainer}
+            id={styles.messagesContainer}
           >
             {conversation?.messages?.map((message: IMessage) => (
               <ChatMessage
@@ -108,10 +107,10 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ close }) => {
             ))}
           </div>
 
-          <div className={styles.formContainer}>
-            <form onSubmit={onSubmit} className={styles.form}>
+          <div id={styles.formContainer}>
+            <form onSubmit={onSubmit} id={styles.form}>
               <input
-                className={styles.input}
+                id={styles.input}
                 name="message"
                 type="text"
                 placeholder={t("input.placeholder")}
@@ -121,15 +120,15 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ close }) => {
                   background: settings.buttonBackgroundColor,
                   color: settings.buttonColor,
                 }}
-                className={styles.button}
+                id={styles.button}
                 type="submit"
               >
                 <Send width={24} height={24} />
               </button>
             </form>
-            <div className={styles.resetButtonContainer}>
+            <div id={styles.resetButtonContainer}>
               <button
-                className={styles.resetButton}
+                id={styles.resetButton}
                 type="button"
                 onClick={onResetChat}
               >
@@ -139,8 +138,8 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ close }) => {
           </div>
         </div>
       ) : (
-        <div className={styles.privacyContainer}>
-          <div className={styles["p-5"]}>
+        <div id={styles.privacyContainer}>
+          <div id={styles["p-5"]}>
             <Markdown
               components={{
                 a: ({ href, children, ...props }) => <a href={href} target="_blank" rel="noopener noreferrer" {...props}>{children}</a>,
@@ -156,7 +155,7 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ close }) => {
                 background: settings.buttonBackgroundColor,
                 color: settings.buttonColor,
               }}
-              className={styles.acceptButton}
+              id={styles.acceptButton}
               type="button"
               onClick={onAgreePrivacy}
             >

@@ -25,8 +25,7 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ message, tryAgain }) => {
   const renderAiMessage = () => (
     <div
       id={message.id}
-      className={styles.messageContainer}
-    // className="flex w-full mt-2 space-x-3"
+      className={styles.aiMessageContainer}
     >
       {theme.ai_icon ? (
         <div
@@ -76,7 +75,7 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ message, tryAgain }) => {
   const renderHumanMessage = () => (
     <div
       id={message.id}
-      className={cx(styles.messageContainer, styles.humanMessageContainer)}
+      className={cx(styles.humanMessageContainer)}
     >
       <div>
         <div className={styles.humanMessage}>
@@ -86,9 +85,13 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ message, tryAgain }) => {
     </div >
   );
 
-  return message.message_type === "ai"
-    ? renderAiMessage()
-    : renderHumanMessage();
+  return (
+    <div id={styles.messageContainer}>
+      {message.message_type === "ai"
+        ? renderAiMessage()
+        : renderHumanMessage()}
+    </div>
+  )
 };
 
 export default ChatMessage;

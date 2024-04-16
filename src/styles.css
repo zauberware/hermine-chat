@@ -1,0 +1,75 @@
+.reactMarkDown a {
+  text-decoration: underline;
+}
+
+.hermine-chat-container {
+  font-family: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  margin: 0;
+  line-height: 1.5;
+  -webkit-text-size-adjust: 100%;
+}
+
+.hermine-chat-container p, .hermine-chat-container pre {
+  margin: 0;
+}
+
+
+.hermine-chat-container code, .hermine-chat-container pre {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-feature-settings: normal;
+  font-variation-settings: normal;
+  font-size: 1em;
+}
+
+.hermine-chat-container button {
+  text-transform: none;
+  -webkit-appearance: button;
+  background-color: transparent;
+  background-image: none;
+}
+
+.hermine-chat-container input {
+  font-family: inherit;
+  font-feature-settings: inherit;
+  font-variation-settings: inherit;
+  font-size: 100%;
+  font-weight: inherit;
+  line-height: inherit;
+  color: inherit;
+  margin: 0;
+  padding: 0;
+}
+
+.hermine-chat-container a {
+  color: inherit;
+  text-decoration: inherit;
+}
+
+.hermine-chat-container *,
+.hermine-chat-container ::before,
+.hermine-chat-container ::after {
+  box-sizing: border-box;
+  /* 1 */
+  border-width: 0;
+  /* 2 */
+  border-style: solid;
+  /* 2 */
+  border-color: #e5e7eb;
+  /* 2 */
+}
+
+/*
+Use the modern Firefox focus style for all focusable elements.
+*/
+
+:-moz-focusring {
+  outline: auto;
+}
+
+/*
+Remove the additional `:invalid` styles in Firefox. (https://github.com/mozilla/gecko-dev/blob/2f9eacd9d3d995c937b4251a5557d95d494c9be1/layout/style/res/forms.css.L728-L737)
+*/
+
+:-moz-ui-invalid {
+  box-shadow: none;
+}

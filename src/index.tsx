@@ -3,7 +3,7 @@ import { createRoot } from "react-dom/client";
 import * as Sentry from "@sentry/react";
 import FloatingContainer from "./components/floatingContainer";
 import SettingsContextProvider, { ISettings } from "./context";
-import "./output.css";
+import "./styles.css";
 import "./utils/i18n";
 import packageJson from "../package.json";
 
@@ -46,6 +46,7 @@ const HermineChat = (settings: ISettings) => {
   try {
     const div = document.createElement("div");
     div.id = "hermine-chat-container";
+    div.className = "hermine-chat-container";
     document.body.appendChild(div);
     const root = createRoot(div);
     root.render(

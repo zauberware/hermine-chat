@@ -1,19 +1,28 @@
-.messageContainer {
+#messageContainer {
   display: flex;
   width: 100%;
   margin-top: 0.5rem;
 }
 
-.humanMessageContainer {
+#messageContainer .aiMessageContainer {
+  display: flex;
+  width: 100%;
+  margin-top: 0.5rem;
+}
+
+#messageContainer .humanMessageContainer {
+  display: flex;
+  width: 100%;
+  margin-top: 0.5rem;
   margin-left: auto;
   justify-content: end;
 }
 
-.pl-1 {
+#messageContainer .pl-1 {
   padding-left: 0.25rem;
 }
 
-.humanMessage {
+#messageContainer .humanMessage {
   background-color: rgb(209, 213, 219);
   border-bottom-left-radius: 0.5rem;
   border-bottom-right-radius: 0.5rem;
@@ -21,7 +30,7 @@
   padding: 0.75rem;
 }
 
-.icon {
+#messageContainer .icon {
   width: 2.5rem;
   height: 2.5rem;
   background-repeat: no-repeat;
@@ -31,7 +40,7 @@
   flex-shrink: 0;
 }
 
-.textContainer {
+#messageContainer .textContainer {
   padding: 0.75rem;
   border-bottom-left-radius: 0.5rem;
   border-bottom-right-radius: 0.5rem;
@@ -39,13 +48,13 @@
   margin-left: 0.75rem;
 }
 
-.error {
+#messageContainer .error {
   font-size: 0.875rem;
   line-height: 1.25rem;
   margin-bottom: 0;
 }
 
-.loading {
+#messageContainer .loading {
   width: 2.5rem;
   height: 2.5rem;
   border: 4px dashed black;
@@ -54,13 +63,13 @@
   margin: 1rem;
 }
 
-.text {
+#messageContainer .text {
   font-size: 0.875rem;
   line-height: 1.25rem;
   margin-bottom: 0;
 }
 
-.retryButton {
+#messageContainer .retryButton {
   text-decoration: underline;
   color: rgb(107, 114, 128);
   line-height: 1;
