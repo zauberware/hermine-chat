@@ -64,7 +64,7 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ message, tryAgain }) => {
         {message.has_errors ? (
           <button onClick={retry} className={styles.retryButton}>
             <RefreshIcon width={12} height={12} />
-            <span className="pl-1">
+            <span className={styles["pl-1"]}>
               {t('tryAgain')}
             </span>
           </button>

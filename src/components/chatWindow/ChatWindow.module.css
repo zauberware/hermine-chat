@@ -148,10 +148,6 @@ body {
   opacity: 0.9;
 }
 
-.reactMarkDown a {
-  text-decoration: underline;
-}
-
 @keyframes fadeInFromNone {
     0% {
         opacity: 0;
