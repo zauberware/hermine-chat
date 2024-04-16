@@ -2,6 +2,8 @@ import React, { createContext, useContext, useEffect, useState } from "react";
 import { getConversation, resetLocalConversation, ITheme } from "../api";
 import { createFetchConfig } from "../utils";
 
+export type Location = "center" | "bottom" | "top";
+
 export interface ISettings {
   agentSlug: string;
   accountId: string;
@@ -16,8 +18,9 @@ export interface ISettings {
   buttonBackgroundColor?: string;
   messageColor?: string;
   messageBackgroundColor?: string;
-  location?: "center" | "bottom" | "top";
+  location?: Location
 }
+
 
 export interface IMessage {
   result: string;

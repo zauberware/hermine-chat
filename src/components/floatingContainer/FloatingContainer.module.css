@@ -1,7 +1,7 @@
 body {
   --primary: #9D174D;
 }
-.floating-container {
+.floatingContainer {
   z-index: 9999;
   position: fixed;
   height: fit-content;
@@ -15,12 +15,12 @@ body {
   }
 }
 
-.floating-container-top {
+.floatingContainer-top {
   flex-direction: column-reverse;
   top: 0;
 }
 
-.floating-container-center {
+.floatingContainer-center {
   flex-direction: column;
   bottom: 0;
   @media screen and (min-width: 480px) {
@@ -32,7 +32,7 @@ body {
 }
 
 
-.floating-container-bottom {
+.floatingContainer-bottom {
   bottom: 0;
   flex-direction: column;
 }

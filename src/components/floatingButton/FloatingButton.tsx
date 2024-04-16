@@ -6,6 +6,8 @@ import Icon from "../../assets/images/logo.svg";
 import { useSettings } from "../../context";
 import { getLogoUrl } from "../../utils";
 
+type Location = 'top' | 'center' | 'bottom'
+
 const FloatingButton: React.FC<FloatingButtonProps> = ({ setToggled }) => {
   const { settings, theme } = useSettings();
   let logoUrl;
@@ -13,7 +15,6 @@ const FloatingButton: React.FC<FloatingButtonProps> = ({ setToggled }) => {
     logoUrl = getLogoUrl(theme.logo);
   }
   let borderColor = "var(--primary)";
-  type Location = 'top' | 'center' | 'bottom'
   const { location } = settings || { location: 'center' }
   if (settings.floatingButtonBorderColor) {
     borderColor = settings.floatingButtonBorderColor

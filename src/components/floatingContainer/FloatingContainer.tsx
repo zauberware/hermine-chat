@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import "./FloatingContainer.css";
+import cx from 'classnames'
+import styles from "./FloatingContainer.module.css";
 import { FloatingContainerProps } from "./FloatingContainer.types";
 import ChatWindow from "../chatWindow";
 import { createFetchConfig } from "../../utils";
@@ -8,6 +9,8 @@ import { subscribeChannel } from "../../utils/channels/conversation_channel";
 import { useSettings } from "../../context";
 import { createConversation, getTheme } from "../../api";
 import { useResponsive } from "../../utils/hooks";
+
+type Location = "center" | "bottom" | "top";
 
 const FloatingContainer: React.FC<FloatingContainerProps> = () => {
   const [toggled, setToggled] = useState<boolean>(false);
@@ -20,6 +23,8 @@ const FloatingContainer: React.FC<FloatingContainerProps> = () => {
     setConversationId,
     fetchConversation,
   } = useSettings();
+
+  const { location } = settings
 
   useEffect(() => {
     const fetchTheme = async () => {
@@ -90,7 +95,7 @@ const FloatingContainer: React.FC<FloatingContainerProps> = () => {
   return (
     <div
       style={isMobile ? mobileStyle : style}
-      className={`floating-container floating-container-${settings.location}`}
+      className={cx(styles.floatingContainer, styles[`floatingContainer-${location as Location}`])}
     >
       {toggled && <ChatWindow close={close} theme={theme} />}
       <FloatingButton setToggled={setToggled} />
