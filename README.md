@@ -1,6 +1,7 @@
 # Hermine-Chat
 
-Hermine-Chat is a react package to integrate on any website.
+Hermine-Chat is a react package to integrate a hermine.ai-based chat component on any website.
+Come and create and account on [hermine.ai](https://hermine.ai) to get started. Build custom GPTs and profit from the knowhow of talented data engineers, software-developers and product owners.
 
 ## Integration
 
