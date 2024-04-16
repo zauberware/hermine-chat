@@ -1,11 +1,12 @@
 import React, { useCallback } from "react";
 import { useTranslation } from "react-i18next";
 import Markdown from "react-markdown";
+import cx from 'classnames'
 import Icon from "../../assets/images/logo.svg";
 import RefreshIcon from "../../assets/images/refresh.svg";
 import { useSettings } from "../../context";
 import { getLogoUrl } from "../../utils";
-import "./ChatMessage.css";
+import styles from "./ChatMessage.module.css";
 import { ChatMessageProps } from "./ChatMessage.types";
 
 const ChatMessage: React.FC<ChatMessageProps> = ({ message, tryAgain }) => {
@@ -24,28 +25,29 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ message, tryAgain }) => {
   const renderAiMessage = () => (
     <div
       id={message.id}
-      className="flex w-full mt-2 space-x-3"
+      className={styles.messageContainer}
+    // className="flex w-full mt-2 space-x-3"
     >
       {theme.ai_icon ? (
         <div
           style={{ backgroundImage: `url(${getLogoUrl(theme.ai_icon)})` }}
-          className="flex-shrink-0 h-10 w-10 rounded-full bg-contain bg-center bg-no-repeat"
+          className={styles.icon}
         ></div>
       ) : (
-        <Icon className="flex-shrink-0 h-10 w-10 rounded-full" />
+        <Icon className={styles.icon} />
       )}
       <div>
-        <div style={messageStyle} className="p-3 rounded-r-lg rounded-bl-lg">
+        <div style={messageStyle} className={styles.textContainer}>
           {message.has_errors ? (
-            <p className="text-sm mb-0">
+            <p className={styles.error}>
               {t('errorMessage')}
             </p>
           ) : (
             <>
               {message.result === "..." ? (
-                <div style={{ borderColor: settings.messageColor }} className="w-10 h-10 rounded-full animate-spin border-4 border-dashed border-black border-t-transparent m-4"></div>
+                <div style={{ borderColor: settings.messageColor }} className={styles.loading}></div>
               ) : (
-                <p className="text-sm mb-0">
+                <p className={styles.text}>
                   <Markdown
                     components={{
                       a: ({ href, children, ...props }) => <a href={href} target="_blank" rel="noopener noreferrer" {...props}>{children}</a>,
@@ -60,7 +62,7 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ message, tryAgain }) => {
           )}
         </div>
         {message.has_errors ? (
-          <button onClick={retry} className="text-xs text-gray-500 leading-none pt-1 pb-2 underline hover:text-gray-700 flex items-center">
+          <button onClick={retry} className={styles.retryButton}>
             <RefreshIcon width={12} height={12} />
             <span className="pl-1">
               {t('tryAgain')}
@@ -74,14 +76,14 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ message, tryAgain }) => {
   const renderHumanMessage = () => (
     <div
       id={message.id}
-      className="flex w-full mt-2 space-x-3 ml-auto justify-end"
+      className={cx(styles.messageContainer, styles.humanMessageContainer)}
     >
       <div>
-        <div className="bg-gray-300 p-3 rounded-l-lg rounded-br-lg">
-          <p className="text-sm mb-0">{message.result}</p>
+        <div className={styles.humanMessage}>
+          <p className={styles.text}>{message.result}</p>
         </div>
       </div>
-    </div>
+    </div >
   );
 
   return message.message_type === "ai"

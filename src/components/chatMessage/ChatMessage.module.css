@@ -1,0 +1,76 @@
+.messageContainer {
+  display: flex;
+  width: 100%;
+  margin-top: 0.5rem;
+}
+
+.humanMessageContainer {
+  margin-left: auto;
+  justify-content: end;
+}
+
+.humanMessage {
+  background-color: rgb(209, 213, 219);
+  border-bottom-left-radius: 0.5rem;
+  border-bottom-right-radius: 0.5rem;
+  border-top-left-radius: 0.5rem;
+  padding: 0.75rem;
+}
+
+.icon {
+  width: 2.5rem;
+  height: 2.5rem;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  border-radius: 9999px;
+  flex-shrink: 0;
+}
+
+.textContainer {
+  padding: 0.75rem;
+  border-bottom-left-radius: 0.5rem;
+  border-bottom-right-radius: 0.5rem;
+  border-top-right-radius: 0.5rem;
+  margin-left: 0.75rem;
+}
+
+.error {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  margin-bottom: 0;
+}
+
+.loading {
+  width: 2.5rem;
+  height: 2.5rem;
+  border: 4px dashed black;
+  border-radius: 9999px;
+  animation: spin 1s linear infinite;
+  margin: 1rem;
+}
+
+.text {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  margin-bottom: 0;
+}
+
+.retryButton {
+  text-decoration: underline;
+  color: rgb(107, 114, 128);
+  line-height: 1;
+  font-size: 0.75rem;
+  padding-top: 0.25rem;
+  padding-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  background-color: transparent;
+}
+
+@keyframes spin {
+  100% {
+    transform: rotate(360deg);
+  }
+}
