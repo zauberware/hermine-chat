@@ -1,12 +1,13 @@
 import React, { useEffect, useRef, useState } from "react";
 import Markdown from "react-markdown";
+import cx from 'classnames'
 import { retry, sendMessage } from "../../api";
 import { IMessage, useSettings } from "../../context";
 import { createFetchConfig } from "../../utils";
 import ChatMessage from "../chatMessage";
 import Close from "../../assets/images/close.svg";
 import Send from "../../assets/images/send.svg";
-import "./ChatWindow.css";
+import styles from "./ChatWindow.module.css";
 import { ChatWindowProps } from "./ChatWindow.types";
 import { useTranslation } from "react-i18next";
 
@@ -81,21 +82,22 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ close }) => {
   };
   console.debug("conversation.messages", conversation?.messages);
   return (
-    <div className="flex flex-col flex-grow h-auto bg-white shadow-xl rounded-lg chat-window relative">
+    <div className={styles.chatWindow}>
       {privacyAccepted ? (
-        <div className="flex flex-col flex-grow overflow-hidden">
-          <div className="row bg-gray-200 text-center p-4 flex">
-            <div className="col-auto text-center">{settings.chatTitle}</div>
+        <div className={styles.chatContainer}>
+          <div className={styles.titleContainer}>
+            <div className={styles.title}>{settings.chatTitle}</div>
             <div
-              className="col-auto text-center justify-self-end ml-auto cursor-pointer text-black hover:text-gray-400"
+              className={styles.closeIcon}
               onClick={close}
             >
               <Close width="24" height="24" />
             </div>
           </div>
+
           <div
             ref={chatContainer}
-            className="flex flex-col flex-grow p-4 overflow-auto"
+            className={styles.messagesContainer}
           >
             {conversation?.messages?.map((message: IMessage) => (
               <ChatMessage
@@ -106,10 +108,10 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ close }) => {
             ))}
           </div>
 
-          <div className="bg-gray-300 p-4 pb-2 w-full flex-col">
-            <form onSubmit={onSubmit} className="flex w-full">
+          <div className={styles.formContainer}>
+            <form onSubmit={onSubmit} className={styles.form}>
               <input
-                className="flex items-center h-10 w-full rounded-l px-3 text-sm outline-0"
+                className={styles.input}
                 name="message"
                 type="text"
                 placeholder={t("input.placeholder")}
@@ -119,15 +121,15 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ close }) => {
                   background: settings.buttonBackgroundColor,
                   color: settings.buttonColor,
                 }}
-                className="w-auto text-center px-3 rounded-r hover:opacity-90"
+                className={styles.button}
                 type="submit"
               >
                 <Send width={24} height={24} />
               </button>
             </form>
-            <div className="flex justify-end">
+            <div className={styles.resetButtonContainer}>
               <button
-                className="w-auto text-xs pt-1 text-end text-gray-700 hover:underline hover:opacity-90"
+                className={styles.resetButton}
                 type="button"
                 onClick={onResetChat}
               >
@@ -137,8 +139,8 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ close }) => {
           </div>
         </div>
       ) : (
-        <div className="absolute w-full h-full bg-gray-100 flex justify-center items-center text-center p-5 flex-col">
-          <div className="p-5">
+        <div className={styles.privacyContainer}>
+          <div className={styles["p-5"]}>
             <Markdown
               components={{
                 a: ({ href, children, ...props }) => <a href={href} target="_blank" rel="noopener noreferrer" {...props}>{children}</a>,
@@ -154,7 +156,7 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ close }) => {
                 background: settings.buttonBackgroundColor,
                 color: settings.buttonColor,
               }}
-              className="w-auto text-center p-2 rounded hover:opacity-90"
+              className={styles.acceptButton}
               type="button"
               onClick={onAgreePrivacy}
             >

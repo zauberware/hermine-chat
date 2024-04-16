@@ -535,22 +535,6 @@ video {
   --tw-backdrop-sepia:  ;
 }
 
-#hermine-chat-container :is(.absolute) {
-  position: absolute;
-}
-
-#hermine-chat-container :is(.relative) {
-  position: relative;
-}
-
-#hermine-chat-container :is(.col-auto) {
-  grid-column: auto;
-}
-
-#hermine-chat-container :is(.ml-auto) {
-  margin-left: auto;
-}
-
 #hermine-chat-container :is(.mt-2) {
   margin-top: 0.5rem;
 }
@@ -559,52 +543,12 @@ video {
   display: flex;
 }
 
-#hermine-chat-container :is(.h-10) {
-  height: 2.5rem;
-}
-
-#hermine-chat-container :is(.h-auto) {
-  height: auto;
-}
-
-#hermine-chat-container :is(.h-full) {
-  height: 100%;
-}
-
-#hermine-chat-container :is(.w-auto) {
-  width: auto;
-}
-
 #hermine-chat-container :is(.w-full) {
   width: 100%;
 }
 
-#hermine-chat-container :is(.flex-grow) {
-  flex-grow: 1;
-}
-
-#hermine-chat-container :is(.cursor-pointer) {
-  cursor: pointer;
-}
-
 #hermine-chat-container :is(.resize) {
   resize: both;
-}
-
-#hermine-chat-container :is(.flex-col) {
-  flex-direction: column;
-}
-
-#hermine-chat-container :is(.items-center) {
-  align-items: center;
-}
-
-#hermine-chat-container :is(.justify-end) {
-  justify-content: flex-end;
-}
-
-#hermine-chat-container :is(.justify-center) {
-  justify-content: center;
 }
 
 #hermine-chat-container :is(.space-x-3 > :not([hidden]) ~ :not([hidden])) {
@@ -613,125 +557,16 @@ video {
   margin-left: calc(0.75rem * calc(1 - var(--tw-space-x-reverse)));
 }
 
-#hermine-chat-container :is(.justify-self-end) {
-  justify-self: end;
-}
-
-#hermine-chat-container :is(.overflow-auto) {
-  overflow: auto;
-}
-
-#hermine-chat-container :is(.overflow-hidden) {
-  overflow: hidden;
-}
-
-#hermine-chat-container :is(.rounded) {
-  border-radius: 0.25rem;
-}
-
-#hermine-chat-container :is(.rounded-lg) {
-  border-radius: 0.5rem;
-}
-
-#hermine-chat-container :is(.rounded-l) {
-  border-top-left-radius: 0.25rem;
-  border-bottom-left-radius: 0.25rem;
-}
-
-#hermine-chat-container :is(.rounded-r) {
-  border-top-right-radius: 0.25rem;
-  border-bottom-right-radius: 0.25rem;
-}
-
 #hermine-chat-container :is(.border) {
   border-width: 1px;
-}
-
-#hermine-chat-container :is(.bg-gray-100) {
-  --tw-bg-opacity: 1;
-  background-color: rgb(243 244 246 / var(--tw-bg-opacity));
-}
-
-#hermine-chat-container :is(.bg-gray-200) {
-  --tw-bg-opacity: 1;
-  background-color: rgb(229 231 235 / var(--tw-bg-opacity));
-}
-
-#hermine-chat-container :is(.bg-gray-300) {
-  --tw-bg-opacity: 1;
-  background-color: rgb(209 213 219 / var(--tw-bg-opacity));
-}
-
-#hermine-chat-container :is(.bg-white) {
-  --tw-bg-opacity: 1;
-  background-color: rgb(255 255 255 / var(--tw-bg-opacity));
-}
-
-#hermine-chat-container :is(.p-2) {
-  padding: 0.5rem;
-}
-
-#hermine-chat-container :is(.p-4) {
-  padding: 1rem;
 }
 
 #hermine-chat-container :is(.p-5) {
   padding: 1.25rem;
 }
 
-#hermine-chat-container :is(.px-3) {
-  padding-left: 0.75rem;
-  padding-right: 0.75rem;
-}
-
-#hermine-chat-container :is(.pb-2) {
-  padding-bottom: 0.5rem;
-}
-
 #hermine-chat-container :is(.pl-1) {
   padding-left: 0.25rem;
-}
-
-#hermine-chat-container :is(.pt-1) {
-  padding-top: 0.25rem;
-}
-
-#hermine-chat-container :is(.text-center) {
-  text-align: center;
-}
-
-#hermine-chat-container :is(.text-end) {
-  text-align: end;
-}
-
-#hermine-chat-container :is(.text-sm) {
-  font-size: 0.875rem;
-  line-height: 1.25rem;
-}
-
-#hermine-chat-container :is(.text-xs) {
-  font-size: 0.75rem;
-  line-height: 1rem;
-}
-
-#hermine-chat-container :is(.text-black) {
-  --tw-text-opacity: 1;
-  color: rgb(0 0 0 / var(--tw-text-opacity));
-}
-
-#hermine-chat-container :is(.text-gray-700) {
-  --tw-text-opacity: 1;
-  color: rgb(55 65 81 / var(--tw-text-opacity));
-}
-
-#hermine-chat-container :is(.shadow-xl) {
-  --tw-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
-  --tw-shadow-colored: 0 20px 25px -5px var(--tw-shadow-color), 0 8px 10px -6px var(--tw-shadow-color);
-  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
-}
-
-#hermine-chat-container :is(.outline-0) {
-  outline-width: 0px;
 }
 
 #hermine-chat-container :is(.filter) {
@@ -740,17 +575,4 @@ video {
 
 .reactMarkDown a {
   text-decoration: underline;
-}
-
-#hermine-chat-container :is(.hover\:text-gray-400:hover) {
-  --tw-text-opacity: 1;
-  color: rgb(156 163 175 / var(--tw-text-opacity));
-}
-
-#hermine-chat-container :is(.hover\:underline:hover) {
-  text-decoration-line: underline;
-}
-
-#hermine-chat-container :is(.hover\:opacity-90:hover) {
-  opacity: 0.9;
 }

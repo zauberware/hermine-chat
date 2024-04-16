@@ -1,0 +1,162 @@
+body {
+  --primary: #9D174D;
+}
+
+.chatWindow {
+  display: flex;
+  background-color: white;
+  border-radius: 0.5rem;
+  flex-direction: column;
+  flex-grow: 1;
+  height: auto;
+  position: relative;
+  max-height: 90vh;
+  min-height: 50vh;
+  transition: ease-in-out 1s;
+  width: 100%;
+  animation: fadeInFromNone 0.5s ease-out;
+  box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+  @media screen and (min-width: 480px) {
+    max-height: 70vh;
+    width: 500px;
+  }
+}
+
+.chatContainer {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  overflow: hidden;
+}
+
+.titleContainer {
+  display: flex;
+  padding: 1rem;
+  text-align: center;
+  background-color: rgb(229, 231, 235);
+}
+
+.title {
+  text-align: center;
+}
+
+.closeIcon {
+  color: black;
+  text-align: center;
+  cursor: pointer;
+  margin-left: auto;
+}
+
+.closeIcon:hover {
+  color: rgb(156, 163, 175);
+}
+
+.messagesContainer {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  padding: 1rem;
+  overflow: auto;
+}
+
+.formContainer {
+  background-color: rgb(229, 231, 235);
+  padding: 1rem;
+  padding-bottom: 0.5rem;
+  width: 100%;
+  flex-direction: column;
+}
+
+.form {
+  display: flex;
+  width: 100%;
+}
+
+.input {
+  display: flex;
+  width: 100%;
+  height: 2.5rem;
+  padding: 0 0.75rem;
+  border-bottom-left-radius: 0.25rem;
+  border-top-left-radius: 0.25rem;
+  align-items: center;
+  outline-width: 0px;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+
+.button {
+  width: auto;
+  padding: 0 0.75rem;
+  border-bottom-right-radius: 0.25rem;
+  border-top-right-radius: 0.25rem;
+  text-align: center;
+}
+
+.button:hover {
+  opacity: 0.9;
+}
+
+.resetButtonContainer {
+  display: flex;
+  justify-content: end;
+}
+
+.resetButton {
+  width: auto;
+  font-size: 0.75rem;
+  line-height: 1rem;
+  text-align: end;
+  padding-top: 0.25rem;
+  background-color: transparent;
+  color: rgb(55, 65, 81);
+}
+
+.resetButton:hover {
+  opacity: 0.9;
+  text-decoration: underline;
+}
+
+.privacyContainer {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(243, 244, 246);
+}
+
+.p-5 {
+  padding: 1.25rem;
+}
+
+.acceptButton {
+  width: auto;
+  text-align: center;
+  padding: 0.5rem;
+  text-transform: none;
+  cursor: pointer;
+  border-radius: 0.25rem;
+  background-color: transparent;
+}
+
+.acceptButton:hover {
+  opacity: 0.9;
+}
+
+.reactMarkDown a {
+  text-decoration: underline;
+}
+
+@keyframes fadeInFromNone {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
