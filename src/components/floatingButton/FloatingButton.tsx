@@ -10,8 +10,8 @@ type Location = 'top' | 'center' | 'bottom'
 const FloatingButton: React.FC<FloatingButtonProps> = ({ setToggled }) => {
   const { settings, theme } = useSettings();
   let logoUrl;
-  if (theme.logo) {
-    logoUrl = getLogoUrl(theme.logo);
+  if (theme.ai_icon) {
+    logoUrl = getLogoUrl(theme.ai_icon);
   }
   let borderColor = "var(--primary)";
   const { location } = settings || { location: 'center' }
@@ -25,7 +25,7 @@ const FloatingButton: React.FC<FloatingButtonProps> = ({ setToggled }) => {
     ...(logoUrl
       ? {
         backgroundImage: `url(${logoUrl})`,
-        backgroundSize: "cover",
+        backgroundSize: "contain",
       }
       : {}),
     border: `2px solid ${borderColor}`,
