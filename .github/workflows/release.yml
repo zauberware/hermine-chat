@@ -35,7 +35,6 @@ jobs:
         outputs:
           version: ${{ steps.version_step.outputs.version }}
         run: echo "version=$(./bin/azblogfilter --version)" >> "$GITHUB_OUTPUT"
-        name: Version
         id: version_step
 
       - name: release
