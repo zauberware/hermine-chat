@@ -25,7 +25,6 @@ const FloatingButton: React.FC<FloatingButtonProps> = ({ setToggled }) => {
     ...(logoUrl
       ? {
         backgroundImage: `url(${logoUrl})`,
-        backgroundSize: "contain",
       }
       : {}),
     border: `2px solid ${borderColor}`,
