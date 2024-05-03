@@ -28,10 +28,16 @@ HermineChat({
 
 ### Integration via CDN
 
-Add import script tag.
+Add import script tag. To use a specific version number just add the following snippet:
 
 ```html
-<script type="module" src="https://cdn.zauberware.com/hermine-chat/esm/index.js" crossorigin="anonymous"></script>
+<script type="module" src="https://cdn.zauberware.com/hermine-chat/versions/v<VERION_NUMBER>/esm/index.js" crossorigin="anonymous"></script>
+```
+
+If you always want to fetch the most recent version load the data via the following snippet, but be aware that there might be some breaking changes.
+
+```html
+<script type="module" src="https://cdn.zauberware.com/hermine-chat/current/esm/index.js" crossorigin="anonymous"></script>
 ```
 
 Setup the Chat component by doing this:
