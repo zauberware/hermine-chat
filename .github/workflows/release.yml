@@ -34,10 +34,9 @@ jobs:
       - name: version
         outputs:
           version: ${{ steps.version_step.outputs.version }}
-        steps:
-          - run: echo "version=$(./bin/azblogfilter --version)" >> "$GITHUB_OUTPUT"
-            name: Version
-            id: version_step
+        run: echo "version=$(./bin/azblogfilter --version)" >> "$GITHUB_OUTPUT"
+        name: Version
+        id: version_step
 
       - name: release
         uses: actions/create-release@v1
