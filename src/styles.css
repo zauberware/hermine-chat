@@ -8,6 +8,29 @@ div.reactMarkDown ul, div.reactMarkDown ol {
   padding: revert;
 }
 
+div.reactMarkDown h1, div.reactMarkDown h2 ,div.reactMarkDown h3, div.reactMarkDown h4, div.reactMarkDown h5 {
+  margin-top: 0.3em;
+  margin-bottom: 0.2em;
+  font-weight: bold;
+}
+
+div.reactMarkDown h1 {
+  font-size: 1.5em;
+}
+
+div.reactMarkDown h2 {
+  font-size: 1.3em;
+}
+
+div.reactMarkDown h3, div.reactMarkDown h4, div.reactMarkDown h5 {
+  font-size: 1.1em;
+}
+
+div.reactMarkDown blockquote {
+  font-style: oblique;
+  margin-left: 1em;
+}
+
 .hermine-chat-container {
   font-family: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   margin: 0;
