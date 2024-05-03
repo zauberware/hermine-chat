@@ -65,7 +65,7 @@ jobs:
           ignore_empty: true
           version: ${{ needs.version.outputs.version }}
 
-      - name: Deploy to cdn
+      - name: Deploy to cdn (version)
         uses: Creepios/sftp-action@v1.0.3
         needs: version
         with:
@@ -76,7 +76,7 @@ jobs:
           localPath: "dist"
           remotePath: "hermine-chat/versions/${{ needs.version.outputs.version }}/"
 
-      - name: Deploy to cdn
+      - name: Deploy to cdn (current)
         uses: Creepios/sftp-action@v1.0.3
         with:
           host: ${{ secrets.FTP_SERVER_URL }}
