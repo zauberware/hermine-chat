@@ -32,22 +32,28 @@ jobs:
           npm run rollup
 
       - name: version
-        run: echo "::set-output name=version::$(./bin/azblogfilter --version)"
-        id: version
+        outputs:
+          version: ${{ steps.version_step.outputs.version }}
+        steps:
+          - run: echo "version=$(./bin/azblogfilter --version)" >> "$GITHUB_OUTPUT"
+            name: Version
+            id: version_step
 
       - name: release
         uses: actions/create-release@v1
         id: create_release
+        needs: version
         with:
           draft: false
           prerelease: false
-          release_name: ${{ steps.version.outputs.version }}
+          release_name: ${{ needs.version.outputs.version }}
           tag_name: ${{ github.ref }}
         env:
           GITHUB_TOKEN: ${{ github.token }}
 
       - name: Sentry Release
         uses: getsentry/action-release@v1.4.1
+        needs: version
         env:
           SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
           SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
@@ -58,17 +64,18 @@ jobs:
           sourcemaps: './dist/esm/'
           ignore_missing: true
           ignore_empty: true
-          version: ${{ steps.version.outputs.version }}
+          version: ${{ needs.version.outputs.version }}
 
       - name: Deploy to cdn
         uses: Creepios/sftp-action@v1.0.3
+        needs: version
         with:
           host: ${{ secrets.FTP_SERVER_URL }}
           port: 22
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
           localPath: "dist"
-          remotePath: "hermine-chat/versions/${{steps.version.outputs.version}}/"
+          remotePath: "hermine-chat/versions/${{ needs.version.outputs.version }}/"
 
       - name: Deploy to cdn
         uses: Creepios/sftp-action@v1.0.3
