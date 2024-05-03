@@ -2,6 +2,12 @@
   text-decoration: underline;
 }
 
+div.reactMarkDown ul, div.reactMarkDown ol {
+  list-style: revert;
+  margin: revert;
+  padding: revert;
+}
+
 .hermine-chat-container {
   font-family: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   margin: 0;
