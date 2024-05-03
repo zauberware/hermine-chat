@@ -32,48 +32,47 @@ jobs:
           npm run rollup
 
       - name: version
-        outputs:
-          version: ${{ steps.version_step.outputs.version }}
-        run: echo "version=$(./bin/azblogfilter --version)" >> "$GITHUB_OUTPUT"
-        id: version_step
+        run: echo "VERSION=$(./bin/azblogfilter --version)" >> "$GITHUB_ENV"
+        id: version
 
       - name: release
         uses: actions/create-release@v1
         id: create_release
-        needs: version
         with:
           draft: false
           prerelease: false
-          release_name: ${{ needs.version.outputs.version }}
+          release_name: $VERSION
           tag_name: ${{ github.ref }}
         env:
           GITHUB_TOKEN: ${{ github.token }}
+          VERSION: ${{ steps.version.outputs.VERSION }}
 
       - name: Sentry Release
         uses: getsentry/action-release@v1.4.1
-        needs: version
         env:
           SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
           SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
           SENTRY_PROJECT: ${{ secrets.SENTRY_PROJECT }}
           SENTRY_URL: ${{ secrets.SENTRY_URL }}
+          VERSION: ${{ steps.version.outputs.VERSION }}
         with:
           environment: production
           sourcemaps: './dist/esm/'
           ignore_missing: true
           ignore_empty: true
-          version: ${{ needs.version.outputs.version }}
+          version: $VERSION
 
       - name: Deploy to cdn (version)
         uses: Creepios/sftp-action@v1.0.3
-        needs: version
         with:
           host: ${{ secrets.FTP_SERVER_URL }}
           port: 22
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
           localPath: "dist"
-          remotePath: "hermine-chat/versions/${{ needs.version.outputs.version }}/"
+          remotePath: "hermine-chat/versions/${{ steps.version.outputs.VERSION }}/"
+        env:
+          release_name: $VERSION
 
       - name: Deploy to cdn (current)
         uses: Creepios/sftp-action@v1.0.3
