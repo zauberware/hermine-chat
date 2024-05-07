@@ -29,15 +29,34 @@ body {
   overflow: hidden;
 }
 
-#titleContainer {
+#topContainer {
   display: flex;
   padding: 1rem;
-  text-align: center;
   background-color: rgb(229, 231, 235);
+}
+
+#titleContainer {
+  display: flex;
+  flex-direction: column;
 }
 
 #title {
   text-align: center;
+}
+
+#conversationManagement {
+  width: auto;
+  font-size: 0.75rem;
+  line-height: 1rem;
+  text-align: start;
+  background-color: transparent;
+  color: rgb(55, 65, 81);
+  cursor: pointer;
+}
+
+#conversationManagement:hover {
+  opacity: 0.9;
+  text-decoration: underline;
 }
 
 #closeIcon {

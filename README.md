@@ -69,12 +69,13 @@ If you put this in your html template file, do not forget to put it inside `<scr
 | `buttonColor`  | - | Text color of send button. | `css color` | `rgb(15, 15, 15) \| 'red' \| #e20` |
 | `messageColor`  | - | Text color of ai message bubbles. | `css color` | `rgb(15, 15, 15) \| 'red' \| #e20` |
 | `messageBackgroundColor`  | - | Background color of ai message bubbles. | `css color` | `rgb(15, 15, 15) \| 'red' \| #e20` |
+| `showConversationManagment`  | - | Enable "Show more" button to route to hermine conversations view. | `boolean` | `true` |
 
 ## FAQ
 
 ### How to change the image in the floating button?
 
-The image from the floating button is loaded from the hermine.ai application. The property used for the image is the `logo`.
+The image from the floating button is loaded from the hermine.ai application. The property used for the image is the `ai_icon`.
 
 ### How to change the avatar in the ai chat messages?
 

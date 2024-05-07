@@ -18,7 +18,8 @@ export interface ISettings {
   buttonBackgroundColor?: string;
   messageColor?: string;
   messageBackgroundColor?: string;
-  location?: Location
+  location?: Location;
+  withConversationManagement?: boolean;
 }
 
 

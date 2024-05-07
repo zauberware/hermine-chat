@@ -80,12 +80,19 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ close }) => {
     setPrivacyAccepted(true);
   };
   console.debug("conversation.messages", conversation?.messages);
+
+  const target = `${settings.target}/c/${settings.accountId}/${settings.agentSlug}?conversation_id=${conversationId}`
   return (
     <div id={styles.chatWindow}>
       {privacyAccepted ? (
         <div id={styles.chatContainer}>
-          <div id={styles.titleContainer}>
-            <div id={styles.title}>{settings.chatTitle}</div>
+          <div id={styles.topContainer}>
+            <div id={styles.titleContainer}>
+              <div id={styles.title}>{settings.chatTitle}</div>
+              {settings.withConversationManagement ? (
+                <a href={target} target="_blank" rel="noopener noreferrer" id={styles.conversationManagement}>{t('fullscreen')}</div>
+              ) : null}
+            </div>
             <div
               id={styles.closeIcon}
               onClick={close}
