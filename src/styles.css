@@ -48,6 +48,7 @@ div.reactMarkDown blockquote {
   font-feature-settings: normal;
   font-variation-settings: normal;
   font-size: 1em;
+  white-space: break-spaces;
 }
 
 .hermine-chat-container button {
