@@ -90,7 +90,7 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ close }) => {
             <div id={styles.titleContainer}>
               <div id={styles.title}>{settings.chatTitle}</div>
               {settings.withConversationManagement ? (
-                <a href={target} target="_blank" rel="noopener noreferrer" id={styles.conversationManagement}>{t('fullscreen')}</div>
+                <a href={target} target="_blank" rel="noopener noreferrer" id={styles.conversationManagement}>{t('fullscreen')}</a>
               ) : null}
             </div>
             <div
