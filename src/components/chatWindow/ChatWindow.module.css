@@ -40,17 +40,31 @@ body {
   flex-direction: column;
 }
 
+#titleImage {
+  background-origin: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  height: 100%;
+  max-width: 60px;
+  min-width: 40px;
+  min-height: 40px;
+  aspect-ratio: 1;
+  margin-right: 10px;
+}
+
 #title {
-  text-align: center;
+}
+
+#description {
+  font-size: 0.8rem;
+  line-height: 1rem;
+  color: rgb(55, 65, 81);
 }
 
 #conversationManagement {
   width: auto;
-  font-size: 0.75rem;
-  line-height: 1rem;
-  text-align: start;
   background-color: transparent;
-  color: rgb(55, 65, 81);
+  color: black;
   cursor: pointer;
 }
 

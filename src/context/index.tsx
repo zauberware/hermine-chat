@@ -8,6 +8,8 @@ export interface ISettings {
   agentSlug: string;
   accountId: string;
   chatTitle?: string;
+  chatTitleColor?: string;
+  chatDescription?: string;
   spacingBottom?: string;
   spacingTop?: string;
   spacingRight?: string;

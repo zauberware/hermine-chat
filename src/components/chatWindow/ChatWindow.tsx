@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import Markdown from "react-markdown";
 import { retry, sendMessage } from "../../api";
 import { IMessage, useSettings } from "../../context";
-import { createFetchConfig } from "../../utils";
+import { createFetchConfig, getLogoUrl } from "../../utils";
 import ChatMessage from "../chatMessage";
 import Close from "../../assets/images/close.svg";
 import Send from "../../assets/images/send.svg";
@@ -13,6 +13,7 @@ import { useTranslation } from "react-i18next";
 const ChatWindow: React.FC<ChatWindowProps> = ({ close }) => {
   const {
     settings,
+    theme,
     resetConversation,
     conversationId,
     conversation,
@@ -81,17 +82,31 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ close }) => {
   };
   console.debug("conversation.messages", conversation?.messages);
 
+  const titleStyle = {
+    color: settings.chatTitleColor || 'black'
+  }
+
   const target = `${settings.target}/c/${settings.accountId}/${settings.agentSlug}?conversation_id=${conversationId}`
   return (
     <div id={styles.chatWindow}>
       {privacyAccepted ? (
         <div id={styles.chatContainer}>
           <div id={styles.topContainer}>
+            <div id={styles.titleImage}
+              style={{ backgroundImage: `url(${getLogoUrl(theme.ai_icon)})` }}
+            />
             <div id={styles.titleContainer}>
-              <div id={styles.title}>{settings.chatTitle}</div>
+
               {settings.withConversationManagement ? (
-                <a href={target} target="_blank" rel="noopener noreferrer" id={styles.conversationManagement}>{t('fullscreen')}</a>
-              ) : null}
+                <a href={target} target="_blank" rel="noopener noreferrer" id={styles.conversationManagement}>
+                  <div id={styles.title} style={titleStyle}>{settings.chatTitle}</div>
+                </a>
+              ) : (
+                <div id={styles.title} style={titleStyle}>{settings.chatTitle}</div>
+              )}
+              <div id={styles.description}>
+                {settings.chatDescription}
+              </div>
             </div>
             <div
               id={styles.closeIcon}
