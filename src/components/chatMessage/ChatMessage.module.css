@@ -49,7 +49,7 @@
 }
 
 #messageContainer .error {
-  font-size: 0.875rem;
+  font-size: 0.85rem;
   line-height: 1.25rem;
   margin-bottom: 0;
 }
@@ -64,7 +64,7 @@
 }
 
 #messageContainer .text {
-  font-size: 0.875rem;
+  font-size: 0.95rem;
   line-height: 1.25rem;
   margin-bottom: 0;
 }
@@ -73,7 +73,7 @@
   text-decoration: underline;
   color: rgb(107, 114, 128);
   line-height: 1;
-  font-size: 0.75rem;
+  font-size: 0.85rem;
   padding-top: 0.25rem;
   padding-bottom: 0.5rem;
   display: flex;
