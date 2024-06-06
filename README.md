@@ -75,7 +75,11 @@ If you put this in your html template file, do not forget to put it inside `<scr
 
 ## FAQ
 
-### How to change the image in the floating button?
+### Is there a way to open the chatwindow from outside?
+
+You can open the chatwindow by adding a element with the class `hermine-chat-opener`. With the class `hermine-chat-toggler` you also can close the window with a click on those.
+
+### How to change the avatar in the ai chat messages?
 
 The image from the floating button is loaded from the hermine.ai application. The property used for the image is the `ai_icon`.
 

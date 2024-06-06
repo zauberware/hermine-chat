@@ -90,6 +90,26 @@ const FloatingContainer: React.FC<FloatingContainerProps> = () => {
     ...(settings.fontFamily ? { fontFamily: settings.fontFamily } : {}),
   };
 
+  useEffect(() => {
+    const foundElements = document.getElementsByClassName('hermine-chat-opener')
+    for (var i = 0; i < foundElements.length; i++) {
+      const item = foundElements[i]
+      item.addEventListener('click', open)
+    }
+  }, [])
+
+  useEffect(() => {
+    const foundElements = document.getElementsByClassName('hermine-chat-toggler')
+    for (var i = 0; i < foundElements.length; i++) {
+      const item = foundElements[i]
+      item.addEventListener('click', toggleContainer)
+    }
+  }, [])
+
+  const toggleContainer = () => setToggled(t => !t)
+
+  const open = () => setToggled(true)
+
   const close = () => setToggled(false);
 
   return (
