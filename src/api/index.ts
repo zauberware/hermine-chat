@@ -18,6 +18,12 @@ export interface ITheme {
   name?: string;
 }
 
+export interface IConversation {
+  messages: any[]
+  prompts: string[]
+  conversationId: string
+}
+
 const DEFAULT_BASE_URL = "https://hermine.ai";
 
 const CONVERSATION_KEY = "hermine_conversation_ids";
@@ -25,11 +31,11 @@ const CONVERSATION_KEY = "hermine_conversation_ids";
 export const resetLocalConversation = () =>
   localStorage.removeItem(CONVERSATION_KEY);
 
-export const createConversation = async (
-  accountId: string,
-  agentSlug: string,
-  baseUrl: string = DEFAULT_BASE_URL,
-  fetchConfig: RequestInit,
+export const createConversation: (accountId: string, agentSlug: string, baseUrl?: string, fetchConfig?: RequestInit) => Promise<string> = async (
+  accountId,
+  agentSlug,
+  baseUrl = DEFAULT_BASE_URL,
+  fetchConfig,
 ) => {
   const url = `${baseUrl}/c/${accountId}/${agentSlug}/new`;
   const response = await fetch(url, {
@@ -54,7 +60,7 @@ export const createConversation = async (
       JSON.stringify([jsonText.conversation_id]),
     );
   }
-  return jsonText.conversation_id;
+  return jsonText.conversation_id as string;
 };
 
 export const sendMessage = async (
@@ -98,16 +104,16 @@ const getHeaders = (headers: any) => {
   return headerObj;
 };
 
-export const getConversation = async (
-  conversationId: string,
-  baseUrl: string = DEFAULT_BASE_URL,
-  fetchConfig: any,
+export const getConversation: (conversationId: string, baseUrl?: string, fetchConfig?: any) => Promise<IConversation | undefined> = async (
+  conversationId,
+  baseUrl = DEFAULT_BASE_URL,
+  fetchConfig,
 ) => {
   const url = `${baseUrl}/chat/conversations/${conversationId}`;
   const response = await fetch(url, { ...fetchConfig, cache: "no-cache" });
   const headers = getHeaders(fetchConfig.headers)
   if (response.status === 200) {
-    return await response.json();
+    return await response.json() as IConversation;
   } else {
     createConversation(
       headers['x-account-id'],

@@ -1,11 +1,11 @@
 import React from "react";
+import Markdown from "react-markdown";
 import styles from "./SplashScreen.module.css";
-import { FloatingContainerProps } from "./SplashScreen.types";
+import { SplashScreenProps } from "./SplashScreen.types";
 import { useSettings } from "../../context";
 import { getLogoUrl } from "../../utils";
-import Markdown from "react-markdown";
 
-const SplashScreen: React.FC<FloatingContainerProps> = () => {
+const SplashScreen: React.FC<SplashScreenProps> = ({ sendMessage }) => {
 
   const {
     settings,
@@ -22,6 +22,7 @@ const SplashScreen: React.FC<FloatingContainerProps> = () => {
   }
 
   const firstMessage = conversation?.messages?.[0]
+  const prompts = conversation?.prompts
 
   return (
     <div
@@ -36,6 +37,11 @@ const SplashScreen: React.FC<FloatingContainerProps> = () => {
         {firstMessage ? (
           <Markdown>{firstMessage.result}</Markdown>
         ) : null}
+        <div className={styles.promptsContainer}>
+          {prompts?.filter((prompt: string) => !!prompt).map((prompt: string) => (
+            <div className={styles.promptContainer} onClick={() => sendMessage(prompt)}>{prompt}</div>
+          ))}
+        </div>
       </div>
     </div>
   );

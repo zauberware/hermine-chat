@@ -43,6 +43,21 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ close }) => {
     setTimeout(scrollToLastMessage, 200);
   };
 
+  const sendPrompt = async (message: string) => {
+    const response = await sendMessage(
+      message,
+      conversationId as string,
+      settings.target,
+      {
+        ...fetchConfig,
+        method: "POST",
+      },
+    );
+    console.debug("response of message create: ", response);
+    fetchConversation();
+    setTimeout(scrollToLastMessage, 200);
+  }
+
   const tryAgain = async (messageId: string) => {
     console.debug('Initiating a retry of the latest message.')
     const response = await retry(
@@ -84,7 +99,8 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ close }) => {
   console.debug("conversation.messages", conversation?.messages);
 
   const titleStyle = {
-    color: settings.chatTitleColor || 'black'
+    color: settings.chatTitleColor || 'black',
+    textDecorationColor: settings.chatTitleColor || 'black'
   }
 
   const target = `${settings.target}/c/${settings.accountId}/${settings.agentSlug}?conversation_id=${conversationId}`
@@ -99,7 +115,7 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ close }) => {
             <div id={styles.titleContainer}>
 
               {settings.withConversationManagement ? (
-                <a href={target} target="_blank" rel="noopener noreferrer" id={styles.conversationManagement}>
+                <a href={target} style={titleStyle} target="_blank" rel="noopener noreferrer" id={styles.conversationManagement}>
                   <div id={styles.title} style={titleStyle}>{settings.chatTitle}</div>
                 </a>
               ) : (
@@ -132,7 +148,7 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ close }) => {
               ))}
             </div>
           ) : (
-            <SplashScreen />
+            <SplashScreen sendMessage={sendPrompt} />
           )}
 
           <div id={styles.formContainer}>

@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
+import * as Sentry from '@sentry/react'
 import { getConversation, resetLocalConversation, ITheme } from "../api";
 import { createFetchConfig } from "../utils";
 
@@ -24,7 +25,6 @@ export interface ISettings {
   withConversationManagement?: boolean;
 }
 
-
 export interface IMessage {
   result: string;
   message_type: "user" | "ai";
@@ -38,6 +38,7 @@ export interface IConversation {
   id?: string;
   messages: IMessage[];
   privacyDisclaimer?: any;
+  prompts: string[]
 }
 
 export interface SettingsProps {
@@ -75,6 +76,7 @@ export const defaultSettings: SettingsProps = {
   },
   conversation: {
     messages: [],
+    prompts: []
   },
   theme: {},
   setTheme: () => undefined,
@@ -149,24 +151,30 @@ const SettingsContextProvider = ({
         createFetchConfig(stateSettings.agentSlug, stateSettings.accountId),
       );
 
-      let messages = conversation.messages;
-      // issue: new message is available in socket but not http-request
-      // if message.result present, but last message not, set it here
-      console.debug("message?.result", message?.result);
-      if (message?.result && message.result !== "...") {
-        const lastAIMessage = getLastAiMessage(messages);
-        console.debug("lastAIMessage?.result", lastAIMessage?.result);
-        if (!lastAIMessage?.result || lastAIMessage?.result === "...") {
-          messages.pop();
-          messages.push({ ...message, message_type: "ai" });
+      if (conversation) {
+        let messages = conversation.messages;
+        // issue: new message is available in socket but not http-request
+        // if message.result present, but last message not, set it here
+        console.debug("message?.result", message?.result);
+        if (message?.result && message.result !== "...") {
+          const lastAIMessage = getLastAiMessage(messages);
+          console.debug("lastAIMessage?.result", lastAIMessage?.result);
+          if (!lastAIMessage?.result || lastAIMessage?.result === "...") {
+            messages.pop();
+            messages.push({ ...message, message_type: "ai" });
+          }
+        } else {
+          console.debug("init refetch", message);
+          checkAndRefetchConversation();
         }
-      } else {
-        console.debug("init refetch", message);
-        checkAndRefetchConversation();
-      }
 
-      setConversation({ ...conversation, messages } as IConversation);
-      console.debug("message", message);
+        setConversation({ ...conversation, messages } as IConversation);
+        console.debug("message", message);
+      } else {
+
+        Sentry.captureMessage(`Could not fetch conversation with id: ${conversationId || message?.conversation_id}`)
+
+      }
     }
   };
 
