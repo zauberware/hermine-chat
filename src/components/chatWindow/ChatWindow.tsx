@@ -4,6 +4,7 @@ import { retry, sendMessage } from "../../api";
 import { IMessage, useSettings } from "../../context";
 import { createFetchConfig, getLogoUrl } from "../../utils";
 import ChatMessage from "../chatMessage";
+import SplashScreen from "../splashScreen";
 import Close from "../../assets/images/close.svg";
 import Send from "../../assets/images/send.svg";
 import styles from "./ChatWindow.module.css";
@@ -116,18 +117,23 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ close }) => {
             </div>
           </div>
 
-          <div
-            ref={chatContainer}
-            id={styles.messagesContainer}
-          >
-            {conversation?.messages?.map((message: IMessage) => (
-              <ChatMessage
-                key={`${message.id}-${message.result}`}
-                message={message}
-                tryAgain={tryAgain}
-              />
-            ))}
-          </div>
+
+          {(conversation?.messages?.length || 0) > 1 ? (
+            <div
+              ref={chatContainer}
+              id={styles.messagesContainer}
+            >
+              {conversation?.messages?.map((message: IMessage) => (
+                <ChatMessage
+                  key={`${message.id}-${message.result}`}
+                  message={message}
+                  tryAgain={tryAgain}
+                />
+              ))}
+            </div>
+          ) : (
+            <SplashScreen />
+          )}
 
           <div id={styles.formContainer}>
             <form onSubmit={onSubmit} id={styles.form}>
