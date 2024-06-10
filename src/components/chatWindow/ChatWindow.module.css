@@ -10,7 +10,7 @@ body {
   flex-grow: 1;
   height: auto;
   position: relative;
-  max-height: 90vh;
+  max-height: 85vh;
   min-height: 50vh;
   transition: ease-in-out 1s;
   width: 100%;
