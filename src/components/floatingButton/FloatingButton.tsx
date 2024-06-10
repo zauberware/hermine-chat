@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./FloatingButton.module.css";
 import { FloatingButtonProps } from "./FloatingButton.types";
-import Icon from "../../assets/images/logo.svg";
+import Icon from "../../assets/images/chat.svg";
 import { useSettings } from "../../context";
 import { getLogoUrl } from "../../utils";
 
@@ -9,6 +9,7 @@ type Location = 'top' | 'center' | 'bottom'
 
 const FloatingButton: React.FC<FloatingButtonProps> = ({ setToggled }) => {
   const { settings, theme } = useSettings();
+  const { useCustomLogo } = settings
   let logoUrl;
   if (theme.ai_icon) {
     logoUrl = getLogoUrl(theme.ai_icon);
@@ -22,12 +23,13 @@ const FloatingButton: React.FC<FloatingButtonProps> = ({ setToggled }) => {
   }
 
   const style = {
-    ...(logoUrl
+    ...(logoUrl && useCustomLogo
       ? {
         backgroundImage: `url(${logoUrl})`,
       }
       : {}),
     border: `2px solid ${borderColor}`,
+    color: borderColor
   };
   return (
     <button
@@ -36,7 +38,7 @@ const FloatingButton: React.FC<FloatingButtonProps> = ({ setToggled }) => {
       className={styles[`floatingButton-${location as Location}`]}
       style={style}
     >
-      {!logoUrl ? <Icon height={50} width={40} /> : null}
+      {logoUrl && useCustomLogo ? null : <Icon height={50} width={40} />}
     </button>
   );
 };

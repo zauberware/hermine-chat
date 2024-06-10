@@ -72,6 +72,7 @@ If you put this in your html template file, do not forget to put it inside `<scr
 | `messageColor`  | - | Text color of ai message bubbles. | `css color` | `rgb(15, 15, 15) \| 'red' \| '#e20'` |
 | `messageBackgroundColor`  | - | Background color of ai message bubbles. | `css color` | `rgb(15, 15, 15) \| 'red' \| '#e20'` |
 | `showConversationManagment`  | - | Enable "Show more" button to route to hermine conversations view. | `boolean` | `true` |
+| `useCustomLogo`  | - | Using the custom logo set on hermine.ai. | `boolean` | `true` |
 
 ## FAQ
 

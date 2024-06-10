@@ -23,6 +23,7 @@ export interface ISettings {
   messageBackgroundColor?: string;
   location?: Location;
   withConversationManagement?: boolean;
+  useCustomLogo?: boolean;
 }
 
 export interface IMessage {
