@@ -22,6 +22,8 @@ export interface IConversation {
   messages: any[]
   prompts: string[]
   conversationId: string
+  inputPlaceholderDe?: string
+  inputPlaceholderEn?: string
 }
 
 const DEFAULT_BASE_URL = "https://hermine.ai";

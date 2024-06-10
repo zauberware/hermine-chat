@@ -22,7 +22,7 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ close }) => {
   } = useSettings();
   const chatContainer = useRef<HTMLDivElement>(null);
   const fetchConfig = createFetchConfig(settings.agentSlug, settings.accountId);
-  const { t } = useTranslation("translation");
+  const { t, i18n } = useTranslation("translation");
 
   const onSubmit = async (e: any) => {
     e.preventDefault();
@@ -103,6 +103,8 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ close }) => {
     textDecorationColor: settings.chatTitleColor || 'black'
   }
 
+  const placeholder = i18n.language === 'de' ? conversation?.inputPlaceholderDe : conversation?.inputPlaceholderEn
+
   const target = `${settings.target}/c/${settings.accountId}/${settings.agentSlug}?conversation_id=${conversationId}`
   return (
     <div id={styles.chatWindow}>
@@ -157,7 +159,7 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ close }) => {
                 id={styles.input}
                 name="message"
                 type="text"
-                placeholder={t("input.placeholder")}
+                placeholder={placeholder || t("input.placeholder")}
               />
               <button
                 style={{

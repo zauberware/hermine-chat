@@ -37,7 +37,9 @@ export interface IMessage {
 export interface IConversation {
   id?: string;
   messages: IMessage[];
-  privacyDisclaimer?: any;
+  privacyDisclaimer?: string;
+  inputPlaceholderDe?: string;
+  inputPlaceholderEn?: string;
   prompts: string[]
 }
 
