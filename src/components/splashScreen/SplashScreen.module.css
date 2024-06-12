@@ -2,6 +2,7 @@
   min-height: 30vh;
   display: flex;
   flex: 1;
+  padding: 10px;
   @media screen and (min-width: 480px) {
   }
 }
@@ -28,7 +29,10 @@
 
 #title {
   font-weight: bold;
-  margin-bottom: 10px;
+}
+
+#description {
+  padding: 0.5rem 1rem;
 }
 
 .promptsContainer {

@@ -35,7 +35,9 @@ const SplashScreen: React.FC<SplashScreenProps> = ({ sendMessage }) => {
         />
         <div id={styles.title} style={titleStyle}>{settings.chatTitle}</div>
         {firstMessage ? (
-          <Markdown>{firstMessage.result}</Markdown>
+          <div id={styles.description}>
+            <Markdown>{firstMessage.result}</Markdown>
+          </div>
         ) : null}
         <div className={styles.promptsContainer}>
           {prompts?.filter((prompt: string) => !!prompt).map((prompt: string) => (
