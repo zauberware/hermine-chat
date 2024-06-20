@@ -1,7 +1,7 @@
 export const getLogoUrl = (relativePath?: string, baseUrl: string = 'https://hermine.ai') => {
   if (relativePath) {
     if (relativePath.startsWith('http')) return relativePath
-    return `http://${baseUrl}/${relativePath}` 
+    return `${baseUrl}/${relativePath}` 
   }
   return ''
 }
