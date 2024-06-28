@@ -36,6 +36,7 @@ div.reactMarkDown blockquote {
   margin: 0;
   line-height: 1.5;
   -webkit-text-size-adjust: 100%;
+  font-size: 16px;
 }
 
 .hermine-chat-container p, .hermine-chat-container pre {
@@ -58,7 +59,7 @@ div.reactMarkDown blockquote {
   background-image: none;
 }
 
-.hermine-chat-container input {
+.hermine-chat-container form input {
   font-family: inherit;
   font-feature-settings: inherit;
   font-variation-settings: inherit;
