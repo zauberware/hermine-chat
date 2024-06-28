@@ -34,13 +34,13 @@
 }
 
 #description {
-  padding: 0.5rem 1rem;
+  padding: 8px 16px;
 }
 
 .promptsContainer {
   display: grid;
-  gap: 1rem;
-  padding: 1rem;
+  gap: 16px;
+  padding: 16px;
   grid-template-columns: 1fr 1fr;
 }
 

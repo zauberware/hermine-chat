@@ -34,14 +34,16 @@ div.reactMarkDown blockquote {
 .hermine-chat-container {
   font-family: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   margin: 0;
-  line-height: 1.5;
+  line-height: 20px;
   -webkit-text-size-adjust: 100%;
   font-size: 16px;
+  line-height: 20px;
 }
 
 .hermine-chat-container p, .hermine-chat-container pre {
   margin: 0;
   font-size: 16px;
+  line-height: 20px;
 }
 
 
@@ -52,6 +54,7 @@ div.reactMarkDown blockquote {
   font-size: 1em;
   white-space: break-spaces;
   font-size: 16px;
+  line-height: 20px;
 }
 
 .hermine-chat-container button {
@@ -76,6 +79,7 @@ div.reactMarkDown blockquote {
 .hermine-chat-container a {
   color: inherit;
   text-decoration: inherit;
+  line-height: 20px;
 }
 
 .hermine-chat-container *,

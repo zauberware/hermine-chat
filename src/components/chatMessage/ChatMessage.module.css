@@ -1,38 +1,38 @@
 #messageContainer {
   display: flex;
   width: 100%;
-  margin-top: 0.5rem;
+  margin-top: 8px;
 }
 
 #messageContainer .aiMessageContainer {
   display: flex;
   width: 100%;
-  margin-top: 0.5rem;
+  margin-top: 8px;
 }
 
 #messageContainer .humanMessageContainer {
   display: flex;
   width: 100%;
-  margin-top: 0.5rem;
+  margin-top: 8px;
   margin-left: auto;
   justify-content: end;
 }
 
 #messageContainer .pl-1 {
-  padding-left: 0.25rem;
+  padding-left: 4px;
 }
 
 #messageContainer .humanMessage {
   background-color: rgb(209, 213, 219);
-  border-bottom-left-radius: 0.5rem;
-  border-bottom-right-radius: 0.5rem;
-  border-top-left-radius: 0.5rem;
-  padding: 0.75rem;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+  border-top-left-radius: 8px;
+  padding: 12px;
 }
 
 #messageContainer .icon {
-  width: 2.5rem;
-  height: 2.5rem;
+  width: 40px;
+  height: 40px;
   background-repeat: no-repeat;
   background-size: contain;
   background-position: center;
@@ -41,31 +41,31 @@
 }
 
 #messageContainer .textContainer {
-  padding: 0.75rem;
-  border-bottom-left-radius: 0.5rem;
-  border-bottom-right-radius: 0.5rem;
-  border-top-right-radius: 0.5rem;
-  margin-left: 0.75rem;
+  padding: 12px;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+  border-top-right-radius: 8px;
+  margin-left: 12px;
 }
 
 #messageContainer .error {
-  font-size: 0.85rem;
-  line-height: 1.25rem;
+  font-size: 14px;
+  line-height: 20px;
   margin-bottom: 0;
 }
 
 #messageContainer .loading {
-  width: 2.5rem;
-  height: 2.5rem;
+  width: 40px;
+  height: 40px;
   border: 4px dashed black;
   border-radius: 9999px;
   animation: spin 1s linear infinite;
-  margin: 1rem;
+  margin: 16px;
 }
 
 #messageContainer .text {
-  font-size: 0.95rem;
-  line-height: 1.25rem;
+  font-size: 16px;
+  line-height: 20px;
   margin-bottom: 0;
 }
 
@@ -73,9 +73,9 @@
   text-decoration: underline;
   color: rgb(107, 114, 128);
   line-height: 1;
-  font-size: 0.85rem;
-  padding-top: 0.25rem;
-  padding-bottom: 0.5rem;
+  font-size: 14px;
+  padding-top: 4px;
+  padding-bottom: 8px;
   display: flex;
   align-items: center;
   cursor: pointer;
