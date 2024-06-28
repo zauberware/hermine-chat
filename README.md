@@ -52,7 +52,6 @@ window.HermineChat({
 
 If you put this in your html template file, do not forget to put it inside `<script type="module">`-tags.
 
-
 ## Configuration Options
 
 | Option | Required | Description | Type | Example |
@@ -87,3 +86,23 @@ The image from the floating button is loaded from the hermine.ai application. Th
 ### How to change the avatar in the ai chat messages?
 
 The image from the floating button is loaded from the hermine.ai application. The property used for the image is the `ai_icon`.
+
+## Development
+
+To contribute in the development in this application you need something like a container application.
+For example you could use [this](https://github.com/ChrKahl/hermine-chat-container) sveltekit application.
+After you cloned the package, make sure to add this package in the container application with your relative path. 
+For example:
+
+```bash
+npm uninstall @zauberware/hermine-chat
+npm i ../../hermine-chat
+```
+
+When making changes on the project you need to rebuild it. This will work with executing the following command:
+
+```bash
+npm run dev
+```
+
+Some times the container app shows a 500 error message. If those appear, just restart it with `npm run dev`
