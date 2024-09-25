@@ -54,6 +54,11 @@
   margin-bottom: 0;
 }
 
+#chatMessageContainer {
+  max-width: calc(100% - 40px);
+  ;
+}
+
 #messageContainer .loading {
   width: 40px;
   height: 40px;

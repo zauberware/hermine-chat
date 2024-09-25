@@ -35,7 +35,7 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ message, tryAgain }) => {
       ) : (
         <Icon className={styles.icon} />
       )}
-      <div>
+      <div id={styles.chatMessageContainer}>
         <div style={messageStyle} className={styles.textContainer}>
           {message.has_errors ? (
             <p className={styles.error}>

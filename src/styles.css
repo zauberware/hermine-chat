@@ -2,13 +2,18 @@
   text-decoration: underline;
 }
 
-div.reactMarkDown ul, div.reactMarkDown ol {
+div.reactMarkDown ul,
+div.reactMarkDown ol {
   list-style: revert;
   margin: revert;
   padding: revert;
 }
 
-div.reactMarkDown h1, div.reactMarkDown h2 ,div.reactMarkDown h3, div.reactMarkDown h4, div.reactMarkDown h5 {
+div.reactMarkDown h1,
+div.reactMarkDown h2,
+div.reactMarkDown h3,
+div.reactMarkDown h4,
+div.reactMarkDown h5 {
   margin-top: 0.3em;
   margin-bottom: 0.2em;
   font-weight: bold;
@@ -22,7 +27,15 @@ div.reactMarkDown h2 {
   font-size: 1.3em;
 }
 
-div.reactMarkDown h3, div.reactMarkDown h4, div.reactMarkDown h5 {
+div.reactMarkDown img {
+  border-radius: 0 8px 8px 8px;
+  max-width: 100%;
+  margin-top: 20px;
+}
+
+div.reactMarkDown h3,
+div.reactMarkDown h4,
+div.reactMarkDown h5 {
   font-size: 1.1em;
 }
 
@@ -40,14 +53,16 @@ div.reactMarkDown blockquote {
   line-height: 20px;
 }
 
-.hermine-chat-container p, .hermine-chat-container pre {
+.hermine-chat-container p,
+.hermine-chat-container pre {
   margin: 0;
   font-size: 16px;
   line-height: 20px;
 }
 
 
-.hermine-chat-container code, .hermine-chat-container pre {
+.hermine-chat-container code,
+.hermine-chat-container pre {
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
   font-feature-settings: normal;
   font-variation-settings: normal;
