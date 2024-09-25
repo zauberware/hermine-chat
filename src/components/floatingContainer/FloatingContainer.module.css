@@ -1,7 +1,9 @@
 body {
   --primary: #9D174D;
 }
+
 .floatingContainer {
+  overflow: visible;
   z-index: 9999;
   position: fixed;
   height: fit-content;
@@ -9,9 +11,9 @@ body {
   max-height: calc(100vh - 50px);
   display: flex;
   border-radius: 5px;
-  overflow: hidden;
   right: 0;
   padding-bottom: 10px;
+
   @media screen and (min-width: 480px) {
     width: fit-content;
   }
@@ -25,6 +27,7 @@ body {
 .floatingContainer-center {
   flex-direction: column;
   bottom: 0;
+
   @media screen and (min-width: 480px) {
     flex-direction: row;
     top: 50%;
