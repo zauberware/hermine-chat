@@ -7,7 +7,7 @@ import { getLogoUrl } from "../../utils";
 
 type Location = 'top' | 'center' | 'bottom'
 
-const FloatingButton: React.FC<FloatingButtonProps> = ({ setToggled }) => {
+const FloatingButton: React.FC<FloatingButtonProps> = ({ setToggled, style: propStyle }) => {
   const { settings, theme } = useSettings();
   const { useCustomLogo } = settings
   let logoUrl;
@@ -23,6 +23,7 @@ const FloatingButton: React.FC<FloatingButtonProps> = ({ setToggled }) => {
   }
 
   const style = {
+    ...propStyle,
     ...(logoUrl && useCustomLogo
       ? {
         backgroundImage: `url(${logoUrl})`,

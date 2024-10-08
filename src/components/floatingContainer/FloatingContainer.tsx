@@ -79,16 +79,39 @@ const FloatingContainer: React.FC<FloatingContainerProps> = () => {
   }, [conversationId]);
   const { isMobile } = useResponsive();
 
-  const mobileStyle = {
+  const mobileContainerStyle = {
     ...(settings.fontFamily ? { fontFamily: settings.fontFamily } : {}),
+    maxHeight: '100vh',
+    maxWidth: '100vw'
   }
 
-  const style = {
+  const mobileStyle = {
+    marginTop: 10,
+    marginRight: 10,
+    marginBottom: 10,
+  }
+
+  const getCssString = (value: string | number | undefined) => {
+    if (value) {
+      if (typeof value == 'string') {
+        return value
+      } else if (typeof value == 'number') {
+        return `${settings.spacingTop}px`
+      }
+    }
+    return '0px'
+  }
+
+  const containerStyle = {
     ...(settings.spacingTop ? { marginTop: settings.spacingTop } : {}),
     ...(settings.spacingBottom ? { marginBottom: settings.spacingBottom } : {}),
     ...(settings.spacingRight ? { marginRight: settings.spacingRight } : {}),
     ...(settings.fontFamily ? { fontFamily: settings.fontFamily } : {}),
+    maxHeight: `calc(100vh - ${getCssString(settings.spacingTop)} - ${getCssString(settings.spacingBottom)} - 10px)`,
+    maxWidth: `calc(100vw - ${getCssString(settings.spacingRight)} - ${getCssString(settings.spacingRight)})`
   };
+
+  const style = {};
 
   useEffect(() => {
     const foundElements = document.getElementsByClassName('hermine-chat-opener')
@@ -114,11 +137,11 @@ const FloatingContainer: React.FC<FloatingContainerProps> = () => {
 
   return (
     <div
-      style={isMobile ? mobileStyle : style}
+      style={isMobile ? mobileContainerStyle : containerStyle}
       className={cx(styles.floatingContainer, styles[`floatingContainer-${location as Location}`])}
     >
       {toggled && <ChatWindow close={close} theme={theme} />}
-      <FloatingButton setToggled={setToggled} />
+      <FloatingButton style={isMobile ? mobileStyle : style} setToggled={setToggled} />
     </div>
   );
 };

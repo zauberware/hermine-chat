@@ -7,15 +7,16 @@ body {
   z-index: 9999;
   position: fixed;
   height: fit-content;
+  height: -webkit-fill-available;
   width: 100vw;
-  max-height: calc(100vh - 50px);
   display: flex;
   border-radius: 5px;
   right: 0;
-  padding-bottom: 10px;
 
   @media screen and (min-width: 480px) {
     width: fit-content;
+    padding-bottom: 10px;
+    height: fit-content;
   }
 }
 
