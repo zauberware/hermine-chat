@@ -4,9 +4,9 @@
   flex: 1;
   padding: 10px;
   justify-content: center;
+  color: rgb(75, 85, 99);
 
-  @media screen and (min-width: 480px) {
-  }
+  @media screen and (min-width: 480px) {}
 }
 
 #splashImage {
@@ -45,19 +45,14 @@
 }
 
 .promptContainer {
-  border: 1px solid rgb(229, 231, 235) !important;
+  border: 1px solid rgb(209, 213, 219) !important;
   border-radius: 5px;
-  padding: 5px;
+  padding: 5px 10px;
   text-align: center;
   justify-content: center;
   align-items: center;
   height: 100%;
   display: flex;
   cursor: pointer;
-  box-shadow: 5px 5px 10px -7px rgba(0,0,0,1);
-}
-
-.promptContainer:hover {
-  box-shadow: 3px 3px 10px -3px rgba(0,0,0,0.5);
-  transform: translateY(-2px);
+  font-size: 0.8em;
 }

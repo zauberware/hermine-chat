@@ -16,11 +16,33 @@ body {
   width: 100%;
   animation: fadeInFromNone 0.5s ease-out;
   box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+
   @media screen and (min-width: 480px) {
     max-height: 90vh;
     width: 500px;
   }
 }
+
+#chatWindow:before,
+#chatWindow:after {
+  content: "";
+  position: absolute;
+  left: 0;
+  background: white;
+  padding: 10px;
+  width: calc(100% - 2px);
+  height: calc(100% - 2px);
+  z-index: -1;
+}
+
+#chatWindow:before {
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.30));
+}
+
+#chatWindow:after {
+  filter: drop-shadow(0px 4px 4px rgba(255, 255, 255, 0.30));
+}
+
 
 #chatContainer {
   display: flex;
@@ -188,11 +210,11 @@ body {
 }
 
 @keyframes fadeInFromNone {
-    0% {
-        opacity: 0;
-    }
+  0% {
+    opacity: 0;
+  }
 
-    100% {
-        opacity: 1;
-    }
+  100% {
+    opacity: 1;
+  }
 }

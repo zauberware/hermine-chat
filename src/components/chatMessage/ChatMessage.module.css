@@ -2,6 +2,7 @@
   display: flex;
   width: 100%;
   margin-top: 8px;
+  color: rgb(75, 85, 99);
 }
 
 #messageContainer .aiMessageContainer {
@@ -76,7 +77,7 @@
 
 #messageContainer .retryButton {
   text-decoration: underline;
-  color: rgb(107, 114, 128);
+  color: rgb(75, 85, 99);
   line-height: 1;
   font-size: 14px;
   padding-top: 4px;
