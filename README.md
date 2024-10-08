@@ -79,6 +79,8 @@ If you put this in your html template file, do not forget to put it inside `<scr
 
 You can open the chatwindow by adding a element with the class `hermine-chat-opener`. With the class `hermine-chat-toggler` you also can close the window with a click on those.
 
+If you want to open the chat window via an url, you can add a the following query parameter to the url: `?hermine_chat_open=true` for example `https://hermine.ai/agents?hermine_chat_open=true.
+
 ### How to change the avatar in the ai chat messages?
 
 The image from the floating button is loaded from the hermine.ai application. The property used for the image is the `ai_icon`.
@@ -91,7 +93,7 @@ The image from the floating button is loaded from the hermine.ai application. Th
 
 To contribute in the development in this application you need something like a container application.
 For example you could use [this](https://github.com/ChrKahl/hermine-chat-container) sveltekit application.
-After you cloned the package, make sure to add this package in the container application with your relative path. 
+After you cloned the package, make sure to add this package in the container application with your relative path.
 For example:
 
 ```bash

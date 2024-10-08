@@ -14,6 +14,15 @@ type Location = "center" | "bottom" | "top";
 
 const FloatingContainer: React.FC<FloatingContainerProps> = () => {
   const [toggled, setToggled] = useState<boolean>(false);
+  const searchParams = new URL(document.location.href).searchParams;
+
+  useEffect(() => {
+    if (searchParams.get('hermine_chat_open')) {
+      setToggled(true);
+      searchParams.delete('hermine_chat_open')
+      window.history.replaceState({}, '', `${window.location.pathname}${searchParams.toString()}`)
+    }
+  }, [searchParams])
 
   const {
     theme,
@@ -133,7 +142,7 @@ const FloatingContainer: React.FC<FloatingContainerProps> = () => {
 
   const open = () => setToggled(true)
 
-  const close = () => setToggled(false);
+  const close = () => setToggled(false)
 
   return (
     <div

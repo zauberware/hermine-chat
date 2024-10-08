@@ -41,7 +41,7 @@ const SplashScreen: React.FC<SplashScreenProps> = ({ sendMessage }) => {
         ) : null}
         <div className={styles.promptsContainer}>
           {prompts?.filter((prompt: string) => !!prompt).map((prompt: string) => (
-            <div className={styles.promptContainer} onClick={() => sendMessage(prompt)}>{prompt}</div>
+            <div key={prompt} className={styles.promptContainer} onClick={() => sendMessage(prompt)}>{prompt}</div>
           ))}
         </div>
       </div>
