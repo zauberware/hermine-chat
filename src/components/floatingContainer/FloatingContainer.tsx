@@ -79,17 +79,21 @@ const FloatingContainer: React.FC<FloatingContainerProps> = () => {
     if (toggled) {
       getSubscription();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [toggled, settings.target]);
 
   useEffect(() => {
     if (conversationId) {
       fetchConversation();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [conversationId]);
   const { isMobile } = useResponsive();
 
   const mobileContainerStyle = {
     ...(settings.fontFamily ? { fontFamily: settings.fontFamily } : {}),
+    justifyContent: location === 'top' ? 'start' : 'end',
+    height: '-webkit-fill-available',
     maxHeight: '100vh',
     maxWidth: '100vw'
   }

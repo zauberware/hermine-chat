@@ -8,7 +8,6 @@ body {
   pointer-events: none;
   position: fixed;
   height: fit-content;
-  height: -webkit-fill-available;
   width: 100vw;
   display: flex;
   border-radius: 5px;
