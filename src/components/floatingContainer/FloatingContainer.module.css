@@ -5,6 +5,7 @@ body {
 .floatingContainer {
   overflow: visible;
   z-index: 9999;
+  pointer-events: none;
   position: fixed;
   height: fit-content;
   height: -webkit-fill-available;
@@ -19,6 +20,11 @@ body {
     height: fit-content;
   }
 }
+
+.floatingContainer * {
+  pointer-events: all;
+}
+
 
 .floatingContainer-top {
   flex-direction: column-reverse;
