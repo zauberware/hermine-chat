@@ -1,5 +1,5 @@
 .reactMarkDown a {
-  text-decoration: underline;
+  text-decoration: underline !important;
 }
 
 div.reactMarkDown ul,
