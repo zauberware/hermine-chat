@@ -1,0 +1,39 @@
+name: SAST Scan to DefectDojo
+
+on:
+  push:
+    branches:
+      - develop
+      - main
+
+jobs:
+  semgrep-to-defectdojo:
+    name: Set up Python and run Semgrep
+    runs-on: self-hosted
+    # This is the version of the action for setting up Python, not the Python version.
+
+    steps:
+      # Fetch project source with GitHub Actions Checkout. Use either v3 or v4.
+      - uses: actions/checkout@v4
+      # Run the "semgrep scan" command on the command line of the docker image.
+      - uses: actions/setup-python@v5
+        with:
+          # Semantic version range syntax or exact version of a Python version
+          python-version: '3.x'
+          # Optional - x64 or x86 architecture, defaults to x64
+          architecture: 'x64'
+          # You can test your matrix by printing the current Python version
+      - name: Install semgrep
+        run: python3 -m pip install semgrep
+      - name: Install dotenv
+        run: python3 -m pip install dotenv
+      - name: Run semgrep scan
+        run: semgrep scan --config auto --json . > semgrep-results.json
+      - name: push to DefectDojo
+        run: |
+          python3 /home/github-runner/semgrep-python/main.py semgrep-results.json
+        env:
+          DOJO_TOKEN: ${{ secrets.DOJO_TOKEN }}
+          DOJO_URL: ${{ secrets.DOJO_URL }}
+          PRODUCT_NAME: hermine-chat
+          ENGAGEMENT_NAME: semgrep
