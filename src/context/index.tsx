@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
-import * as Sentry from '@sentry/react'
+import * as Sentry from "@sentry/react";
 import { getConversation, resetLocalConversation, ITheme } from "../api";
 import { createFetchConfig } from "../utils";
 
@@ -10,7 +10,11 @@ export interface ISettings {
   accountId: string;
   chatTitle?: string;
   chatTitleColor?: string;
+  chatSubTitle?: string;
+  chatSubTitleColor?: string;
   chatDescription?: string;
+  chatDescriptionColor?: string;
+  chatBackgroundColor?: string;
   spacingBottom?: string;
   spacingTop?: string;
   spacingRight?: string;
@@ -18,12 +22,21 @@ export interface ISettings {
   target?: string;
   fontFamily?: string;
   floatingButtonBorderColor?: string;
+  floatingButtonBackgroundColor?: string;
+  floatingButtonIconColor?: string;
+  floatingButtonIcon?: "chat" | "logo" | "robot";
   buttonBackgroundColor?: string;
   messageColor?: string;
   messageBackgroundColor?: string;
+  aiMessageBackgroundColor?: string;
+  aiMessageTextColor?: string;
+  messageTextColor?: string;
   location?: Location;
   withConversationManagement?: boolean;
   useCustomLogo?: boolean;
+  fullScreenEnabled?: boolean;
+  shadow?: "none" | "small" | "large";
+  textInputPlaceholder?: string;
 }
 
 export interface IMessage {
@@ -41,7 +54,7 @@ export interface IConversation {
   privacyDisclaimer?: string;
   inputPlaceholderDe?: string;
   inputPlaceholderEn?: string;
-  prompts: string[]
+  prompts: string[];
 }
 
 export interface SettingsProps {
@@ -61,7 +74,7 @@ export interface SettingsProps {
 
 const getConversationId = () => {
   const localConversationIdsString = localStorage.getItem(
-    "hermine_conversation_ids",
+    "hermine_conversation_ids"
   );
   if (localConversationIdsString) {
     const localConversationIds = JSON.parse(localConversationIdsString);
@@ -79,7 +92,7 @@ export const defaultSettings: SettingsProps = {
   },
   conversation: {
     messages: [],
-    prompts: []
+    prompts: [],
   },
   theme: {},
   setTheme: () => undefined,
@@ -106,10 +119,10 @@ const SettingsContextProvider = ({
   settings,
 }: SettingsContextProviderProps) => {
   const [conversation, setConversation] = useState<IConversation | undefined>(
-    defaultSettings.conversation,
+    defaultSettings.conversation
   );
   const [conversationId, setConversationId] = useState<string | undefined>(
-    getConversationId(),
+    getConversationId()
   );
   const [stateSettings, setSettings] = useState<ISettings>(settings);
   const [theme, setTheme] = useState<ITheme>(defaultSettings.theme);
@@ -151,7 +164,7 @@ const SettingsContextProvider = ({
       const conversation = await getConversation(
         conversationId || message?.conversation_id,
         stateSettings.target,
-        createFetchConfig(stateSettings.agentSlug, stateSettings.accountId),
+        createFetchConfig(stateSettings.agentSlug, stateSettings.accountId)
       );
 
       if (conversation) {
@@ -174,9 +187,11 @@ const SettingsContextProvider = ({
         setConversation({ ...conversation, messages } as IConversation);
         console.debug("message", message);
       } else {
-
-        Sentry.captureMessage(`Could not fetch conversation with id: ${conversationId || message?.conversation_id}`)
-
+        Sentry.captureMessage(
+          `Could not fetch conversation with id: ${
+            conversationId || message?.conversation_id
+          }`
+        );
       }
     }
   };

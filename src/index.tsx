@@ -34,11 +34,23 @@ const HermineChat = (settings: ISettings) => {
   const defaultSettings = {
     location: "bottom",
     chatTitle: "KI-Chat",
+    chatSubTitle: "Juristische Hilfe in Echtzeit",
     target: "https://hermine.ai",
     buttonColor: "white",
     buttonBackgroundColor: "#A01F53",
+    floatingButtonBackgroundColor: "#A01F53",
+    floatingButtonIconColor: "white",
     messageColor: "white",
     messageBackgroundColor: "#A01F53",
+    aiMessageBackgroundColor: "#F3F4F6",
+    aiMessageTextColor: "#374151",
+    messageTextColor: "#374151",
+    chatBackgroundColor: "white",
+    chatTitleColor: "#1F2937",
+    chatSubTitleColor: "#6B7280",
+    chatDescriptionColor: "#6B7280",
+    shadow: "large" as const,
+    fullScreenEnabled: true,
   };
   const mergedSettings = {
     ...defaultSettings,
@@ -55,12 +67,13 @@ const HermineChat = (settings: ISettings) => {
       <StrictMode>
         <SettingsContextProvider settings={mergedSettings}>
           <FloatingContainer />
-        </SettingsContextProvider>,
+        </SettingsContextProvider>
+        ,
       </StrictMode>
     );
   } catch {
     console.error(
-      "Could not mount react component. Add an element with id 'hermine-chat-container'.",
+      "Could not mount react component. Add an element with id 'hermine-chat-container'."
     );
   }
 };

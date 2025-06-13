@@ -25,10 +25,88 @@
 
 #messageContainer .humanMessage {
   background-color: rgb(209, 213, 219);
+  color: rgb(75, 85, 99);
   border-bottom-left-radius: 8px;
   border-bottom-right-radius: 8px;
   border-top-left-radius: 8px;
   padding: 12px;
+  max-width: calc(100% - 40px);
+  width: fit-content;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Spezielle Styles für Markdown in Benutzer-Nachrichten */
+.humanMarkdown {
+  color: var(--user-text-color) !important;
+}
+
+.humanMarkdown * {
+  color: var(--user-text-color) !important;
+}
+
+.humanMarkdown p {
+  margin-top: 0.5rem !important;
+  margin-bottom: 0.5rem !important;
+  color: var(--user-text-color) !important;
+}
+
+.humanMarkdown h1,
+.humanMarkdown h2,
+.humanMarkdown h3,
+.humanMarkdown h4,
+.humanMarkdown h5,
+.humanMarkdown h6 {
+  color: var(--user-text-color) !important;
+  margin-top: 0.75rem !important;
+  margin-bottom: 0.5rem !important;
+}
+
+.humanMarkdown strong,
+.humanMarkdown b {
+  color: var(--user-text-color) !important;
+  font-weight: bold !important;
+}
+
+.humanMarkdown em,
+.humanMarkdown i {
+  color: var(--user-text-color) !important;
+  font-style: italic !important;
+}
+
+.humanMarkdown ul,
+.humanMarkdown ol {
+  color: var(--user-text-color) !important;
+  margin: 0.5rem 0 !important;
+  padding-left: 1.5rem !important;
+}
+
+.humanMarkdown li {
+  color: var(--user-text-color) !important;
+  margin: 0.25rem 0 !important;
+}
+
+.humanMarkdown code {
+  color: var(--user-text-color) !important;
+  background-color: rgba(0, 0, 0, 0.1) !important;
+  padding: 0.125rem 0.25rem !important;
+  border-radius: 0.25rem !important;
+}
+
+.humanMarkdown blockquote {
+  color: var(--user-text-color) !important;
+  border-left: 3px solid var(--user-text-color) !important;
+  padding-left: 1rem !important;
+  margin: 1rem 0 !important;
+  opacity: 0.8;
+}
+
+.humanMarkdown a {
+  color: var(--user-text-color) !important;
+  text-decoration: underline !important;
+}
+
+.humanMarkdown a:hover {
+  opacity: 0.8 !important;
 }
 
 #messageContainer .icon {
@@ -46,7 +124,8 @@
   border-bottom-left-radius: 8px;
   border-bottom-right-radius: 8px;
   border-top-right-radius: 8px;
-  margin-left: 12px;
+  width: 100%;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 #messageContainer .error {
@@ -57,7 +136,7 @@
 
 #chatMessageContainer {
   max-width: calc(100% - 40px);
-  ;
+  width: 100%;
 }
 
 #messageContainer .loading {

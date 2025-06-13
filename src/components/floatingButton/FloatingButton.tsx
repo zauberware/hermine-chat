@@ -1,37 +1,42 @@
 import React from "react";
 import styles from "./FloatingButton.module.css";
 import { FloatingButtonProps } from "./FloatingButton.types";
-import Icon from "../../assets/images/chat.svg";
+import ChatIcon from "../../assets/images/chat.svg";
+import LogoIcon from "../../assets/images/logo.svg";
+import RobotIcon from "../../assets/images/RobotIcon";
 import { useSettings } from "../../context";
-import { getLogoUrl } from "../../utils";
 
-type Location = 'top' | 'center' | 'bottom'
+type Location = "top" | "center" | "bottom";
 
-const FloatingButton: React.FC<FloatingButtonProps> = ({ setToggled, style: propStyle }) => {
+const FloatingButton: React.FC<FloatingButtonProps> = ({
+  setToggled,
+  style: propStyle,
+}) => {
   const { settings, theme } = useSettings();
-  const { useCustomLogo } = settings
-  let logoUrl;
-  if (theme.ai_icon) {
-    logoUrl = getLogoUrl(theme.ai_icon);
-  }
+  const { floatingButtonIcon = "robot" } = settings;
+
   let borderColor = "var(--primary)";
-  const { location } = settings || { location: 'center' }
+  const { location } = settings || { location: "center" };
+
   if (settings.floatingButtonBorderColor) {
-    borderColor = settings.floatingButtonBorderColor
+    borderColor = settings.floatingButtonBorderColor;
   } else if (theme.primary_900) {
     borderColor = theme.primary_900;
   }
 
+  const backgroundColor =
+    settings.floatingButtonBackgroundColor ||
+    settings.buttonBackgroundColor ||
+    "white";
+  const iconColor = settings.floatingButtonIconColor || "white";
+
   const style = {
     ...propStyle,
-    ...(logoUrl && useCustomLogo
-      ? {
-        backgroundImage: `url(${logoUrl})`,
-      }
-      : {}),
     border: `2px solid ${borderColor}`,
-    color: borderColor
+    backgroundColor: backgroundColor,
+    color: iconColor,
   };
+
   return (
     <button
       onClick={() => setToggled((t) => !t)}
@@ -39,7 +44,12 @@ const FloatingButton: React.FC<FloatingButtonProps> = ({ setToggled, style: prop
       className={styles[`floatingButton-${location as Location}`]}
       style={style}
     >
-      {logoUrl && useCustomLogo ? null : <Icon height={50} width={40} />}
+      {/* Zeige das konfigurierte SVG-Icon */}
+      {floatingButtonIcon === "chat" && <ChatIcon height={50} width={40} />}
+      {floatingButtonIcon === "logo" && <LogoIcon height={50} width={40} />}
+      {(floatingButtonIcon === "robot" || !floatingButtonIcon) && (
+        <RobotIcon height={50} width={40} fill={iconColor} />
+      )}
     </button>
   );
 };

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import cx from 'classnames'
+import cx from "classnames";
 import styles from "./FloatingContainer.module.css";
 import { FloatingContainerProps } from "./FloatingContainer.types";
 import ChatWindow from "../chatWindow";
@@ -17,12 +17,16 @@ const FloatingContainer: React.FC<FloatingContainerProps> = () => {
   const searchParams = new URL(document.location.href).searchParams;
 
   useEffect(() => {
-    if (searchParams.get('hermine_chat_open')) {
+    if (searchParams.get("hermine_chat_open")) {
       setToggled(true);
-      searchParams.delete('hermine_chat_open')
-      window.history.replaceState({}, '', `${window.location.pathname}${searchParams.toString()}`)
+      searchParams.delete("hermine_chat_open");
+      window.history.replaceState(
+        {},
+        "",
+        `${window.location.pathname}${searchParams.toString()}`
+      );
     }
-  }, [searchParams])
+  }, [searchParams]);
 
   const {
     theme,
@@ -33,14 +37,14 @@ const FloatingContainer: React.FC<FloatingContainerProps> = () => {
     fetchConversation,
   } = useSettings();
 
-  const { location } = settings
+  const { location } = settings;
 
   useEffect(() => {
     const fetchTheme = async () => {
       const newTheme = await getTheme(
         settings.agentSlug,
         settings.accountId,
-        settings.target,
+        settings.target
       );
 
       setTheme(newTheme);
@@ -57,7 +61,7 @@ const FloatingContainer: React.FC<FloatingContainerProps> = () => {
   useEffect(() => {
     const getConversationId = async () => {
       const localConversationsIds = localStorage.getItem(
-        "hermine_conversation_ids",
+        "hermine_conversation_ids"
       );
       if (localConversationsIds) {
         return JSON.parse(localConversationsIds)[0];
@@ -66,7 +70,7 @@ const FloatingContainer: React.FC<FloatingContainerProps> = () => {
         settings.accountId,
         settings.agentSlug,
         settings.target,
-        createFetchConfig(settings.agentSlug, settings.accountId),
+        createFetchConfig(settings.agentSlug, settings.accountId)
       );
       return response;
     };
@@ -92,69 +96,83 @@ const FloatingContainer: React.FC<FloatingContainerProps> = () => {
 
   const mobileContainerStyle = {
     ...(settings.fontFamily ? { fontFamily: settings.fontFamily } : {}),
-    justifyContent: location === 'top' ? 'start' : 'end',
-    height: '-webkit-fill-available',
-    maxHeight: '100vh',
-    maxWidth: '100vw'
-  }
+    justifyContent: location === "top" ? "start" : "end",
+    height: "-webkit-fill-available",
+    maxHeight: "100vh",
+    maxWidth: "100vw",
+  };
 
   const mobileStyle = {
     marginTop: 10,
     marginRight: 10,
     marginBottom: 10,
-  }
+  };
 
   const getCssString = (value: string | number | undefined) => {
     if (value) {
-      if (typeof value == 'string') {
-        return value
-      } else if (typeof value == 'number') {
-        return `${settings.spacingTop}px`
+      if (typeof value == "string") {
+        return value;
+      } else if (typeof value == "number") {
+        return `${settings.spacingTop}px`;
       }
     }
-    return '0px'
-  }
+    return "0px";
+  };
 
   const containerStyle = {
     ...(settings.spacingTop ? { marginTop: settings.spacingTop } : {}),
     ...(settings.spacingBottom ? { marginBottom: settings.spacingBottom } : {}),
     ...(settings.spacingRight ? { marginRight: settings.spacingRight } : {}),
     ...(settings.fontFamily ? { fontFamily: settings.fontFamily } : {}),
-    maxHeight: `calc(100vh - ${getCssString(settings.spacingTop)} - ${getCssString(settings.spacingBottom)} - 10px)`,
-    maxWidth: `calc(100vw - ${getCssString(settings.spacingRight)} - ${getCssString(settings.spacingRight)})`
+    maxHeight: `calc(100vh - ${getCssString(
+      settings.spacingTop
+    )} - ${getCssString(settings.spacingBottom)} - 10px)`,
+    maxWidth: `calc(100vw - ${getCssString(
+      settings.spacingRight
+    )} - ${getCssString(settings.spacingRight)})`,
   };
 
   const style = {};
 
   useEffect(() => {
-    const foundElements = document.getElementsByClassName('hermine-chat-opener')
+    const foundElements = document.getElementsByClassName(
+      "hermine-chat-opener"
+    );
     for (var i = 0; i < foundElements.length; i++) {
-      const item = foundElements[i]
-      item.addEventListener('click', open)
+      const item = foundElements[i];
+      item.addEventListener("click", open);
     }
-  }, [])
+  }, []);
 
   useEffect(() => {
-    const foundElements = document.getElementsByClassName('hermine-chat-toggler')
+    const foundElements = document.getElementsByClassName(
+      "hermine-chat-toggler"
+    );
     for (var i = 0; i < foundElements.length; i++) {
-      const item = foundElements[i]
-      item.addEventListener('click', toggleContainer)
+      const item = foundElements[i];
+      item.addEventListener("click", toggleContainer);
     }
-  }, [])
+  }, []);
 
-  const toggleContainer = () => setToggled(t => !t)
+  const toggleContainer = () => setToggled((t) => !t);
 
-  const open = () => setToggled(true)
+  const open = () => setToggled(true);
 
-  const close = () => setToggled(false)
+  const close = () => setToggled(false);
 
   return (
     <div
       style={isMobile ? mobileContainerStyle : containerStyle}
-      className={cx(styles.floatingContainer, styles[`floatingContainer-${location as Location}`])}
+      className={cx(
+        styles.floatingContainer,
+        styles[`floatingContainer-${location as Location}`]
+      )}
     >
       {toggled && <ChatWindow close={close} theme={theme} />}
-      <FloatingButton style={isMobile ? mobileStyle : style} setToggled={setToggled} />
+      <FloatingButton
+        style={isMobile ? mobileStyle : style}
+        setToggled={setToggled}
+      />
     </div>
   );
 };

@@ -32,6 +32,7 @@
   "scripts": {
     "rollup": "rollup -c --bundleConfigAsCjs",
     "dev": "rollup -c rollup.dev.config.js --bundleConfigAsCjs",
+    "watch": "rollup -c rollup.dev.config.js --bundleConfigAsCjs --watch",
     "test": "jest"
   },
   "eslintConfig": {

@@ -2,11 +2,12 @@
   min-height: 30vh;
   display: flex;
   flex: 1;
-  padding: 10px;
+  padding: 10px 24px;
   justify-content: center;
   color: rgb(75, 85, 99);
 
-  @media screen and (min-width: 480px) {}
+  @media screen and (min-width: 480px) {
+  }
 }
 
 #splashImage {
