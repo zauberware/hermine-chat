@@ -26,8 +26,6 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ close }) => {
   const { t, i18n } = useTranslation("translation");
   const [isFullScreen, setIsFullScreen] = useState<boolean>(false);
 
-  console.log(fetchConfig, "fetchConfig");
-
   const onSubmit = async (e: any) => {
     e.preventDefault();
     const formData = new FormData(e.target);
@@ -279,9 +277,13 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ close }) => {
                     )}
                   </button>
                 )}
-                <div id={styles.closeIcon} onClick={close}>
+                <button
+                  id={styles.closeIcon}
+                  onClick={close}
+                  aria-label="Close chat"
+                >
                   <Close width="24" height="24" />
-                </div>
+                </button>
               </div>
             </div>
           </div>
