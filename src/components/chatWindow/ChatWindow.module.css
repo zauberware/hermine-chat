@@ -144,6 +144,13 @@ body {
   background-color: rgb(243, 244, 246);
 }
 
+/* Hide fullscreen button on mobile devices */
+@media screen and (max-width: 768px) {
+  #fullScreenButton {
+    display: none;
+  }
+}
+
 #conversationManagement {
   width: auto;
   background-color: transparent;

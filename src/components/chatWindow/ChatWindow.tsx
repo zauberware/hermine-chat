@@ -203,7 +203,10 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ close }) => {
   return (
     <div id={styles.chatWindow} style={chatWindowStyle}>
       {privacyAccepted ? (
-        <div id={styles.chatContainer}>
+        <div
+          id={styles.chatContainer}
+          className={isFullScreen ? styles.fullscreenMode : ""}
+        >
           <div id={styles.topContainer}>
             {/* Header with logo, title, subtitle and actions */}
             <div id={styles.headerContainer}>
@@ -211,10 +214,10 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ close }) => {
               <div id={styles.leftSection}>
                 <img
                   id={styles.logo}
-                  src={getLogoUrl(theme.ai_icon)}
+                  src={getLogoUrl(theme.logo)}
                   alt="AI Logo"
                   style={{
-                    maxHeight: "60px",
+                    maxHeight: "40px",
                     objectFit: "contain",
                     alignItems: "left",
                   }}

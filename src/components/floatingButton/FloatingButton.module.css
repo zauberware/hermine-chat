@@ -1,5 +1,5 @@
 body {
-  --primary: #9D174D;
+  --primary: #9d174d;
   --primary_hover: #4d7a9a;
 }
 
@@ -31,16 +31,16 @@ body {
   left: 0;
   border-radius: 50%;
   background: white;
-  padding: 10px;
+  padding: 16px;
   width: 68px;
   height: 68px;
   z-index: -1;
 }
 #floatingButton:before {
-  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.30));
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.3));
 }
 #floatingButton:after {
-  filter: drop-shadow(0px 4px 4px rgba(255, 255, 255, 0.30));
+  filter: drop-shadow(0px 4px 4px rgba(255, 255, 255, 0.3));
 }
 
 #floatingButton.floatingButton-top {
