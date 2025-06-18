@@ -12,7 +12,10 @@ import { useResponsive } from "../../utils/hooks";
 
 type Location = "center" | "bottom" | "top";
 
-const FloatingContainer: React.FC<FloatingContainerProps> = () => {
+const FloatingContainer: React.FC<FloatingContainerProps> = ({
+  buttonWidth: propButtonWidth,
+  buttonHeight: propButtonHeight,
+}) => {
   const [toggled, setToggled] = useState<boolean>(false);
   const searchParams = new URL(document.location.href).searchParams;
 
@@ -134,6 +137,10 @@ const FloatingContainer: React.FC<FloatingContainerProps> = () => {
 
   const style = {};
 
+  // Determine button size from props or settings
+  const buttonWidth = propButtonWidth || settings.floatingButtonWidth;
+  const buttonHeight = propButtonHeight || settings.floatingButtonHeight;
+
   useEffect(() => {
     const foundElements = document.getElementsByClassName(
       "hermine-chat-opener"
@@ -168,10 +175,12 @@ const FloatingContainer: React.FC<FloatingContainerProps> = () => {
         styles[`floatingContainer-${location as Location}`]
       )}
     >
-      {toggled && <ChatWindow close={close} theme={theme} />}
+      {toggled && <ChatWindow close={close} />}
       <FloatingButton
         style={isMobile ? mobileStyle : style}
         setToggled={setToggled}
+        width={buttonWidth}
+        height={buttonHeight}
       />
     </div>
   );

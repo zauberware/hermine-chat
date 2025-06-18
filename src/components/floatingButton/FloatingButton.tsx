@@ -11,6 +11,8 @@ type Location = "top" | "center" | "bottom";
 const FloatingButton: React.FC<FloatingButtonProps> = ({
   setToggled,
   style: propStyle,
+  width = 70,
+  height = 70,
 }) => {
   const { settings, theme } = useSettings();
   const { floatingButtonIcon = "robot" } = settings;
@@ -30,11 +32,30 @@ const FloatingButton: React.FC<FloatingButtonProps> = ({
     "white";
   const iconColor = settings.floatingButtonIconColor || "white";
 
+  // Calculate icon size based on button size (about 70% of button size)
+  const buttonWidth =
+    typeof width === "number" ? width : parseInt(width as string) || 70;
+  const buttonHeight =
+    typeof height === "number" ? height : parseInt(height as string) || 70;
+  const iconWidth = Math.round(buttonWidth * 0.7);
+  const iconHeight = Math.round(buttonHeight * 0.7);
+
+  // Calculate pseudo-element size (2px smaller than button for border)
+  const pseudoWidth = buttonWidth - 2;
+  const pseudoHeight = buttonHeight - 2;
+
   const style = {
     ...propStyle,
     border: `2px solid ${borderColor}`,
     backgroundColor: backgroundColor,
     color: iconColor,
+    width: width,
+    height: height,
+    "--pseudo-width": `${pseudoWidth}px`,
+    "--pseudo-height": `${pseudoHeight}px`,
+  } as React.CSSProperties & {
+    "--pseudo-width": string;
+    "--pseudo-height": string;
   };
 
   return (
@@ -45,10 +66,14 @@ const FloatingButton: React.FC<FloatingButtonProps> = ({
       style={style}
     >
       {/* Zeige das konfigurierte SVG-Icon */}
-      {floatingButtonIcon === "chat" && <ChatIcon height={50} width={40} />}
-      {floatingButtonIcon === "logo" && <LogoIcon height={50} width={40} />}
+      {floatingButtonIcon === "chat" && (
+        <ChatIcon height={iconHeight} width={iconWidth} />
+      )}
+      {floatingButtonIcon === "logo" && (
+        <LogoIcon height={iconHeight} width={iconWidth} />
+      )}
       {(floatingButtonIcon === "robot" || !floatingButtonIcon) && (
-        <RobotIcon height={50} width={40} fill={iconColor} />
+        <RobotIcon height={iconHeight} width={iconWidth} fill={iconColor} />
       )}
     </button>
   );

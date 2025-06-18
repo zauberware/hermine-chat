@@ -32,8 +32,8 @@ body {
   border-radius: 50%;
   background: white;
   padding: 16px;
-  width: 68px;
-  height: 68px;
+  width: var(--pseudo-width, 68px);
+  height: var(--pseudo-height, 68px);
   z-index: -1;
 }
 #floatingButton:before {

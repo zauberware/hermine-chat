@@ -33,15 +33,15 @@ const HermineChat = (settings: ISettings) => {
   }
   const defaultSettings = {
     location: "bottom",
-    chatTitle: "KI-Chat",
-    chatSubTitle: "Juristische Hilfe in Echtzeit",
+    chatTitle: "Chat Assistant",
+    chatSubTitle: "Wie kann ich Ihnen helfen?",
     target: "https://hermine.ai",
     buttonColor: "white",
-    buttonBackgroundColor: "#A01F53",
-    floatingButtonBackgroundColor: "#A01F53",
+    buttonBackgroundColor: "#6B7280",
+    floatingButtonBackgroundColor: "#6B7280",
     floatingButtonIconColor: "white",
     messageColor: "white",
-    messageBackgroundColor: "#A01F53",
+    messageBackgroundColor: "#6B7280",
     aiMessageBackgroundColor: "#F3F4F6",
     aiMessageTextColor: "#374151",
     messageTextColor: "#374151",
@@ -68,7 +68,6 @@ const HermineChat = (settings: ISettings) => {
         <SettingsContextProvider settings={mergedSettings}>
           <FloatingContainer />
         </SettingsContextProvider>
-        ,
       </StrictMode>
     );
   } catch {
