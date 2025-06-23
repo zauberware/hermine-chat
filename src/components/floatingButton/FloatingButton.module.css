@@ -1,12 +1,7 @@
-body {
-  --primary: #9d174d;
-  --primary_hover: #4d7a9a;
-}
-
 #floatingButton {
   background-color: white;
   border-radius: 50%;
-  border: 2px solid var(--primary);
+  border: 2px solid #9d174d;
   padding: 10px;
   width: 70px;
   height: 70px;
@@ -62,5 +57,5 @@ body {
 
 #floatingButton.floatingButton:hover {
   background-color: lightgrey;
-  border: 2px solid var(--primary_hover);
+  border: 2px solid #4d7a9a;
 }

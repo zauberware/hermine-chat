@@ -1,7 +1,3 @@
-body {
-  --primary: #9D174D;
-}
-
 .floatingContainer {
   overflow: visible;
   z-index: 9999;
@@ -24,7 +20,6 @@ body {
   pointer-events: all;
 }
 
-
 .floatingContainer-top {
   flex-direction: column-reverse;
   top: 0;
@@ -41,7 +36,6 @@ body {
     align-items: center;
   }
 }
-
 
 .floatingContainer-bottom {
   bottom: 0;

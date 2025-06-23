@@ -1,7 +1,3 @@
-body {
-  --primary: #9d174d;
-}
-
 #chatWindow {
   display: flex;
   background-color: white;

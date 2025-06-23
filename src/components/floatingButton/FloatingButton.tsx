@@ -17,7 +17,7 @@ const FloatingButton: React.FC<FloatingButtonProps> = ({
   const { settings, theme } = useSettings();
   const { floatingButtonIcon = "robot" } = settings;
 
-  let borderColor = "var(--primary)";
+  let borderColor = "#9d174d";
   const { location } = settings || { location: "center" };
 
   if (settings.floatingButtonBorderColor) {
