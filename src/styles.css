@@ -119,6 +119,7 @@ div.reactMarkDown blockquote {
 /* Base content styling */
 div.reactMarkDown {
   font-size: 0.875rem;
+  text-align: left;
 }
 
 @media (min-width: 640px) {

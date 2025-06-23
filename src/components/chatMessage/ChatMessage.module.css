@@ -16,6 +16,7 @@
   width: 100%;
   max-width: 700px;
   margin-top: 8px;
+  text-align: left;
   margin-left: auto;
   justify-content: end;
 }
@@ -34,11 +35,13 @@
   max-width: calc(100% - 40px);
   width: fit-content;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  text-align: left;
 }
 
 /* Spezielle Styles für Markdown in Benutzer-Nachrichten */
 .humanMarkdown {
   color: var(--user-text-color) !important;
+  text-align: left !important;
 }
 
 .humanMarkdown * {
@@ -127,6 +130,7 @@
   border-top-right-radius: 8px;
   max-width: 700px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  text-align: left;
 }
 
 #messageContainer .error {
@@ -153,6 +157,7 @@
   font-size: 16px;
   line-height: 20px;
   margin-bottom: 0;
+  text-align: left;
 }
 
 #messageContainer .retryButton {

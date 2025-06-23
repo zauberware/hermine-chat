@@ -22,20 +22,16 @@
   margin-bottom: 10px;
 }
 
-.center {
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  margin-top: 50px;
-  margin-bottom: 60px;
-}
-
 #title {
   font-weight: bold;
 }
 
 #description {
   padding: 8px 16px;
+}
+
+.text {
+  text-align: left;
 }
 
 .promptsContainer {
@@ -49,8 +45,8 @@
   border: 1px solid rgb(209, 213, 219) !important;
   border-radius: 5px;
   padding: 5px 10px;
-  text-align: center;
-  justify-content: center;
+  text-align: left;
+  justify-content: flex-start;
   align-items: center;
   height: 100%;
   display: flex;
