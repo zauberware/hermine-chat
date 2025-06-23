@@ -1,6 +1,6 @@
 {
   "name": "@zauberware/hermine-chat",
-  "version": "0.6.18",
+  "version": "0.6.19",
   "private": false,
   "repository": {
     "type": "git",
@@ -32,6 +32,7 @@
   "scripts": {
     "rollup": "rollup -c --bundleConfigAsCjs",
     "dev": "rollup -c rollup.dev.config.js --bundleConfigAsCjs",
+    "watch": "rollup -c rollup.dev.config.js --bundleConfigAsCjs --watch",
     "test": "jest"
   },
   "eslintConfig": {

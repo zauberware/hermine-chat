@@ -1,12 +1,7 @@
-body {
-  --primary: #9D174D;
-  --primary_hover: #4d7a9a;
-}
-
 #floatingButton {
   background-color: white;
   border-radius: 50%;
-  border: 2px solid var(--primary);
+  border: 2px solid #9d174d;
   padding: 10px;
   width: 70px;
   height: 70px;
@@ -31,16 +26,16 @@ body {
   left: 0;
   border-radius: 50%;
   background: white;
-  padding: 10px;
-  width: 68px;
-  height: 68px;
+  padding: 16px;
+  width: var(--pseudo-width, 68px);
+  height: var(--pseudo-height, 68px);
   z-index: -1;
 }
 #floatingButton:before {
-  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.30));
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.3));
 }
 #floatingButton:after {
-  filter: drop-shadow(0px 4px 4px rgba(255, 255, 255, 0.30));
+  filter: drop-shadow(0px 4px 4px rgba(255, 255, 255, 0.3));
 }
 
 #floatingButton.floatingButton-top {
@@ -62,5 +57,5 @@ body {
 
 #floatingButton.floatingButton:hover {
   background-color: lightgrey;
-  border: 2px solid var(--primary_hover);
+  border: 2px solid #4d7a9a;
 }
