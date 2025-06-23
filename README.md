@@ -118,3 +118,32 @@ npm run dev
 ```
 
 Some times the container app shows a 500 error message. If those appear, just restart it with `npm run dev`
+
+## Release
+
+### In short
+`npm version patch -m "chore(release): %s"`
+`git push origin main --follow-tags`
+
+### 1. Bump the version
+
+```bash
+npm version patch -m "chore(release): %s"
+```
+
+- **Purpose:**  
+  Increments your project's version number in `package.json` and `package-lock.json` according to [Semantic Versioning](https://semver.org/).
+  - `patch`: Increments the last number (e.g., `1.0.0` → `1.0.1`). Use for bug fixes or small changes.
+  - `-m "chore(release): %s"`: Sets the commit message, where `%s` is replaced with the new version (e.g., `chore(release): 1.0.1`).
+- **What happens:**  
+  - Updates version numbers.
+  - Creates a Git commit with the changes.
+  - Creates a Git tag for the new version.
+
+### 2. Push changes and tags
+
+```bash
+git push origin main --follow-tags
+```
+
+
