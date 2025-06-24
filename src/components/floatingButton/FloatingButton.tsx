@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./FloatingButton.module.css";
 import { FloatingButtonProps } from "./FloatingButton.types";
 import ChatIcon from "../../assets/images/chat.svg";
 import LogoIcon from "../../assets/images/logo.svg";
 import RobotIcon from "../../assets/images/RobotIcon";
 import { useSettings } from "../../context";
+import cx from "classnames";
 
 type Location = "top" | "center" | "bottom";
 
@@ -13,9 +14,30 @@ const FloatingButton: React.FC<FloatingButtonProps> = ({
   style: propStyle,
   width = 70,
   height = 70,
+  imageUrl,
 }) => {
-  const { settings, theme } = useSettings();
+  const { settings, theme, conversation } = useSettings();
   const { floatingButtonIcon = "robot" } = settings;
+  const [imageError, setImageError] = useState(false);
+  const [imageLoaded, setImageLoaded] = useState(false);
+  const [showImage, setShowImage] = useState(false);
+
+  // Bestimme welches Bild verwendet werden soll
+  const effectiveImageUrl = floatingButtonIcon === "image" ? (imageUrl || conversation?.imageUrl) : null;
+
+  // Reset states when effectiveImageUrl changes
+  useEffect(() => {
+    setImageError(false);
+    setImageLoaded(false);
+    setShowImage(false);
+  }, [effectiveImageUrl]);
+
+  // Show image only after it's loaded
+  useEffect(() => {
+    if (imageLoaded && !imageError && effectiveImageUrl) {
+      setShowImage(true);
+    }
+  }, [imageLoaded, imageError, effectiveImageUrl]);
 
   let borderColor = "#9d174d";
   const { location } = settings || { location: "center" };
@@ -62,18 +84,61 @@ const FloatingButton: React.FC<FloatingButtonProps> = ({
     <button
       onClick={() => setToggled((t) => !t)}
       id={styles.floatingButton}
-      className={styles[`floatingButton-${location as Location}`]}
+      className={cx(styles[`floatingButton-${location as Location}`], {
+        [styles.withImage]: showImage && effectiveImageUrl,
+      })}
       style={style}
     >
-      {/* Zeige das konfigurierte SVG-Icon */}
-      {floatingButtonIcon === "chat" && (
-        <ChatIcon height={iconHeight} width={iconWidth} />
+      {/* Zeige das Bild von der Conversation, falls verfügbar */}
+      {effectiveImageUrl && showImage ? (
+        <img
+          src={effectiveImageUrl}
+          alt="Agent"
+          style={{
+            width: buttonWidth,
+            height: buttonHeight,
+            objectFit: "cover",
+            borderRadius: "50%",
+          }}
+          onLoad={() => setImageLoaded(true)}
+          onError={() => {
+            setImageError(true);
+            setImageLoaded(false);
+          }}
+        />
+      ) : (
+        <>
+          {/* Zeige das konfigurierte SVG-Icon */}
+          {floatingButtonIcon === "chat" && (
+            <ChatIcon height={iconHeight} width={iconWidth} />
+          )}
+          {floatingButtonIcon === "logo" && (
+            <LogoIcon height={iconHeight} width={iconWidth} />
+          )}
+          {(floatingButtonIcon === "robot" || !floatingButtonIcon) && (
+            <RobotIcon height={iconHeight} width={iconWidth} fill={iconColor} />
+          )}
+        </>
       )}
-      {floatingButtonIcon === "logo" && (
-        <LogoIcon height={iconHeight} width={iconWidth} />
-      )}
-      {(floatingButtonIcon === "robot" || !floatingButtonIcon) && (
-        <RobotIcon height={iconHeight} width={iconWidth} fill={iconColor} />
+
+      {/* Verstecktes Bild zum Vorladen */}
+      {effectiveImageUrl && !showImage && !imageError && (
+        <img
+          src={effectiveImageUrl}
+          alt=""
+          style={{
+            position: "absolute",
+            opacity: 0,
+            width: 1,
+            height: 1,
+            pointerEvents: "none",
+          }}
+          onLoad={() => setImageLoaded(true)}
+          onError={() => {
+            setImageError(true);
+            setImageLoaded(false);
+          }}
+        />
       )}
     </button>
   );

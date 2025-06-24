@@ -59,3 +59,8 @@
   background-color: lightgrey;
   border: 2px solid #4d7a9a;
 }
+
+/* Remove padding when displaying an image */
+#floatingButton.withImage {
+  padding: 0;
+}

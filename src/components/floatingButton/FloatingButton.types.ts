@@ -3,4 +3,5 @@ export interface FloatingButtonProps {
   style?: React.CSSProperties;
   width?: number | string;
   height?: number | string;
+  imageUrl?: string;
 }

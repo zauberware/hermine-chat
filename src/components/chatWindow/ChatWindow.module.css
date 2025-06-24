@@ -1,7 +1,7 @@
 #chatWindow {
   display: flex;
   background-color: white;
-  border-radius: 8px;
+  border-radius: 12px;
   flex-direction: column;
   flex-grow: 1;
   height: auto;
@@ -29,6 +29,7 @@
   width: calc(100% - 2px);
   height: calc(100% - 2px);
   z-index: -1;
+  border-radius: 12px;
 }
 
 #chatWindow:before {
@@ -37,6 +38,7 @@
 
 #chatWindow:after {
   filter: drop-shadow(0px 4px 4px rgba(255, 255, 255, 0.3));
+  border-radius: 12px;
 }
 
 #chatContainer {
@@ -44,6 +46,7 @@
   flex-direction: column;
   flex-grow: 1;
   overflow: hidden;
+  border-radius: 12px;
 }
 
 #topContainer {
@@ -52,6 +55,7 @@
   padding: 24px 20px;
   background-color: white;
   border-bottom: 1px solid rgb(229, 231, 235);
+  border-radius: 12px;
 }
 
 #headerContainer {
@@ -89,7 +93,6 @@
   background-repeat: no-repeat;
   background-size: contain;
   background-position: center;
-  border-radius: 12px;
   flex-shrink: 0;
 }
 

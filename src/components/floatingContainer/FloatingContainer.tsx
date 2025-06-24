@@ -38,6 +38,7 @@ const FloatingContainer: React.FC<FloatingContainerProps> = ({
     conversationId,
     setConversationId,
     fetchConversation,
+    conversation,
   } = useSettings();
 
   const { location } = settings;
@@ -181,6 +182,7 @@ const FloatingContainer: React.FC<FloatingContainerProps> = ({
         setToggled={setToggled}
         width={buttonWidth}
         height={buttonHeight}
+        imageUrl={conversation?.imageUrl}
       />
     </div>
   );

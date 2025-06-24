@@ -24,7 +24,7 @@ export interface ISettings {
   floatingButtonBorderColor?: string;
   floatingButtonBackgroundColor?: string;
   floatingButtonIconColor?: string;
-  floatingButtonIcon?: "chat" | "logo" | "robot";
+  floatingButtonIcon?: "chat" | "logo" | "robot" | "image";
   floatingButtonWidth?: number | string;
   floatingButtonHeight?: number | string;
   buttonBackgroundColor?: string;
@@ -57,6 +57,7 @@ export interface IConversation {
   inputPlaceholderDe?: string;
   inputPlaceholderEn?: string;
   prompts: string[];
+  imageUrl?: string;
 }
 
 export interface SettingsProps {

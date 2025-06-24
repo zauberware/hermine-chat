@@ -24,6 +24,7 @@ export interface IConversation {
   conversationId: string
   inputPlaceholderDe?: string
   inputPlaceholderEn?: string
+  imageUrl?: string
 }
 
 const DEFAULT_BASE_URL = "https://hermine.ai";
