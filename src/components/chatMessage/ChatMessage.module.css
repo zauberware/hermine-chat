@@ -171,6 +171,86 @@
   align-items: center;
   cursor: pointer;
   background-color: transparent;
+  border: none;
+  opacity: 0.6;
+  transition: opacity 0.2s;
+}
+
+#messageContainer .retryButton:hover {
+  opacity: 1;
+}
+
+#messageContainer .feedbackButton {
+  text-decoration: underline;
+  color: rgb(75, 85, 99);
+  line-height: 1;
+  font-size: 14px;
+  padding-top: 4px;
+  padding-bottom: 8px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
+  opacity: 0.6;
+  transition: opacity 0.2s;
+}
+
+#messageContainer .feedbackButton:hover {
+  opacity: 1;
+}
+
+#messageContainer .feedbackIconButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  opacity: 0.6;
+  transition: opacity 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  flex-shrink: 0;
+  align-self: flex-start;
+  margin-top: 2px;
+}
+
+#messageContainer .feedbackIconButton:hover {
+  opacity: 1;
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+#messageContainer .messageContent {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+#messageContainer .feedbackButtonContainer {
+  display: flex;
+  width: 100%;
+  justify-content: flex-end;
+}
+
+#messageContainer .actionButtons {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+#messageContainer .feedbackOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(255, 255, 255, 0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
 }
 
 @keyframes spin {

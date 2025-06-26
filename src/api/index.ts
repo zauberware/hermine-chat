@@ -19,12 +19,12 @@ export interface ITheme {
 }
 
 export interface IConversation {
-  messages: any[]
-  prompts: string[]
-  conversationId: string
-  inputPlaceholderDe?: string
-  inputPlaceholderEn?: string
-  imageUrl?: string
+  messages: any[];
+  prompts: string[];
+  conversationId: string;
+  inputPlaceholderDe?: string;
+  inputPlaceholderEn?: string;
+  imageUrl?: string;
 }
 
 const DEFAULT_BASE_URL = "https://hermine.ai";
@@ -34,11 +34,16 @@ const CONVERSATION_KEY = "hermine_conversation_ids";
 export const resetLocalConversation = () =>
   localStorage.removeItem(CONVERSATION_KEY);
 
-export const createConversation: (accountId: string, agentSlug: string, baseUrl?: string, fetchConfig?: RequestInit) => Promise<string> = async (
+export const createConversation: (
+  accountId: string,
+  agentSlug: string,
+  baseUrl?: string,
+  fetchConfig?: RequestInit
+) => Promise<string> = async (
   accountId,
   agentSlug,
   baseUrl = DEFAULT_BASE_URL,
-  fetchConfig,
+  fetchConfig
 ) => {
   const url = `${baseUrl}/c/${accountId}/${agentSlug}/new`;
   const response = await fetch(url, {
@@ -55,12 +60,12 @@ export const createConversation: (accountId: string, agentSlug: string, baseUrl?
     ];
     localStorage.setItem(
       CONVERSATION_KEY,
-      JSON.stringify(newLocalConversationIds),
+      JSON.stringify(newLocalConversationIds)
     );
   } else {
     localStorage.setItem(
       CONVERSATION_KEY,
-      JSON.stringify([jsonText.conversation_id]),
+      JSON.stringify([jsonText.conversation_id])
     );
   }
   return jsonText.conversation_id as string;
@@ -70,7 +75,7 @@ export const sendMessage = async (
   message: any,
   conversationId: string,
   baseUrl: string = DEFAULT_BASE_URL,
-  fetchConfig: RequestInit,
+  fetchConfig: RequestInit
 ) => {
   const url = `${baseUrl}/conversations/${conversationId}/messages`;
   const response = await fetch(url, {
@@ -87,7 +92,7 @@ export const sendMessage = async (
 export const retry = async (
   messageId: any,
   baseUrl: string = DEFAULT_BASE_URL,
-  fetchConfig: RequestInit,
+  fetchConfig: RequestInit
 ) => {
   const url = `${baseUrl}/chat/conversations/${messageId}/rerun`;
   const response = await fetch(url, {
@@ -107,34 +112,85 @@ const getHeaders = (headers: any) => {
   return headerObj;
 };
 
-export const getConversation: (conversationId: string, baseUrl?: string, fetchConfig?: any) => Promise<IConversation | undefined> = async (
+export const getConversation: (
+  conversationId: string,
+  baseUrl?: string,
+  fetchConfig?: any
+) => Promise<IConversation | undefined> = async (
   conversationId,
   baseUrl = DEFAULT_BASE_URL,
-  fetchConfig,
+  fetchConfig
 ) => {
   const url = `${baseUrl}/chat/conversations/${conversationId}`;
   const response = await fetch(url, { ...fetchConfig, cache: "no-cache" });
-  const headers = getHeaders(fetchConfig.headers)
+  const headers = getHeaders(fetchConfig.headers);
   if (response.status === 200) {
-    return await response.json() as IConversation;
+    return (await response.json()) as IConversation;
   } else {
     createConversation(
-      headers['x-account-id'],
-      headers['x-agent-slug'],
+      headers["x-account-id"],
+      headers["x-agent-slug"],
       baseUrl,
       fetchConfig
-    )
+    );
   }
 };
 
 export const getTheme = async (
   agentSlug: string,
   accountId: string,
-  baseUrl: string = DEFAULT_BASE_URL,
+  baseUrl: string = DEFAULT_BASE_URL
 ): Promise<ITheme> => {
   const fetchConfig = createFetchConfig(agentSlug, accountId);
   const response = await fetch(`${baseUrl}/chat/account_theme`, fetchConfig);
   const json = await response.json();
   console.debug("response json: ", json);
   return json || {};
+};
+
+export const submitMessageFeedback = async (
+  conversationId: string,
+  messageId: string,
+  feedback: string,
+  agentSlug: string,
+  accountId: string,
+  baseUrl: string = DEFAULT_BASE_URL
+): Promise<any> => {
+  const fetchConfig = createFetchConfig(agentSlug, accountId);
+  
+  console.log("Sending feedback request:", {
+    url: `${baseUrl}/chat/conversations/${conversationId}/messages/${messageId}/feedback`,
+    headers: fetchConfig.headers,
+    body: { message: { feedback } }
+  });
+
+  const response = await fetch(
+    `${baseUrl}/chat/conversations/${conversationId}/messages/${messageId}/feedback`,
+    {
+      ...fetchConfig,
+      method: "POST",
+      body: JSON.stringify({
+        message: {
+          feedback: feedback,
+        },
+      }),
+    }
+  );
+
+  console.log("Feedback response status:", response.status, response.statusText);
+
+  if (!response.ok) {
+    const errorBody = await response.text();
+    console.error("Feedback request failed:", {
+      status: response.status,
+      statusText: response.statusText,
+      body: errorBody
+    });
+    throw new Error(`Failed to submit feedback: ${response.statusText}`);
+  }
+
+  const responseData = await response.json();
+  console.log("Feedback response data:", responseData);
+  
+  return responseData;
 };

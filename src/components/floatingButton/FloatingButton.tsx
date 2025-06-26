@@ -21,23 +21,35 @@ const FloatingButton: React.FC<FloatingButtonProps> = ({
   const [imageError, setImageError] = useState(false);
   const [imageLoaded, setImageLoaded] = useState(false);
   const [showImage, setShowImage] = useState(false);
+  const [lastValidImageUrl, setLastValidImageUrl] = useState<string | null>(null);
 
   // Bestimme welches Bild verwendet werden soll
-  const effectiveImageUrl = floatingButtonIcon === "image" ? (imageUrl || conversation?.imageUrl) : null;
+  const effectiveImageUrl =
+    floatingButtonIcon === "image" ? imageUrl || conversation?.imageUrl : null;
 
-  // Reset states when effectiveImageUrl changes
+  // Fallback: Verwende die letzte gültige URL wenn aktuelle undefined/null ist
+  const displayImageUrl = effectiveImageUrl || lastValidImageUrl;
+
+  // Speichere gültige Image URLs für Fallback
+  useEffect(() => {
+    if (effectiveImageUrl && effectiveImageUrl !== lastValidImageUrl) {
+      setLastValidImageUrl(effectiveImageUrl);
+    }
+  }, [effectiveImageUrl, lastValidImageUrl]);
+
+  // Reset states when displayImageUrl changes (nicht mehr bei effectiveImageUrl!)
   useEffect(() => {
     setImageError(false);
     setImageLoaded(false);
     setShowImage(false);
-  }, [effectiveImageUrl]);
+  }, [displayImageUrl]);
 
   // Show image only after it's loaded
   useEffect(() => {
-    if (imageLoaded && !imageError && effectiveImageUrl) {
+    if (imageLoaded && !imageError && displayImageUrl) {
       setShowImage(true);
     }
-  }, [imageLoaded, imageError, effectiveImageUrl]);
+  }, [imageLoaded, imageError, displayImageUrl]);
 
   let borderColor = "#9d174d";
   const { location } = settings || { location: "center" };
@@ -85,14 +97,14 @@ const FloatingButton: React.FC<FloatingButtonProps> = ({
       onClick={() => setToggled((t) => !t)}
       id={styles.floatingButton}
       className={cx(styles[`floatingButton-${location as Location}`], {
-        [styles.withImage]: showImage && effectiveImageUrl,
+        [styles.withImage]: showImage && displayImageUrl,
       })}
       style={style}
     >
       {/* Zeige das Bild von der Conversation, falls verfügbar */}
-      {effectiveImageUrl && showImage ? (
+      {displayImageUrl && showImage ? (
         <img
-          src={effectiveImageUrl}
+          src={displayImageUrl}
           alt="Agent"
           style={{
             width: buttonWidth,
@@ -122,9 +134,9 @@ const FloatingButton: React.FC<FloatingButtonProps> = ({
       )}
 
       {/* Verstecktes Bild zum Vorladen */}
-      {effectiveImageUrl && !showImage && !imageError && (
+      {displayImageUrl && !showImage && !imageError && (
         <img
-          src={effectiveImageUrl}
+          src={displayImageUrl}
           alt=""
           style={{
             position: "absolute",
