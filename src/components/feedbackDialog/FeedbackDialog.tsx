@@ -64,9 +64,9 @@ const FeedbackDialog: React.FC<FeedbackDialogProps> = ({
       onClick={(e) => e.stopPropagation()}
     >
       <div className={styles.header}>
-        <h3 className={styles.title} style={titleStyle}>
+        <span className={styles.title} style={titleStyle}>
           Feedback
-        </h3>
+        </span>
         <button className={styles.closeButton} onClick={onClose}>
           ×
         </button>
