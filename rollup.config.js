@@ -10,6 +10,7 @@ import json from "@rollup/plugin-json";
 import progress from "rollup-plugin-progress";
 import filesize from "rollup-plugin-filesize";
 import replace from "rollup-plugin-replace";
+import url from "@rollup/plugin-url";
 import { sentryRollupPlugin } from "@sentry/rollup-plugin";
 
 const packageJson = require("./package.json");
@@ -28,6 +29,11 @@ export default [
       progress(),
       peerDepsExternal(),
       resolve(),
+      url({
+        include: ["**/*.png", "**/*.jpg", "**/*.jpeg", "**/*.gif"],
+        limit: Infinity, // Immer als Base64 einbetten
+        emitFiles: false, // Keine separaten Dateien
+      }),
       json(),
       filesize(),
       terser(),

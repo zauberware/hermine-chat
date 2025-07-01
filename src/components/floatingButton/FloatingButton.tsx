@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import styles from "./FloatingButton.module.css";
 import { FloatingButtonProps } from "./FloatingButton.types";
 import ChatIcon from "../../assets/images/chat.svg";
 import LogoIcon from "../../assets/images/logo.svg";
 import RobotIcon from "../../assets/images/RobotIcon";
+import WiggerFallback from "../../assets/images/wiggerl_fallback.png";
 import { useSettings } from "../../context";
 import cx from "classnames";
 
@@ -16,40 +17,21 @@ const FloatingButton: React.FC<FloatingButtonProps> = ({
   height = 70,
   imageUrl,
 }) => {
-  const { settings, theme, conversation } = useSettings();
+  const { settings, theme } = useSettings();
   const { floatingButtonIcon = "robot" } = settings;
-  const [imageError, setImageError] = useState(false);
-  const [imageLoaded, setImageLoaded] = useState(false);
-  const [showImage, setShowImage] = useState(false);
-  const [lastValidImageUrl, setLastValidImageUrl] = useState<string | null>(null);
 
-  // Bestimme welches Bild verwendet werden soll
-  const effectiveImageUrl =
-    floatingButtonIcon === "image" ? imageUrl || conversation?.imageUrl : null;
-
-  // Fallback: Verwende die letzte gültige URL wenn aktuelle undefined/null ist
-  const displayImageUrl = effectiveImageUrl || lastValidImageUrl;
-
-  // Speichere gültige Image URLs für Fallback
-  useEffect(() => {
-    if (effectiveImageUrl && effectiveImageUrl !== lastValidImageUrl) {
-      setLastValidImageUrl(effectiveImageUrl);
+  // IMMER nur Wiggerl-Fallback für image-Typ - keine anderen Bilder
+  const effectiveImageUrl = React.useMemo(() => {
+    if (floatingButtonIcon === "image") {
+      // HARDCODED: Immer nur Wiggerl-Fallback, keine Hermine-Bilder
+      console.log("WiggerFallback URL:", WiggerFallback);
+      return WiggerFallback;
     }
-  }, [effectiveImageUrl, lastValidImageUrl]);
+    return null;
+  }, [floatingButtonIcon]);
 
-  // Reset states when displayImageUrl changes (nicht mehr bei effectiveImageUrl!)
-  useEffect(() => {
-    setImageError(false);
-    setImageLoaded(false);
-    setShowImage(false);
-  }, [displayImageUrl]);
-
-  // Show image only after it's loaded
-  useEffect(() => {
-    if (imageLoaded && !imageError && displayImageUrl) {
-      setShowImage(true);
-    }
-  }, [imageLoaded, imageError, displayImageUrl]);
+  // Verwende direkt effectiveImageUrl - Wiggerl-Fallback ist sofort verfügbar
+  const displayImageUrl = effectiveImageUrl;
 
   let borderColor = "#9d174d";
   const { location } = settings || { location: "center" };
@@ -97,12 +79,12 @@ const FloatingButton: React.FC<FloatingButtonProps> = ({
       onClick={() => setToggled((t) => !t)}
       id={styles.floatingButton}
       className={cx(styles[`floatingButton-${location as Location}`], {
-        [styles.withImage]: showImage && displayImageUrl,
+        [styles.withImage]: displayImageUrl,
       })}
       style={style}
     >
-      {/* Zeige das Bild von der Conversation, falls verfügbar */}
-      {displayImageUrl && showImage ? (
+      {/* Zeige Wiggerl-Fallback sofort, echtes Bild wenn verfügbar */}
+      {displayImageUrl ? (
         <img
           src={displayImageUrl}
           alt="Agent"
@@ -111,11 +93,6 @@ const FloatingButton: React.FC<FloatingButtonProps> = ({
             height: buttonHeight,
             objectFit: "cover",
             borderRadius: "50%",
-          }}
-          onLoad={() => setImageLoaded(true)}
-          onError={() => {
-            setImageError(true);
-            setImageLoaded(false);
           }}
         />
       ) : (
@@ -131,26 +108,6 @@ const FloatingButton: React.FC<FloatingButtonProps> = ({
             <RobotIcon height={iconHeight} width={iconWidth} fill={iconColor} />
           )}
         </>
-      )}
-
-      {/* Verstecktes Bild zum Vorladen */}
-      {displayImageUrl && !showImage && !imageError && (
-        <img
-          src={displayImageUrl}
-          alt=""
-          style={{
-            position: "absolute",
-            opacity: 0,
-            width: 1,
-            height: 1,
-            pointerEvents: "none",
-          }}
-          onLoad={() => setImageLoaded(true)}
-          onError={() => {
-            setImageError(true);
-            setImageLoaded(false);
-          }}
-        />
       )}
     </button>
   );
