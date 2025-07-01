@@ -24,7 +24,6 @@ const FloatingButton: React.FC<FloatingButtonProps> = ({
   const effectiveImageUrl = React.useMemo(() => {
     if (floatingButtonIcon === "image") {
       // HARDCODED: Immer nur Wiggerl-Fallback, keine Hermine-Bilder
-      console.log("WiggerFallback URL:", WiggerFallback);
       return WiggerFallback;
     }
     return null;
