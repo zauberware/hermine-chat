@@ -62,8 +62,9 @@ const FloatingContainer: React.FC<FloatingContainerProps> = ({
     fetchConversation(data);
   };
 
+  // Lade die Conversation ID und imageUrl beim Mounten (nicht erst beim Klick)
   useEffect(() => {
-    const getConversationId = async () => {
+    const getConversationIdFromStorage = async () => {
       const localConversationsIds = localStorage.getItem(
         "hermine_conversation_ids"
       );
@@ -79,16 +80,23 @@ const FloatingContainer: React.FC<FloatingContainerProps> = ({
       return response;
     };
 
-    const getSubscription = async () => {
-      const newConversationId = await getConversationId();
+    const initConversation = async () => {
+      const newConversationId = await getConversationIdFromStorage();
       setConversationId(newConversationId);
-      subscribeChannel(newConversationId, settings.target, onNewMessage);
     };
-    if (toggled) {
-      getSubscription();
+
+    // Conversation ID und imageUrl sofort laden (für FloatingButton)
+    initConversation();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [settings.target]);
+
+  // Channel-Subscription erst wenn toggled
+  useEffect(() => {
+    if (toggled && conversationId) {
+      subscribeChannel(conversationId, settings.target, onNewMessage);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [toggled, settings.target]);
+  }, [toggled, conversationId, settings.target]);
 
   useEffect(() => {
     if (conversationId) {
