@@ -4,7 +4,6 @@ import { FloatingButtonProps } from "./FloatingButton.types";
 import ChatIcon from "../../assets/images/chat.svg";
 import LogoIcon from "../../assets/images/logo.svg";
 import RobotIcon from "../../assets/images/RobotIcon";
-import WiggerFallback from "../../assets/images/wiggerl_fallback.png";
 import { useSettings } from "../../context";
 import cx from "classnames";
 
@@ -20,17 +19,8 @@ const FloatingButton: React.FC<FloatingButtonProps> = ({
   const { settings, theme } = useSettings();
   const { floatingButtonIcon = "robot" } = settings;
 
-  // IMMER nur Wiggerl-Fallback für image-Typ - keine anderen Bilder
-  const effectiveImageUrl = React.useMemo(() => {
-    if (floatingButtonIcon === "image") {
-      // HARDCODED: Immer nur Wiggerl-Fallback, keine Hermine-Bilder
-      return WiggerFallback;
-    }
-    return null;
-  }, [floatingButtonIcon]);
-
-  // Verwende direkt effectiveImageUrl - Wiggerl-Fallback ist sofort verfügbar
-  const displayImageUrl = effectiveImageUrl;
+  // Verwende imageUrl wenn floatingButtonIcon === "image"
+  const displayImageUrl = floatingButtonIcon === "image" ? imageUrl : null;
 
   let borderColor = "#9d174d";
   const { location } = settings || { location: "center" };
