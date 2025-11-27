@@ -23,6 +23,7 @@
     "react-i18next": "^14.1.0",
     "react-markdown": "^9.0.1",
     "react-scripts": "5.0.1",
+    "remark-gfm": "^4.0.1",
     "rollup-plugin-filesize": "^10.0.0",
     "rollup-plugin-progress": "^1.1.2",
     "rollup-plugin-visualizer": "^5.12.0",

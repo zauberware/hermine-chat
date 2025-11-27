@@ -1,6 +1,7 @@
 import React, { useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
 import Markdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 import cx from "classnames";
 import Icon from "../../assets/images/logo.svg";
 import RefreshIcon from "../../assets/images/refresh.svg";
@@ -73,8 +74,9 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ message, tryAgain }) => {
                 ></div>
               ) : (
                 <div className={styles.messageContent}>
-                  <p className={styles.text}>
+                  <div className={styles.text}>
                     <Markdown
+                      remarkPlugins={[remarkGfm]}
                       components={{
                         a: ({ href, children, ...props }) => (
                           <a
@@ -91,7 +93,7 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ message, tryAgain }) => {
                     >
                       {message.result}
                     </Markdown>
-                  </p>
+                  </div>
                   {!message.has_errors && (
                     <div className={styles.feedbackButtonContainer}>
                       <button
@@ -140,6 +142,7 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ message, tryAgain }) => {
       >
         <div className={styles.text}>
           <Markdown
+            remarkPlugins={[remarkGfm]}
             components={{
               a: ({ href, children, ...props }) => (
                 <a
