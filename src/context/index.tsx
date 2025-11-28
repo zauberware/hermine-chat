@@ -134,7 +134,6 @@ const SettingsContextProvider = ({
     resetLocalConversation();
     setConversation(undefined);
     setConversationId(undefined);
-    setTimeout(() => getConversationId(), 1000);
   };
 
   useEffect(() => {
