@@ -90,6 +90,30 @@ const FloatingContainer: React.FC<FloatingContainerProps> = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [settings.target]);
 
+  // Erstelle eine neue Conversation, wenn conversationId undefined ist (nach Reset)
+  useEffect(() => {
+    const createNewConversation = async () => {
+      if (conversationId === undefined) {
+        const localConversationsIds = localStorage.getItem(
+          "hermine_conversation_ids"
+        );
+        // Nur neue Conversation erstellen, wenn keine im localStorage vorhanden ist
+        if (!localConversationsIds) {
+          const response = await createConversation(
+            settings.accountId,
+            settings.agentSlug,
+            settings.target,
+            createFetchConfig(settings.agentSlug, settings.accountId)
+          );
+          setConversationId(response);
+        }
+      }
+    };
+
+    createNewConversation();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [conversationId]);
+
   // Channel-Subscription erst wenn toggled
   useEffect(() => {
     if (toggled && conversationId) {
