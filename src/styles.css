@@ -238,6 +238,11 @@ div.reactMarkDown.errors p {
   /* 2 */
 }
 
+/* CSS Isolation for images - blocks external styles, allows hermine-chat styles */
+.hermine-chat-container img:not(.reactMarkDown img) {
+  all: initial;
+}
+
 /*
 Use the modern Firefox focus style for all focusable elements.
 */
