@@ -89,6 +89,7 @@
 }
 
 #logo {
+  all: initial;
   height: 80px;
   background-repeat: no-repeat;
   background-size: contain;
