@@ -220,8 +220,10 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ close }) => {
                     alignItems: "left",
                   }}
                 />
+                {(settings.chatTitle || settings.chatSubTitle) && (
                 <div id={styles.titleSection}>
-                  {settings.withConversationManagement ? (
+                  {settings.chatTitle && (
+                    settings.withConversationManagement ? (
                     <a
                       href={target}
                       style={titleStyle}
@@ -237,6 +239,7 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ close }) => {
                     <div id={styles.title} style={titleStyle}>
                       {settings.chatTitle}
                     </div>
+                    )
                   )}
                   {settings.chatSubTitle && (
                     <div id={styles.subTitle} style={subTitleStyle}>
@@ -244,6 +247,7 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ close }) => {
                     </div>
                   )}
                 </div>
+                )}
               </div>
 
               {/* Right side: Actions side by side */}

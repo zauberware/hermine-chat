@@ -215,6 +215,7 @@ const FloatingContainer: React.FC<FloatingContainerProps> = ({
         width={buttonWidth}
         height={buttonHeight}
         imageUrl={conversation?.imageUrl}
+        tooltipText={settings.floatingButtonTooltipText}
       />
     </div>
   );

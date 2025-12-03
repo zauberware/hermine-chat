@@ -33,8 +33,6 @@ const HermineChat = (settings: ISettings) => {
   }
   const defaultSettings = {
     location: "bottom",
-    chatTitle: "Chat Assistant",
-    chatSubTitle: "Wie kann ich Ihnen helfen?",
     target: "https://app.hermine.ai",
     buttonColor: "white",
     buttonBackgroundColor: "#6B7280",

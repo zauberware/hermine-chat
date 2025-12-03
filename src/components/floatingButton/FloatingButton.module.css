@@ -64,3 +64,43 @@
 #floatingButton.withImage {
   padding: 0;
 }
+
+/* Tooltip styles - using specific selectors to avoid conflicts with global styles */
+#floatingButton .tooltip {
+  all: initial;
+  position: absolute;
+  bottom: calc(100% + 12px);
+  right: 0;
+  background-color: #1f2937;
+  color: white;
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-family: inherit;
+  line-height: 1.4;
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s ease, visibility 0.2s ease;
+  z-index: 10;
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  pointer-events: none;
+  box-sizing: border-box;
+}
+
+/* Tooltip arrow */
+#floatingButton .tooltip::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  right: 20px;
+  border-width: 6px;
+  border-style: solid;
+  border-color: #1f2937 transparent transparent transparent;
+}
+
+/* Show tooltip on hover */
+#floatingButton:hover .tooltip {
+  opacity: 1;
+  visibility: visible;
+}

@@ -27,6 +27,7 @@ export interface ISettings {
   floatingButtonIcon?: "chat" | "logo" | "robot" | "image";
   floatingButtonWidth?: number | string;
   floatingButtonHeight?: number | string;
+  floatingButtonTooltipText?: string;
   buttonBackgroundColor?: string;
   messageColor?: string;
   messageBackgroundColor?: string;

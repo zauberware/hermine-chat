@@ -4,4 +4,5 @@ export interface FloatingButtonProps {
   width?: number | string;
   height?: number | string;
   imageUrl?: string;
+  tooltipText?: string;
 }

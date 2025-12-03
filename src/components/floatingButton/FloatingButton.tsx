@@ -15,9 +15,13 @@ const FloatingButton: React.FC<FloatingButtonProps> = ({
   width = 70,
   height = 70,
   imageUrl,
+  tooltipText,
 }) => {
   const { settings, theme } = useSettings();
   const { floatingButtonIcon = "robot" } = settings;
+  
+  // Use prop or settings for tooltip
+  const displayTooltip = tooltipText || settings.floatingButtonTooltipText;
 
   // Verwende imageUrl wenn floatingButtonIcon === "image"
   const displayImageUrl = floatingButtonIcon === "image" ? imageUrl : null;
@@ -97,6 +101,9 @@ const FloatingButton: React.FC<FloatingButtonProps> = ({
             <RobotIcon height={iconHeight} width={iconWidth} fill={iconColor} />
           )}
         </>
+      )}
+      {displayTooltip && (
+        <span className={styles.tooltip}>{displayTooltip}</span>
       )}
     </button>
   );
