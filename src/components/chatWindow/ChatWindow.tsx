@@ -215,7 +215,7 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ close }) => {
                   src={getLogoUrl(theme.logo)}
                   alt="AI Logo"
                   style={{
-                    maxHeight: "40px",
+                    maxHeight: theme.logo_is_square ? "80px" : "40px",
                     objectFit: "contain",
                     alignItems: "left",
                   }}

@@ -4,6 +4,7 @@ export interface ITheme {
   ai_icon?: string;
   logo?: string;
   logo_small?: string;
+  logo_is_square?: boolean;
   backgroundColor?: string;
   primary_900?: string;
   primary_800?: string;
