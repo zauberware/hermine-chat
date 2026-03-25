@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "./FloatingButton.module.css";
 import { FloatingButtonProps } from "./FloatingButton.types";
 import ChatIcon from "../../assets/images/chat.svg";
@@ -17,6 +17,7 @@ const FloatingButton: React.FC<FloatingButtonProps> = ({
   imageUrl,
   tooltipText,
 }) => {
+  const [imageLoaded, setImageLoaded] = useState(false);
   const { settings, theme } = useSettings();
   const { floatingButtonIcon = "robot" } = settings;
   
@@ -81,11 +82,14 @@ const FloatingButton: React.FC<FloatingButtonProps> = ({
         <img
           src={displayImageUrl}
           alt="Agent"
+          onLoad={() => setImageLoaded(true)}
           style={{
             width: buttonWidth,
             height: buttonHeight,
             objectFit: "cover",
             borderRadius: "50%",
+            opacity: imageLoaded ? 1 : 0,
+            transition: "opacity 0.3s ease",
           }}
         />
       ) : (

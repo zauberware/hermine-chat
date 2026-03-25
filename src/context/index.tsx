@@ -40,6 +40,13 @@ export interface ISettings {
   fullScreenEnabled?: boolean;
   shadow?: "none" | "small" | "large";
   textInputPlaceholder?: string;
+  // Chat Teaser settings
+  teaserEnabled?: boolean;
+  teaserText?: string;
+  teaserSubText?: string;
+  teaserBackgroundColor?: string;
+  teaserTextColor?: string;
+  teaserBorderColor?: string;
 }
 
 export interface IMessage {

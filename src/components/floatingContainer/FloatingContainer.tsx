@@ -5,6 +5,7 @@ import { FloatingContainerProps } from "./FloatingContainer.types";
 import ChatWindow from "../chatWindow";
 import { createFetchConfig } from "../../utils";
 import FloatingButton from "../floatingButton/FloatingButton";
+import ChatTeaser from "../chatTeaser/ChatTeaser";
 import { subscribeChannel } from "../../utils/channels/conversation_channel";
 import { useSettings } from "../../context";
 import { createConversation, getTheme } from "../../api";
@@ -16,7 +17,18 @@ const FloatingContainer: React.FC<FloatingContainerProps> = ({
   buttonWidth: propButtonWidth,
   buttonHeight: propButtonHeight,
 }) => {
+  const {
+    theme,
+    setTheme,
+    settings,
+    conversationId,
+    setConversationId,
+    fetchConversation,
+    conversation,
+  } = useSettings();
+
   const [toggled, setToggled] = useState<boolean>(false);
+  const [showTeaser, setShowTeaser] = useState<boolean>(!!settings.teaserEnabled);
   const searchParams = new URL(document.location.href).searchParams;
 
   useEffect(() => {
@@ -31,17 +43,15 @@ const FloatingContainer: React.FC<FloatingContainerProps> = ({
     }
   }, [searchParams]);
 
-  const {
-    theme,
-    setTheme,
-    settings,
-    conversationId,
-    setConversationId,
-    fetchConversation,
-    conversation,
-  } = useSettings();
-
+  const { isMobile } = useResponsive();
   const { location } = settings;
+
+  // Hide teaser on mobile
+  useEffect(() => {
+    if (isMobile && showTeaser) {
+      setShowTeaser(false);
+    }
+  }, [isMobile]);
 
   useEffect(() => {
     const fetchTheme = async () => {
@@ -128,7 +138,6 @@ const FloatingContainer: React.FC<FloatingContainerProps> = ({
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [conversationId]);
-  const { isMobile } = useResponsive();
 
   const mobileContainerStyle = {
     ...(settings.fontFamily ? { fontFamily: settings.fontFamily } : {}),
@@ -198,7 +207,18 @@ const FloatingContainer: React.FC<FloatingContainerProps> = ({
 
   const open = () => setToggled(true);
 
-  const close = () => setToggled(false);
+  const close = () => {
+    setToggled(false);
+  };
+
+  const handleTeaserClick = () => {
+    setShowTeaser(false);
+    setToggled(true);
+  };
+
+  const handleTeaserClose = () => {
+    setShowTeaser(false);
+  };
 
   return (
     <div
@@ -209,14 +229,22 @@ const FloatingContainer: React.FC<FloatingContainerProps> = ({
       )}
     >
       {toggled && <ChatWindow close={close} />}
-      <FloatingButton
-        style={isMobile ? mobileStyle : style}
-        setToggled={setToggled}
-        width={buttonWidth}
-        height={buttonHeight}
-        imageUrl={conversation?.imageUrl}
-        tooltipText={settings.floatingButtonTooltipText}
-      />
+      {showTeaser && !toggled ? (
+        <ChatTeaser
+          onClick={handleTeaserClick}
+          onClose={handleTeaserClose}
+          imageUrl={conversation?.imageUrl}
+        />
+      ) : (
+        <FloatingButton
+          style={isMobile ? mobileStyle : style}
+          setToggled={setToggled}
+          width={buttonWidth}
+          height={buttonHeight}
+          imageUrl={conversation?.imageUrl}
+          tooltipText={settings.floatingButtonTooltipText}
+        />
+      )}
     </div>
   );
 };
