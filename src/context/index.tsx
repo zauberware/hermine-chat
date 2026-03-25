@@ -46,6 +46,7 @@ export interface ISettings {
   teaserSubText?: string;
   teaserBackgroundColor?: string;
   teaserTextColor?: string;
+  teaserBorderColor?: string;
 }
 
 export interface IMessage {

@@ -13,30 +13,22 @@ import { useResponsive } from "../../utils/hooks";
 
 type Location = "center" | "bottom" | "top";
 
-const TEASER_SEEN_KEY = "hermine_teaser_seen";
-
-const hasTeaserBeenSeen = (): boolean => {
-  try {
-    return localStorage.getItem(TEASER_SEEN_KEY) === "true";
-  } catch {
-    return false;
-  }
-};
-
-const markTeaserAsSeen = () => {
-  try {
-    localStorage.setItem(TEASER_SEEN_KEY, "true");
-  } catch {
-    // localStorage not available
-  }
-};
-
 const FloatingContainer: React.FC<FloatingContainerProps> = ({
   buttonWidth: propButtonWidth,
   buttonHeight: propButtonHeight,
 }) => {
+  const {
+    theme,
+    setTheme,
+    settings,
+    conversationId,
+    setConversationId,
+    fetchConversation,
+    conversation,
+  } = useSettings();
+
   const [toggled, setToggled] = useState<boolean>(false);
-  const [showTeaser, setShowTeaser] = useState<boolean>(false);
+  const [showTeaser, setShowTeaser] = useState<boolean>(!!settings.teaserEnabled);
   const searchParams = new URL(document.location.href).searchParams;
 
   useEffect(() => {
@@ -51,24 +43,15 @@ const FloatingContainer: React.FC<FloatingContainerProps> = ({
     }
   }, [searchParams]);
 
-  const {
-    theme,
-    setTheme,
-    settings,
-    conversationId,
-    setConversationId,
-    fetchConversation,
-    conversation,
-  } = useSettings();
-
+  const { isMobile } = useResponsive();
   const { location } = settings;
 
-  // Initialize teaser state: show teaser only if enabled and not seen before
+  // Hide teaser on mobile
   useEffect(() => {
-    if (settings.teaserEnabled && !hasTeaserBeenSeen()) {
-      setShowTeaser(true);
+    if (isMobile && showTeaser) {
+      setShowTeaser(false);
     }
-  }, [settings.teaserEnabled]);
+  }, [isMobile]);
 
   useEffect(() => {
     const fetchTheme = async () => {
@@ -155,7 +138,6 @@ const FloatingContainer: React.FC<FloatingContainerProps> = ({
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [conversationId]);
-  const { isMobile } = useResponsive();
 
   const mobileContainerStyle = {
     ...(settings.fontFamily ? { fontFamily: settings.fontFamily } : {}),
@@ -227,21 +209,14 @@ const FloatingContainer: React.FC<FloatingContainerProps> = ({
 
   const close = () => {
     setToggled(false);
-    // After closing the chat, teaser is permanently dismissed
-    if (showTeaser) {
-      markTeaserAsSeen();
-      setShowTeaser(false);
-    }
   };
 
   const handleTeaserClick = () => {
-    markTeaserAsSeen();
     setShowTeaser(false);
     setToggled(true);
   };
 
   const handleTeaserClose = () => {
-    markTeaserAsSeen();
     setShowTeaser(false);
   };
 
