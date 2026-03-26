@@ -26,13 +26,18 @@ const ChatTeaser: React.FC<ChatTeaserProps> = ({
     onClose();
   };
 
-  // Split text by \n to render paragraphs with blank line between them
+  // Split text by \n to render paragraphs, <br> for simple line breaks
   const renderTextWithBreaks = (text: string) => {
-    const parts = text.split("\n");
-    if (parts.length === 1) return text;
-    return parts.map((part, i) => (
+    const paragraphs = text.split("\n");
+    if (paragraphs.length === 1 && !text.includes("<br>")) return text;
+    return paragraphs.map((paragraph, i) => (
       <p key={i} style={{ margin: 0, marginTop: i > 0 ? "0.8em" : 0, lineHeight: 1.4 }}>
-        {part}
+        {paragraph.split("<br>").map((segment, j) => (
+          <React.Fragment key={j}>
+            {j > 0 && <br />}
+            {segment}
+          </React.Fragment>
+        ))}
       </p>
     ));
   };
