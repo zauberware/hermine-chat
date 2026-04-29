@@ -137,11 +137,21 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ close }) => {
   }, []);
 
   const PRIVACY_KEY = "hermine_chat_privacy_accepted";
+  const privacyTtlMs =
+    (settings.privacyDisclaimerTtlHours ?? Infinity) * 60 * 60 * 1000;
+  const isPrivacyStillValid = () => {
+    const raw = localStorage.getItem(PRIVACY_KEY);
+    // Legacy "true" (vor Timestamp-Migration): akzeptieren wenn TTL=Infinity (Bestandsverhalten),
+    // ignorieren wenn endliche TTL gesetzt ist, damit Wiedervorlage greift.
+    if (raw === "true") return privacyTtlMs === Infinity;
+    const ts = parseInt(raw || "", 10);
+    return Number.isFinite(ts) && Date.now() - ts < privacyTtlMs;
+  };
   const [privacyAccepted, setPrivacyAccepted] = useState<boolean>(
-    localStorage.getItem(PRIVACY_KEY) === "true"
+    isPrivacyStillValid()
   );
   const onAgreePrivacy = () => {
-    localStorage.setItem(PRIVACY_KEY, "true");
+    localStorage.setItem(PRIVACY_KEY, String(Date.now()));
     setPrivacyAccepted(true);
   };
   console.debug("conversation.messages", conversation?.messages);

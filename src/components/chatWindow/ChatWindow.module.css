@@ -297,6 +297,7 @@
   align-items: center;
   background-color: rgb(243, 244, 246);
   text-align: center;
+  border-radius: 12px;
 }
 
 #p-5 {

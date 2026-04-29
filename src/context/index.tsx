@@ -28,6 +28,9 @@ export interface ISettings {
   floatingButtonWidth?: number | string;
   floatingButtonHeight?: number | string;
   floatingButtonTooltipText?: string;
+  // Tooltip auf Touch-Geräten anzeigen.
+  // undefined / true → wie bisher (Sticky-Hover möglich), false → auf Mobile/Touch komplett ausgeblendet.
+  floatingButtonTooltipShowOnMobile?: boolean;
   buttonBackgroundColor?: string;
   messageColor?: string;
   messageBackgroundColor?: string;
@@ -40,6 +43,9 @@ export interface ISettings {
   fullScreenEnabled?: boolean;
   shadow?: "none" | "small" | "large";
   textInputPlaceholder?: string;
+  // Privacy-Disclaimer Wiedervorlage: TTL in Stunden.
+  // undefined → Infinity (Default, einmal akzeptiert nie wieder), 0 → immer zeigen, positive Zahl → N Stunden.
+  privacyDisclaimerTtlHours?: number;
   // Chat Teaser settings
   teaserEnabled?: boolean;
   teaserText?: string;

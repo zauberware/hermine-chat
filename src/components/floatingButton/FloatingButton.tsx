@@ -18,23 +18,20 @@ const FloatingButton: React.FC<FloatingButtonProps> = ({
   tooltipText,
 }) => {
   const [imageLoaded, setImageLoaded] = useState(false);
-  const { settings, theme } = useSettings();
+  const { settings } = useSettings();
   const { floatingButtonIcon = "robot" } = settings;
-  
+
   // Use prop or settings for tooltip
   const displayTooltip = tooltipText || settings.floatingButtonTooltipText;
 
   // Verwende imageUrl wenn floatingButtonIcon === "image"
   const displayImageUrl = floatingButtonIcon === "image" ? imageUrl : null;
 
-  let borderColor = "#9d174d";
   const { location } = settings || { location: "center" };
 
-  if (settings.floatingButtonBorderColor) {
-    borderColor = settings.floatingButtonBorderColor;
-  } else if (theme.primary_900) {
-    borderColor = theme.primary_900;
-  }
+  // Border nur rendern, wenn explizit konfiguriert. Keine Hard- oder Theme-Fallbacks.
+  const borderColor = settings.floatingButtonBorderColor;
+  const hasBorder = Boolean(borderColor);
 
   const backgroundColor =
     settings.floatingButtonBackgroundColor ||
@@ -50,22 +47,13 @@ const FloatingButton: React.FC<FloatingButtonProps> = ({
   const iconWidth = Math.round(buttonWidth * 0.7);
   const iconHeight = Math.round(buttonHeight * 0.7);
 
-  // Calculate pseudo-element size (2px smaller than button for border)
-  const pseudoWidth = buttonWidth - 2;
-  const pseudoHeight = buttonHeight - 2;
-
-  const style = {
+  const style: React.CSSProperties = {
     ...propStyle,
-    border: `2px solid ${borderColor}`,
+    border: hasBorder ? `2px solid ${borderColor}` : "none",
     backgroundColor: backgroundColor,
     color: iconColor,
     width: width,
     height: height,
-    "--pseudo-width": `${pseudoWidth}px`,
-    "--pseudo-height": `${pseudoHeight}px`,
-  } as React.CSSProperties & {
-    "--pseudo-width": string;
-    "--pseudo-height": string;
   };
 
   return (
@@ -74,6 +62,8 @@ const FloatingButton: React.FC<FloatingButtonProps> = ({
       id={styles.floatingButton}
       className={cx(styles[`floatingButton-${location as Location}`], {
         [styles.withImage]: displayImageUrl,
+        [styles.tooltipHideOnTouch]:
+          settings.floatingButtonTooltipShowOnMobile === false,
       })}
       style={style}
     >

@@ -1,7 +1,7 @@
 #floatingButton {
   background-color: white;
   border-radius: 50%;
-  border: 2px solid #9d174d;
+  border: none;
   padding: 10px;
   width: 70px;
   height: 70px;
@@ -15,27 +15,10 @@
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.18);
 }
 #floatingButton:hover > svg {
   opacity: 0.8;
-}
-#floatingButton:before,
-#floatingButton:after {
-  content: "";
-  position: absolute;
-  left: 0;
-  border-radius: 50%;
-  background: white;
-  padding: 16px;
-  width: var(--pseudo-width, 68px);
-  height: var(--pseudo-height, 68px);
-  z-index: -1;
-}
-#floatingButton:before {
-  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.3));
-}
-#floatingButton:after {
-  filter: drop-shadow(0px 4px 4px rgba(255, 255, 255, 0.3));
 }
 
 #floatingButton.floatingButton-top {
@@ -57,7 +40,6 @@
 
 #floatingButton.floatingButton:hover {
   background-color: lightgrey;
-  border: 2px solid #4d7a9a;
 }
 
 /* Remove padding when displaying an image */
@@ -103,4 +85,11 @@
 #floatingButton:hover .tooltip {
   opacity: 1;
   visibility: visible;
+}
+
+/* Opt-in: tooltip on touch devices komplett ausblenden (per Setting) */
+@media (hover: none) {
+  #floatingButton.tooltipHideOnTouch .tooltip {
+    display: none;
+  }
 }
