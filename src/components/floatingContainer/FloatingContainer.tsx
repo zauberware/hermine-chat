@@ -28,7 +28,10 @@ const FloatingContainer: React.FC<FloatingContainerProps> = ({
   } = useSettings();
 
   const [toggled, setToggled] = useState<boolean>(false);
-  const [showTeaser, setShowTeaser] = useState<boolean>(!!settings.teaserEnabled);
+  const [showTeaser, setShowTeaser] = useState<boolean>(() => {
+    if (!settings.teaserEnabled) return false;
+    return sessionStorage.getItem("hermine_teaser_dismissed") !== "true";
+  });
   const searchParams = new URL(document.location.href).searchParams;
 
   useEffect(() => {
@@ -212,11 +215,13 @@ const FloatingContainer: React.FC<FloatingContainerProps> = ({
   };
 
   const handleTeaserClick = () => {
+    sessionStorage.setItem("hermine_teaser_dismissed", "true");
     setShowTeaser(false);
     setToggled(true);
   };
 
   const handleTeaserClose = () => {
+    sessionStorage.setItem("hermine_teaser_dismissed", "true");
     setShowTeaser(false);
   };
 
