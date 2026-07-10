@@ -1,7 +1,11 @@
-export const getLogoUrl = (relativePath?: string, baseUrl: string = 'https://hermine.ai') => {
+// Resolves a theme logo path against the API host the widget talks to. The
+// theme endpoint returns Rails asset paths like "/assets/logo-….svg" for
+// accounts without a custom logo — those only exist on the API host, so the
+// base must be the widget target, not the marketing site.
+export const getLogoUrl = (relativePath?: string, baseUrl: string = 'https://app.hermine.ai') => {
   if (relativePath) {
     if (relativePath.startsWith('http')) return relativePath
-    return `${baseUrl}/${relativePath}` 
+    return `${baseUrl.replace(/\/$/, '')}/${relativePath.replace(/^\//, '')}`
   }
   return ''
 }

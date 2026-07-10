@@ -51,6 +51,16 @@ export const createConversation: (
     ...fetchConfig,
   });
 
+  // A non-public agent redirects this request to the login page (HTML), which
+  // used to crash the JSON parse and silently kill the widget. Fail loud.
+  if (!response.ok) {
+    console.error(
+      `HermineChat: could not create a conversation (HTTP ${response.status}). ` +
+        "Check that the agent is publicly accessible."
+    );
+    return undefined as unknown as string;
+  }
+
   const jsonText = await response.json();
   const localConversationIdsString = localStorage.getItem(CONVERSATION_KEY);
   if (localConversationIdsString) {

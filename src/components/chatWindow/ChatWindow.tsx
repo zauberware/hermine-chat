@@ -220,16 +220,22 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ close }) => {
             <div id={styles.headerContainer}>
               {/* Left side: Logo, Title and Subtitle */}
               <div id={styles.leftSection}>
-                <img
-                  id={styles.logo}
-                  src={getLogoUrl(theme.logo)}
-                  alt="AI Logo"
-                  style={{
-                    maxHeight: theme.logo_is_square ? "80px" : "40px",
-                    objectFit: "contain",
-                    alignItems: "left",
-                  }}
-                />
+                {getLogoUrl(theme.logo, settings.target) && (
+                  <img
+                    id={styles.logo}
+                    src={getLogoUrl(theme.logo, settings.target)}
+                    alt="AI Logo"
+                    onError={(e) => {
+                      // Hide the logo instead of showing a broken image icon
+                      e.currentTarget.style.display = "none";
+                    }}
+                    style={{
+                      maxHeight: theme.logo_is_square ? "80px" : "40px",
+                      objectFit: "contain",
+                      alignItems: "left",
+                    }}
+                  />
+                )}
                 {(settings.chatTitle || settings.chatSubTitle) && (
                 <div id={styles.titleSection}>
                   {settings.chatTitle && (
