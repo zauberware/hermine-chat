@@ -1,6 +1,11 @@
 import React, { useEffect, useRef, useState } from "react";
 import Markdown from "react-markdown";
-import { retry, sendMessage } from "../../api";
+import {
+  deleteConversationRemote,
+  exportConversation,
+  retry,
+  sendMessage,
+} from "../../api";
 import { IMessage, useSettings } from "../../context";
 import { createFetchConfig, getLogoUrl } from "../../utils";
 import ChatMessage from "../chatMessage";
@@ -87,6 +92,54 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ close }) => {
     e.preventDefault();
     resetConversation();
     close();
+  };
+
+  // GDPR self-service actions (Art. 15/17). Feedback is shown inline below
+  // the actions instead of relying on blocking browser dialogs.
+  const [privacyNotice, setPrivacyNotice] = useState<string | null>(null);
+  const privacyNoticeTimer = useRef<ReturnType<typeof setTimeout>>();
+  const showPrivacyNotice = (text: string) => {
+    setPrivacyNotice(text);
+    if (privacyNoticeTimer.current) clearTimeout(privacyNoticeTimer.current);
+    privacyNoticeTimer.current = setTimeout(() => setPrivacyNotice(null), 5000);
+  };
+
+  const onCopyChatId = async () => {
+    if (!conversationId) return;
+    try {
+      await navigator.clipboard.writeText(conversationId);
+      showPrivacyNotice(t("privacy.idCopied"));
+    } catch (e) {
+      // Clipboard API unavailable (e.g. non-secure embed): show it instead.
+      window.prompt(t("privacy.idCopyFallback"), conversationId);
+    }
+  };
+
+  const onExportData = async () => {
+    if (!conversationId) return;
+    const ok = await exportConversation(
+      conversationId,
+      settings.target,
+      fetchConfig
+    );
+    showPrivacyNotice(ok ? t("privacy.exportSuccess") : t("privacy.actionFailed"));
+  };
+
+  const onDeleteConversation = async () => {
+    if (!conversationId) return;
+    if (!window.confirm(t("privacy.deleteConfirm"))) return;
+    const ok = await deleteConversationRemote(
+      conversationId,
+      settings.target,
+      fetchConfig
+    );
+    if (ok) {
+      window.alert(t("privacy.deleteSuccess"));
+      resetConversation();
+      close();
+    } else {
+      showPrivacyNotice(t("privacy.actionFailed"));
+    }
   };
 
   const scrollToLastMessage = () => {
@@ -351,6 +404,36 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ close }) => {
               </button>
             </form>
             <div id={styles.resetButtonContainer}>
+              {settings.privacyActionsEnabled !== false && conversationId && (
+                <div className={styles.privacyActions}>
+                  <button
+                    className={styles.privacyActionButton}
+                    type="button"
+                    onClick={onCopyChatId}
+                    title={t("privacy.copyIdTitle")}
+                  >
+                    {t("privacy.copyId")}
+                  </button>
+                  <span className={styles.privacyActionSeparator}>·</span>
+                  <button
+                    className={styles.privacyActionButton}
+                    type="button"
+                    onClick={onExportData}
+                    title={t("privacy.exportTitle")}
+                  >
+                    {t("privacy.export")}
+                  </button>
+                  <span className={styles.privacyActionSeparator}>·</span>
+                  <button
+                    className={styles.privacyActionButton}
+                    type="button"
+                    onClick={onDeleteConversation}
+                    title={t("privacy.deleteTitle")}
+                  >
+                    {t("privacy.delete")}
+                  </button>
+                </div>
+              )}
               <button
                 id={styles.resetButton}
                 type="button"
@@ -359,6 +442,9 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ close }) => {
                 {t("reset")}
               </button>
             </div>
+            {privacyNotice && (
+              <div className={styles.privacyNotice}>{privacyNotice}</div>
+            )}
           </div>
         </div>
       ) : (

@@ -267,7 +267,39 @@
 
 #resetButtonContainer {
   display: flex;
-  justify-content: end;
+  justify-content: space-between;
+  align-items: center;
+}
+.privacyActions {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.privacyActionButton {
+  width: auto;
+  font-size: 12px;
+  line-height: 16px;
+  padding-top: 4px;
+  background-color: transparent;
+  color: rgb(107, 114, 128);
+  cursor: pointer;
+  border: none;
+}
+.privacyActionButton:hover {
+  color: rgb(55, 65, 81);
+  text-decoration: underline;
+}
+.privacyActionSeparator {
+  color: rgb(209, 213, 219);
+  font-size: 12px;
+  padding-top: 4px;
+}
+.privacyNotice {
+  font-size: 12px;
+  line-height: 16px;
+  color: rgb(107, 114, 128);
+  text-align: end;
+  padding-top: 2px;
 }
 
 #resetButton {

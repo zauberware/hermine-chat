@@ -46,6 +46,9 @@ export interface ISettings {
   // Privacy-Disclaimer Wiedervorlage: TTL in Stunden.
   // undefined → Infinity (Default, einmal akzeptiert nie wieder), 0 → immer zeigen, positive Zahl → N Stunden.
   privacyDisclaimerTtlHours?: number;
+  // DSGVO-Selbstbedienung (Chat-Kennung kopieren, Datenexport Art. 15, Löschung Art. 17).
+  // undefined / true → anzeigen (Default), false → ausblenden.
+  privacyActionsEnabled?: boolean;
   // Chat Teaser settings
   teaserEnabled?: boolean;
   teaserText?: string;
