@@ -94,17 +94,38 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ close }) => {
     close();
   };
 
-  // GDPR self-service actions (Art. 15/17). Feedback is shown inline below
-  // the actions instead of relying on blocking browser dialogs.
+  // GDPR self-service actions (Art. 15/17). Grouped behind a single
+  // "Datenschutz" button + dropdown to avoid crowding the action row.
+  // Feedback is shown inline instead of relying on blocking browser dialogs.
   const [privacyNotice, setPrivacyNotice] = useState<string | null>(null);
+  const [privacyMenuOpen, setPrivacyMenuOpen] = useState<boolean>(false);
   const privacyNoticeTimer = useRef<ReturnType<typeof setTimeout>>();
+  const privacyMenuRef = useRef<HTMLDivElement>(null);
   const showPrivacyNotice = (text: string) => {
     setPrivacyNotice(text);
     if (privacyNoticeTimer.current) clearTimeout(privacyNoticeTimer.current);
     privacyNoticeTimer.current = setTimeout(() => setPrivacyNotice(null), 5000);
   };
 
+  // Close the dropdown on click outside or Escape.
+  useEffect(() => {
+    if (!privacyMenuOpen) return;
+    const onDocClick = (e: MouseEvent) => {
+      if (privacyMenuRef.current && !privacyMenuRef.current.contains(e.target as Node)) {
+        setPrivacyMenuOpen(false);
+      }
+    };
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setPrivacyMenuOpen(false);
+    document.addEventListener("mousedown", onDocClick);
+    document.addEventListener("keydown", onKey);
+    return () => {
+      document.removeEventListener("mousedown", onDocClick);
+      document.removeEventListener("keydown", onKey);
+    };
+  }, [privacyMenuOpen]);
+
   const onCopyChatId = async () => {
+    setPrivacyMenuOpen(false);
     if (!conversationId) return;
     try {
       await navigator.clipboard.writeText(conversationId);
@@ -116,6 +137,7 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ close }) => {
   };
 
   const onExportData = async () => {
+    setPrivacyMenuOpen(false);
     if (!conversationId) return;
     const ok = await exportConversation(
       conversationId,
@@ -126,6 +148,7 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ close }) => {
   };
 
   const onDeleteConversation = async () => {
+    setPrivacyMenuOpen(false);
     if (!conversationId) return;
     if (!window.confirm(t("privacy.deleteConfirm"))) return;
     const ok = await deleteConversationRemote(
@@ -404,35 +427,40 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ close }) => {
               </button>
             </form>
             <div id={styles.resetButtonContainer}>
-              {settings.privacyActionsEnabled !== false && conversationId && (
-                <div className={styles.privacyActions}>
+              {settings.privacyActionsEnabled !== false && conversationId ? (
+                <div className={styles.privacyMenu} ref={privacyMenuRef}>
                   <button
-                    className={styles.privacyActionButton}
+                    className={styles.privacyTrigger}
                     type="button"
-                    onClick={onCopyChatId}
-                    title={t("privacy.copyIdTitle")}
+                    aria-haspopup="true"
+                    aria-expanded={privacyMenuOpen}
+                    onClick={() => setPrivacyMenuOpen((o) => !o)}
+                    title={t("privacy.menuTitle")}
                   >
-                    {t("privacy.copyId")}
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ marginRight: 4 }}>
+                      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                    </svg>
+                    {t("privacy.menu")}
+                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ marginLeft: 3 }}>
+                      <path d="m6 9 6 6 6-6" />
+                    </svg>
                   </button>
-                  <span className={styles.privacyActionSeparator}>·</span>
-                  <button
-                    className={styles.privacyActionButton}
-                    type="button"
-                    onClick={onExportData}
-                    title={t("privacy.exportTitle")}
-                  >
-                    {t("privacy.export")}
-                  </button>
-                  <span className={styles.privacyActionSeparator}>·</span>
-                  <button
-                    className={styles.privacyActionButton}
-                    type="button"
-                    onClick={onDeleteConversation}
-                    title={t("privacy.deleteTitle")}
-                  >
-                    {t("privacy.delete")}
-                  </button>
+                  {privacyMenuOpen && (
+                    <div className={styles.privacyDropdown} role="menu">
+                      <button className={styles.privacyItem} type="button" role="menuitem" onClick={onCopyChatId}>
+                        {t("privacy.copyId")}
+                      </button>
+                      <button className={styles.privacyItem} type="button" role="menuitem" onClick={onExportData}>
+                        {t("privacy.export")}
+                      </button>
+                      <button className={`${styles.privacyItem} ${styles.privacyItemDanger}`} type="button" role="menuitem" onClick={onDeleteConversation}>
+                        {t("privacy.delete")}
+                      </button>
+                    </div>
+                  )}
                 </div>
+              ) : (
+                <span />
               )}
               <button
                 id={styles.resetButton}

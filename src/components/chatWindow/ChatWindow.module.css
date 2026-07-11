@@ -269,37 +269,70 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 12px;
 }
-.privacyActions {
-  display: flex;
+.privacyMenu {
+  position: relative;
+  display: inline-flex;
+}
+.privacyTrigger {
+  display: inline-flex;
   align-items: center;
-  gap: 4px;
-}
-.privacyActionButton {
   width: auto;
   font-size: 12px;
   line-height: 16px;
-  padding-top: 4px;
+  padding: 4px 8px;
   background-color: transparent;
   color: rgb(107, 114, 128);
   cursor: pointer;
-  border: none;
+  border: 1px solid rgb(229, 231, 235);
+  border-radius: 8px;
 }
-.privacyActionButton:hover {
+.privacyTrigger:hover {
   color: rgb(55, 65, 81);
-  text-decoration: underline;
+  border-color: rgb(209, 213, 219);
+  background-color: rgb(249, 250, 251);
 }
-.privacyActionSeparator {
-  color: rgb(209, 213, 219);
-  font-size: 12px;
-  padding-top: 4px;
+.privacyDropdown {
+  position: absolute;
+  bottom: calc(100% + 6px);
+  left: 0;
+  min-width: 210px;
+  background: #ffffff;
+  border: 1px solid rgb(229, 231, 235);
+  border-radius: 10px;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.15), 0 6px 10px -6px rgba(0, 0, 0, 0.1);
+  padding: 4px;
+  z-index: 20;
+}
+.privacyItem {
+  display: block;
+  width: 100%;
+  text-align: left;
+  font-size: 13px;
+  line-height: 18px;
+  padding: 8px 10px;
+  background: transparent;
+  border: none;
+  border-radius: 6px;
+  color: rgb(55, 65, 81);
+  cursor: pointer;
+}
+.privacyItem:hover {
+  background-color: rgb(243, 244, 246);
+}
+.privacyItemDanger {
+  color: rgb(220, 38, 38);
+}
+.privacyItemDanger:hover {
+  background-color: rgb(254, 242, 242);
 }
 .privacyNotice {
   font-size: 12px;
   line-height: 16px;
   color: rgb(107, 114, 128);
   text-align: end;
-  padding-top: 2px;
+  padding-top: 4px;
 }
 
 #resetButton {

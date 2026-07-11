@@ -10,7 +10,9 @@ export const translations = {
         placeholder: "Type your message...",
       },
       privacy: {
-        copyId: "Chat ID",
+        menu: "Data privacy",
+        menuTitle: "Data privacy: export or delete your chat (GDPR)",
+        copyId: "Copy chat ID",
         copyIdTitle: "Copy your chat ID. You can use it later for data privacy requests (GDPR).",
         idCopied: "Chat ID copied to clipboard.",
         idCopyFallback: "Your chat ID (please copy it):",
@@ -36,7 +38,9 @@ export const translations = {
         placeholder: "Nachricht eingeben...",
       },
       privacy: {
-        copyId: "Chat-Kennung",
+        menu: "Datenschutz",
+        menuTitle: "Datenschutz: Chat exportieren oder löschen (DSGVO)",
+        copyId: "Chat-Kennung kopieren",
         copyIdTitle: "Kopiert Ihre Chat-Kennung. Sie können sie später für Datenschutzanfragen (DSGVO) verwenden.",
         idCopied: "Chat-Kennung in die Zwischenablage kopiert.",
         idCopyFallback: "Ihre Chat-Kennung (bitte kopieren):",
