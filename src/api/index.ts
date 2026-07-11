@@ -26,14 +26,58 @@ export interface IConversation {
   inputPlaceholderDe?: string;
   inputPlaceholderEn?: string;
   imageUrl?: string;
+  ownershipToken?: string;
 }
 
 const DEFAULT_BASE_URL = "https://hermine.ai";
 
 const CONVERSATION_KEY = "hermine_conversation_ids";
+// GDPR ownership tokens (map conversationId -> signed token). The token is
+// issued by the backend and authorizes export (Art. 15) and deletion
+// (Art. 17) of the visitor's own conversation.
+const TOKEN_KEY = "hermine_conversation_tokens";
 
-export const resetLocalConversation = () =>
+export const resetLocalConversation = () => {
   localStorage.removeItem(CONVERSATION_KEY);
+  localStorage.removeItem(TOKEN_KEY);
+};
+
+const readTokenMap = (): Record<string, string> => {
+  try {
+    return JSON.parse(localStorage.getItem(TOKEN_KEY) || "{}");
+  } catch (e) {
+    return {};
+  }
+};
+
+export const storeOwnershipToken = (conversationId: string, token?: string) => {
+  if (!conversationId || !token) return;
+  const tokens = readTokenMap();
+  tokens[conversationId] = token;
+  localStorage.setItem(TOKEN_KEY, JSON.stringify(tokens));
+};
+
+export const getOwnershipToken = (conversationId?: string): string | undefined =>
+  conversationId ? readTokenMap()[conversationId] : undefined;
+
+// Remove one conversation (and its token) from local storage, e.g. after the
+// visitor permanently deleted it on the server.
+export const removeLocalConversation = (conversationId: string) => {
+  const localConversationIdsString = localStorage.getItem(CONVERSATION_KEY);
+  if (localConversationIdsString) {
+    try {
+      const ids = JSON.parse(localConversationIdsString).filter(
+        (id: string) => id !== conversationId
+      );
+      localStorage.setItem(CONVERSATION_KEY, JSON.stringify(ids));
+    } catch (e) {
+      localStorage.removeItem(CONVERSATION_KEY);
+    }
+  }
+  const tokens = readTokenMap();
+  delete tokens[conversationId];
+  localStorage.setItem(TOKEN_KEY, JSON.stringify(tokens));
+};
 
 export const createConversation: (
   accountId: string,
@@ -62,6 +106,7 @@ export const createConversation: (
   }
 
   const jsonText = await response.json();
+  storeOwnershipToken(jsonText.conversation_id, jsonText.ownership_token);
   const localConversationIdsString = localStorage.getItem(CONVERSATION_KEY);
   if (localConversationIdsString) {
     const localConversationIds = JSON.parse(localConversationIdsString);
@@ -136,7 +181,11 @@ export const getConversation: (
   const response = await fetch(url, { ...fetchConfig, cache: "no-cache" });
   const headers = getHeaders(fetchConfig.headers);
   if (response.status === 200) {
-    return (await response.json()) as IConversation;
+    const conversation = (await response.json()) as IConversation;
+    // Backend re-issues the GDPR ownership token on load so conversations
+    // created before the token feature can also be exported/deleted.
+    storeOwnershipToken(conversationId, conversation.ownershipToken);
+    return conversation;
   } else {
     createConversation(
       headers["x-account-id"],
@@ -202,6 +251,84 @@ export const submitMessageFeedback = async (
 
   const responseData = await response.json();
   console.log("Feedback response data:", responseData);
-  
+
   return responseData;
+};
+
+// fetchConfig.headers is a Headers instance (see createFetchConfig), so a
+// plain object spread would silently drop all headers. Copy it properly.
+const withOwnershipToken = (
+  headers: HeadersInit | undefined,
+  token: string
+): Headers => {
+  const merged = new Headers(headers);
+  merged.set("X-Conversation-Token", token);
+  return merged;
+};
+
+// GDPR Art. 15: download the visitor's own conversation data as JSON.
+// Requires the ownership token stored for this conversation.
+export const exportConversation = async (
+  conversationId: string,
+  baseUrl: string = DEFAULT_BASE_URL,
+  fetchConfig: RequestInit = {}
+): Promise<boolean> => {
+  const token = getOwnershipToken(conversationId);
+  if (!token) {
+    console.error("HermineChat: no ownership token stored for this conversation.");
+    return false;
+  }
+
+  const response = await fetch(
+    `${baseUrl}/chat/conversations/${conversationId}/export`,
+    {
+      ...fetchConfig,
+      method: "GET",
+      headers: withOwnershipToken(fetchConfig.headers, token),
+    }
+  );
+
+  if (!response.ok) {
+    console.error(`HermineChat: data export failed (HTTP ${response.status}).`);
+    return false;
+  }
+
+  const blob = await response.blob();
+  const url = URL.createObjectURL(blob);
+  const anchor = document.createElement("a");
+  anchor.href = url;
+  anchor.download = `hermine-data-export-${conversationId}.json`;
+  document.body.appendChild(anchor);
+  anchor.click();
+  anchor.remove();
+  URL.revokeObjectURL(url);
+  return true;
+};
+
+// GDPR Art. 17: permanently delete the visitor's own conversation on the
+// server (messages, files, analysis data) and clean up local storage.
+export const deleteConversationRemote = async (
+  conversationId: string,
+  baseUrl: string = DEFAULT_BASE_URL,
+  fetchConfig: RequestInit = {}
+): Promise<boolean> => {
+  const token = getOwnershipToken(conversationId);
+  if (!token) {
+    console.error("HermineChat: no ownership token stored for this conversation.");
+    return false;
+  }
+
+  const response = await fetch(`${baseUrl}/chat/conversations/${conversationId}`, {
+    ...fetchConfig,
+    method: "DELETE",
+    headers: withOwnershipToken(fetchConfig.headers, token),
+  });
+
+  if (!response.ok) {
+    console.error(`HermineChat: conversation deletion failed (HTTP ${response.status}).`);
+    return false;
+  }
+
+  removeLocalConversation(conversationId);
+  return true;
 };
