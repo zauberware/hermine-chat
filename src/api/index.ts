@@ -168,6 +168,29 @@ const getHeaders = (headers: any) => {
   return headerObj;
 };
 
+// Low-level load of a single conversation by id. Returns the parsed
+// conversation on HTTP 200, or undefined on any non-200 (gone / not
+// accessible). No side effects — the healing/creation logic lives in
+// getConversation so this can be reused for both the requested id and a
+// freshly created one without risking a create loop.
+const loadConversation = async (
+  conversationId: string,
+  baseUrl: string,
+  fetchConfig: any
+): Promise<IConversation | undefined> => {
+  const url = `${baseUrl}/chat/conversations/${conversationId}`;
+  const response = await fetch(url, { ...fetchConfig, cache: "no-cache" });
+  if (response.status !== 200) return undefined;
+
+  const conversation = (await response.json()) as IConversation;
+  // Backend re-issues the GDPR ownership token on load so conversations
+  // created before the token feature can also be exported/deleted.
+  storeOwnershipToken(conversationId, conversation.ownershipToken);
+  // Guarantee the returned object carries the id we loaded so callers can sync
+  // their local state to it (important after healing a stale id).
+  return { ...conversation, conversationId: conversation.conversationId || conversationId };
+};
+
 export const getConversation: (
   conversationId: string,
   baseUrl?: string,
@@ -177,23 +200,26 @@ export const getConversation: (
   baseUrl = DEFAULT_BASE_URL,
   fetchConfig
 ) => {
-  const url = `${baseUrl}/chat/conversations/${conversationId}`;
-  const response = await fetch(url, { ...fetchConfig, cache: "no-cache" });
+  const conversation = await loadConversation(conversationId, baseUrl, fetchConfig);
+  if (conversation) return conversation;
+
+  // The stored conversation is gone — deleted by the visitor, or expired /
+  // anonymized by the retention crons — or otherwise no longer accessible.
+  // Drop the dead id so we stop retrying it, then start a fresh conversation
+  // and return it, so the widget self-heals instead of logging "Could not
+  // fetch conversation" and spawning an orphan conversation on every retry.
+  removeLocalConversation(conversationId);
+
   const headers = getHeaders(fetchConfig.headers);
-  if (response.status === 200) {
-    const conversation = (await response.json()) as IConversation;
-    // Backend re-issues the GDPR ownership token on load so conversations
-    // created before the token feature can also be exported/deleted.
-    storeOwnershipToken(conversationId, conversation.ownershipToken);
-    return conversation;
-  } else {
-    createConversation(
-      headers["x-account-id"],
-      headers["x-agent-slug"],
-      baseUrl,
-      fetchConfig
-    );
-  }
+  const newConversationId = await createConversation(
+    headers["x-account-id"],
+    headers["x-agent-slug"],
+    baseUrl,
+    fetchConfig
+  );
+  if (!newConversationId) return undefined;
+
+  return loadConversation(newConversationId, baseUrl, fetchConfig);
 };
 
 export const getTheme = async (

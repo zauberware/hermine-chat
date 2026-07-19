@@ -187,6 +187,16 @@ const SettingsContextProvider = ({
       );
 
       if (conversation) {
+        // getConversation self-heals a stale/expired id by starting a fresh
+        // conversation. Sync local state to the (possibly new) id so later
+        // refetches target the live conversation instead of the dead one.
+        if (
+          conversation.conversationId &&
+          conversation.conversationId !== conversationId
+        ) {
+          setConversationId(conversation.conversationId);
+        }
+
         let messages = conversation.messages;
         // issue: new message is available in socket but not http-request
         // if message.result present, but last message not, set it here
@@ -206,8 +216,11 @@ const SettingsContextProvider = ({
         setConversation({ ...conversation, messages } as IConversation);
         console.debug("message", message);
       } else {
+        // getConversation could neither load the stored conversation nor
+        // create a replacement (e.g. the agent is no longer publicly
+        // accessible). This is the genuinely actionable case worth reporting.
         Sentry.captureMessage(
-          `Could not fetch conversation with id: ${
+          `Could not load or recreate conversation for id: ${
             conversationId || message?.conversation_id
           }`
         );
